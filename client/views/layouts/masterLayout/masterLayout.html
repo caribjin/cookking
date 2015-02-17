@@ -1,0 +1,65 @@
+<template name="MasterLayout">
+	<div id="container" class="{{menuOpen}} {{overlayOpen}}">
+		<section id="menu" class="overthrow">
+			<a href="{{pathFor 'home'}}" class="{{activePage 'home'}}">
+				<span class="wrapper-menu-item">
+					<span class="icon-home"></span>
+					<span class="title-menu">Home</span>
+				</span>
+			</a>
+			<a href="{{pathFor 'feeds'}}" class="{{activePage 'feeds'}}">
+				<span class="wrapper-menu-item">
+					<span class="icon-rss"></span>
+					<span class="title-menu">Feeds</span>
+				</span>
+			</a>
+			<a href="{{pathFor 'recipes'}}" class="{{activePage 'recipes' 'recipe'}}">
+				<span class="wrapper-menu-item">
+			        <span class="icon-category"></span>
+			        <span class="title-menu">Recipes</span>
+				</span>
+			</a>
+			<a href="{{pathFor 'bookmarks'}}" class="{{activePage 'bookmarks'}}">
+				<span class="wrapper-menu-item">
+			        <span class="icon-bookmark-hollow"></span>
+			        <span class="title-menu">Bookmarks</span>
+				</span>
+			</a>
+			<!--<a hre="{{pathFor 'settings'}}" class="{{activePage 'settings'}}">-->
+				<!--<span class="wrapper-menu-item">-->
+					<!--<span class="icon-settings"></span>-->
+					<!--<span class="title-menu">Settings</span>-->
+				<!--</span>-->
+			<!--</a>-->
+			<a href="{{pathFor 'about'}}" class="{{activePage 'about'}}">
+				<span class="wrapper-menu-item">
+			        <span class="icon-question"></span>
+			        <span class="title-menu">About</span>
+				</span>
+			</a>
+		</section>
+
+		<div class="notifications">
+			{{#unless connected}}
+				<div class="notification">
+					<span class="icon-sync"></span>
+					<div class="title-notification">Trying to connect</div>
+				</div>
+			{{/unless}}
+			{{#each notifications}}
+				<div class="notification">
+					<a class="btn-primary js-notification-action">{{action}}</a>
+					<div class="title-notification">{{title}}</div>
+				</div>
+			{{/each}}
+		</div>
+
+		{{> Overlay}}
+
+		<div class="content-overlay"></div>
+
+		<div id="content-container">
+			{{> yield}}
+		</div>
+	</div>
+</template>

@@ -1,0 +1,34 @@
+#graph {
+  width: 100%;
+  border: 3px solid black;
+}
+#graph .bar {
+  width: 10px;
+  height: 50px;
+  background-color: orange;
+  margin: 5px;
+  transition: background-color 1s linear 0, width 3s ease 0;
+}
+#graph:hover > .bar {
+  width: 98%;
+}
+#graph:hover > .bar:nth-child(1) {
+  background-color: red;
+  width: 100px;
+}
+#graph:hover > .bar:nth-child(2) {
+  background-color: blue;
+  width: 300px;
+}
+#graph:hover > .bar:nth-child(3) {
+  background-color: green;
+  width: 400px;
+}
+#graph:hover > .bar:nth-child(4) {
+  background-color: yellow;
+  width: 200px;
+}
+#graph:hover > .bar:nth-child(5) {
+  background-color: pink;
+  width: 400px;
+}

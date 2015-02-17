@@ -1,0 +1,41 @@
+#graph {
+	width: 100%;
+	border: 3px solid black;
+
+	.bar {
+		width: 10px;
+		height: 50px;
+		background-color: orange;
+		margin: 5px;
+
+//		transition-property: background-color, width;
+//		transition-duration: 1s, 3s;
+
+		transition: background-color 1s linear 0, width 3s ease 0;
+	}
+
+	&:hover > .bar {
+		width: 98%;
+
+		&:nth-child(1) {
+			background-color: red;
+			width: 100px;
+		}
+		&:nth-child(2) {
+			background-color: blue;
+			width: 300px;
+		}
+		&:nth-child(3) {
+			background-color: green;
+			width: 400px;
+		}
+		&:nth-child(4) {
+			background-color: yellow;
+			width: 200px;
+		}
+		&:nth-child(5) {
+			background-color: pink;
+			width: 400px;
+		}
+	}
+}
