@@ -17,7 +17,8 @@ Router.map(function() {
 	this.route('news',          {path: '/news'});
 	this.route('feeds',         {path: '/feeds'});
 	this.route('bookmarks',     {path: '/bookmarks'});
-	this.route('about',         {path: '/about'})
+	this.route('about',         {path: '/about'});
+	this.route('login',         {path: '/login'});
 });
 
 Router.onBeforeAction('dataNotFound', {only: 'recipe'});
