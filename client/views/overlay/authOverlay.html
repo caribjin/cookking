@@ -4,11 +4,36 @@
 			<span class="icon-cross"></span>
 		</a>
 
-		<div class="wrapper-heading">
+		<div class="container">
 			<div class="title-overlay">Sign In</div>
-			<div class="subtitle-overlay">To bookmark and share your favorite recipes</div>
+			<div class="subtitle-overlay">
+				<form class="form">
+					<div class="form-group">
+						<label for="login-username" class="col-lg-2 control-label">Email</label>
+						<div class="col-lg-10">
+							<input type="email" id="login-username" class="form-control" placeholder="User Email"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="login-password" class="col-lg-2 control-label">Password</label>
+						<div class="col-lg-10">
+							<input type="password" id="login-password" class="form-control" placeholder="Password"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-lg-offset-2 col-lg-10">
+							<input value="Login" type="submit" class="btn btn-default"/>
+							<input value="Regist" type="button" class="btn btn-tertiary"/>
+						</div>
+					</div>
+					<p id="form-messages"></p>
+				</form>
+			</div>
 		</div>
 
-		<button class="js-signin btn-twitter">Sign In With Twitter</button>
+		<div class="btns-group">
+			<button class="js-signin btn-github">Sign In With GitHub</button>
+			<button class="js-signin btn-twitter">Sign In With Twitter</button>
+		</div>
 	</div>
 </template>

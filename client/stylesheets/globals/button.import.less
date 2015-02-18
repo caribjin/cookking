@@ -63,6 +63,14 @@
 		&:active { box-shadow: rgba(0,0,0,.3) 0 1px 3px 0 inset; }
 	}
 
+	&[class*="github"] {
+		background-color: @color-github;
+		color: @color-empty;
+
+		&:hover {background-color: darken(@color-github, 10%); }
+		&:active { box-shadow: rgba(0,0,0,.3) 0 1px 3px 0 inset; }
+	}
+
 	&[class*="camera"] {
 		border-radius: 10em;
 		box-shadow: @color-primary 0 0 0px 2px inset;
@@ -99,7 +107,7 @@
 }
 
 .btns-group {
-	.display(flex);
+//	.display(flex);
 	.flex-wrap(wrap);
 	width: 100%;
 

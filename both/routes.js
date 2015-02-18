@@ -21,4 +21,18 @@ Router.map(function() {
 	this.route('login',         {path: '/login'});
 });
 
+var requireLogin = function() {
+	if (!Meteor.user()) {
+		if (Meteor.loggingIn()) {
+			this.render(this.loadingTemplate);
+		} else {
+			Router.go('home');
+			Overlay.open('AuthOverlay');
+		}
+	} else {
+		this.next();
+	}
+};
+
 Router.onBeforeAction('dataNotFound', {only: 'recipe'});
+Router.onBeforeAction(requireLogin, {except: ['home', 'about']});

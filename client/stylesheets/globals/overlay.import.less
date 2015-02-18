@@ -38,7 +38,7 @@
 		.font-l2;
 		.type-bold;
 		color: @color-full;
-		line-height: 1;
+		line-height: 1.3em;
 		margin-bottom: .5rem;
 	}
 
@@ -48,7 +48,11 @@
 		color: @color-well;
 	}
 
+	.btns-group {
+		.position(absolute, auto, 0, 0, 0, 100%);
+	}
 
-	.btn-primary,
-	.btn-twitter { .position(absolute, auto, 0, 0, 0, 100%); }
+	//.btn-primary,
+	.btn-github { .position(relative, 0, 0, 0, 0, 100%); border: none; }
+	.btn-twitter { .position(relative, 0, 0, 0, 0, 100%); border: none; }
 }
