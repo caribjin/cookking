@@ -18,7 +18,15 @@ Router.map(function() {
 	this.route('feeds',         {path: '/feeds'});
 	this.route('bookmarks',     {path: '/bookmarks'});
 	this.route('about',         {path: '/about'});
-	this.route('login',         {path: '/login'});
+	this.route('signup',        function() {
+		Router.go('home');
+		Overlay.open('SignUp');
+	});
+	this.route('signout',       function() {
+		Meteor.logout(function() {
+			Router.go('home');
+		});
+	});
 });
 
 var requireLogin = function() {
@@ -27,7 +35,7 @@ var requireLogin = function() {
 			this.render(this.loadingTemplate);
 		} else {
 			Router.go('home');
-			Overlay.open('AuthOverlay');
+			Overlay.open('SignIn');
 		}
 	} else {
 		this.next();
@@ -35,4 +43,4 @@ var requireLogin = function() {
 };
 
 Router.onBeforeAction('dataNotFound', {only: 'recipe'});
-Router.onBeforeAction(requireLogin, {except: ['home', 'about']});
+Router.onBeforeAction(requireLogin, {except: ['home', 'about', 'signup', 'signin', 'signout']});

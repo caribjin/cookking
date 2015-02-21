@@ -1,0 +1,45 @@
+<template name="SignUp">
+	<div class="overlay sign signup">
+		<a href="#" class="js-close-overlay overlay-dismiss">
+			<span class="icon-cross"></span>
+		</a>
+
+		<div class="container">
+			<div class="title">Sign Up</div>
+			<div class="subtitle">Create your personal account</div>
+			<form>
+				{{#if errorMessages}}
+					<div class="list-errors">
+						{{#each errorMessages}}
+							<div class="list-item">{{this}}</div>
+						{{/each}}
+					</div>
+				{{/if}}
+
+				<div class="form-group">
+					<label for="signup-email" class="col-lg-2 control-label">Email</label>
+					<div class="col-lg-10">
+						<input type="email" id="signup-email" class="form-control" placeholder="Your Email"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="signup-password" class="col-lg-2 control-label">Password</label>
+					<div class="col-lg-10">
+						<input type="password" id="signup-password" class="form-control" placeholder="Password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label" for="signup-repassword">Confirm password</label>
+					<div class="col-lg-10">
+						<input type="password" id="signup-repassword" class="form-control" placeholder="Confirm Password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-lg-offset-2 col-lg-10">
+						<input value="Create account" type="submit" class="btn btn-default"/>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</template>

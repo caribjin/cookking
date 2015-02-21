@@ -1,0 +1,45 @@
+<template name="SignIn">
+	<div class="overlay sign signin">
+		<a href="#" class="js-close-overlay overlay-dismiss">
+			<span class="icon-cross"></span>
+		</a>
+
+		<div class="container">
+			<div class="title">Sign In</div>
+			<div class="subtitle">Sign in your account</div>
+			<form>
+				{{#if errorMessages}}
+					<div class="list-errors">
+						{{#each errorMessages}}
+							<div class="list-item">{{this}}</div>
+						{{/each}}
+					</div>
+				{{/if}}
+
+				<div class="form-group">
+					<label for="signin-email" class="col-lg-2 control-label">Email</label>
+					<div class="col-lg-10">
+						<input type="email" id="signin-email" class="form-control" placeholder="User Email"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="signin-password" class="col-lg-2 control-label">Password</label>
+					<div class="col-lg-10">
+						<input type="password" id="signin-password" class="form-control" placeholder="Password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-lg-offset-2 col-lg-10">
+						<input value="Sign In" type="submit" class="btn btn-default"/>
+						<a href="{{pathFor 'signup'}}" class="btn btn-tertiary">Sign Up</a>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="btns-group">
+			<button class="js-signin btn-github">Sign In With GitHub</button>
+			<button class="js-signin btn-twitter">Sign In With Twitter</button>
+		</div>
+	</div>
+</template>
