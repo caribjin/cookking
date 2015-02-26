@@ -19,13 +19,13 @@
 				<div class="form-group">
 					<label for="signin-email" class="col-lg-2 control-label">Email</label>
 					<div class="col-lg-10">
-						<input type="email" id="signin-email" class="form-control" placeholder="User Email"/>
+						<input type="email" id="signin-email" class="form-control {{errorClass 'email'}}" placeholder="User Email" autofocus="autofocus"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="signin-password" class="col-lg-2 control-label">Password</label>
 					<div class="col-lg-10">
-						<input type="password" id="signin-password" class="form-control" placeholder="Password"/>
+						<input type="password" id="signin-password" class="form-control {{errorClass 'password'}}" placeholder="Password"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -38,8 +38,11 @@
 		</div>
 
 		<div class="btns-group">
+			<button class="js-signin btn-facebook">Sign In With Facebook</button>
 			<button class="js-signin btn-github">Sign In With GitHub</button>
 			<button class="js-signin btn-twitter">Sign In With Twitter</button>
+			<button class="js-signin btn-google">Sign In With Google</button>
 		</div>
 	</div>
 </template>
+

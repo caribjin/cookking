@@ -12,6 +12,14 @@ Meteor.methods({
 				recipeIds: recipeId
 			}
 		});
+
+		Recipes.update({
+			_id: recipeId
+		}, {
+			$inc: {
+				bookmarkedCount: 1
+			}
+		});
 	},
 
 	'unbookmarkRecipe': function(recipeId) {
@@ -26,6 +34,14 @@ Meteor.methods({
 		}, {
 			$pull: {
 				recipeIds: recipeId
+			}
+		});
+
+		Recipes.update({
+			_id: recipeId
+		}, {
+			$inc: {
+				bookmarkedCount: -1
 			}
 		});
 	}

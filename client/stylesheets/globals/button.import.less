@@ -55,11 +55,11 @@
 		&:hover { background-color: @color-raw; }
 	}
 
-	&[class*="twitter"] {
-		background-color: @color-twitter;
+	&[class*="facebook"] {
+		background-color: @color-facebook;
 		color: @color-empty;
 
-		&:hover { background-color: darken(@color-twitter, 10%); }
+		&:hover { background-color: darken(@color-facebook, 10%); }
 		&:active { box-shadow: rgba(0,0,0,.3) 0 1px 3px 0 inset; }
 	}
 
@@ -68,6 +68,22 @@
 		color: @color-empty;
 
 		&:hover {background-color: darken(@color-github, 10%); }
+		&:active { box-shadow: rgba(0,0,0,.3) 0 1px 3px 0 inset; }
+	}
+
+	&[class*="google"] {
+		background-color: @color-google;
+		color: @color-empty;
+
+		&:hover { background-color: darken(@color-google, 10%); }
+		&:active { box-shadow: rgba(0,0,0,.3) 0 1px 3px 0 inset; }
+	}
+
+	&[class*="twitter"] {
+		background-color: @color-twitter;
+		color: @color-empty;
+
+		&:hover { background-color: darken(@color-twitter, 10%); }
 		&:active { box-shadow: rgba(0,0,0,.3) 0 1px 3px 0 inset; }
 	}
 

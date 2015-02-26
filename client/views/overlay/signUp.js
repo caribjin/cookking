@@ -43,22 +43,42 @@ Template.SignUp.events({
 		}
 
 		Session.set(ERRORS_KEY, errors);
+		if (_.keys(errors).length) return;
 
-		if (_.keys(errors).length) {
-			return;
-		}
-
-		var user = {
-			email: email,
-			password: password
-		};
-
-		Accounts.createUser(user, function(error) {
+		Meteor.call('validateEmailAddress', email, function(error, response) {
 			if (error) {
-				return Session.set(ERRORS_KEY, {'none': error.reason});
+				errors.etc = error.reason;
+			} else if (response) {
+				if (!response.is_valid) {
+					if (response.parts && !response.parts.domain) {
+						errors.email = 'Not exist doamin';
+					} else {
+						errors.email = 'Email is invalid value';
+					}
+
+					if (response.did_you_mean) {
+						errors.email += '. Did you mean ' + response.did_you_mean + '?';
+					}
+				}
+			} else {
+				errors.etc = 'Unknown Error';
 			}
 
-			Overlay.close();
+			Session.set(ERRORS_KEY, errors);
+			if (_.keys(errors).length) return;
+
+			var user = {
+				email: email,
+				password: password
+			};
+
+			Accounts.createUser(user, function(error) {
+				if (error) {
+					return Session.set(ERRORS_KEY, {'none': error.reason});
+				}
+
+				Overlay.close();
+			});
 		});
 	}
 });

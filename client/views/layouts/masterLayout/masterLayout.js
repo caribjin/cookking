@@ -82,7 +82,7 @@ Template.MasterLayout.events({
 	},
 
 	'click #menu a': function(event) {
-		nextInitiator = 'menu'
+		nextInitiator = 'menu';
 		Session.set(MENU_KEY, false);
 	},
 

@@ -20,8 +20,35 @@ Template.SignIn.helpers({
 });
 
 Template.SignIn.events({
-	'click .js-signin': function() {
-		Meteor.loginWithTwitter({loginStyle: 'redirect'});
+	'click .btn-facebook': function() {
+		Meteor.loginWithFacebook({requestPermissions: ['email']}, function(error) {
+			if (error) {
+				console.log(error.reason);
+			}
+		});
+	},
+
+	'click .btn-github': function() {
+		Meteor.loginWithGithub({requestPermissions: ['email']}, function(error) {
+			if (error) {
+				console.log(error.reason);
+			}
+		});
+	},
+
+	'click .btn-google': function() {
+		Meteor.loginWithGoogle({requestPermissions: ['email']}, function(error) {
+			if (error) {
+				console.log(error.reason);
+			}
+		});
+	},
+
+	'click .btn-twitter': function() {
+		//Meteor.loginWithTwitter({loginStyle: 'redirect'});
+		Meteor.loginWithTwitter(function(error) {
+			console.log(error.reason);
+		});
 	},
 
 	'submit': function(e, tmpl) {

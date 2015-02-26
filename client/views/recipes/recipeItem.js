@@ -8,9 +8,7 @@ Template.RecipeItem.helpers({
 			return 'highlighted';
 	},
 
-	bookmarkCount: function () {
-		//var count = BookmarkCounts.findOne({recipeName: this.name});
-		//return count && count.count;
-		return 0;
+	bookmarkedCount: function () {
+		return this.bookmarkedCount || 0;
 	}
 });

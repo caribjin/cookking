@@ -11,20 +11,14 @@ Meteor.publish('bookmarkedRecipes', function(userEmail) {
 			var recipeIds = bookmark.recipeIds;
 			var recipeCursor = Recipes.find({_id: {$in: recipeIds}});
 			recipeHandles[id] = Meteor.Collection._publishCursor(recipeCursor, self, 'recipes');
-
-			console.log('bookmark added: ' + id);
 		},
 		changed: function(id, fields) {
 			var recipeIds = fields.recipeIds;
 			var recipeCursor = Recipes.find({_id: {$in: recipeIds}});
 			recipeHandles[id] = Meteor.Collection._publishCursor(recipeCursor, self, 'recipes');
-
-			console.log('bookmark changed: ' + id);
 		},
 		removed: function(id) {
 			recipeHandles[id] && recipeHandles[i].stop();
-
-			console.log('bookmark removed');
 		}
 	});
 

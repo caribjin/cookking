@@ -37,7 +37,7 @@ HomeController = RouteController.extend({
 				return News.find();
 			},
 			lastFeeds: function() {
-				return Feeds.find();
+				return Feeds.find({}, {sort: {createdAt: -1}});
 			},
 			lastRecipes: function() {
 				return Recipes.find();
