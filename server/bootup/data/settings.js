@@ -10,7 +10,10 @@ var settings = {
 	mailgun: {
 		uri: 'https://api.mailgun.net/v2/address/validate',
 		apikey: 'key-4864192e3f29095781f250ad422c5d44',
-		pubkey: 'pubkey-ac58421a29124226f0966279878493cb'
+		pubkey: 'pubkey-ac58421a29124226f0966279878493cb',
+		smtp_host: 'smtp.mailgun.org',
+		default_smtp_login: 'postmaster@sandbox2866f9543319410790bedc1f65287af2.mailgun.org',
+		default_password: '467149ccac38a833d7e6530d31343833'
 	},
 
 	authServices: {

@@ -18,6 +18,10 @@ Router.map(function() {
 	this.route('feeds',         {path: '/feeds'});
 	this.route('bookmarks',     {path: '/bookmarks'});
 	this.route('about',         {path: '/about'});
+	this.route('signin',        function() {
+		Router.go('home');
+		Overlay.open('SignIn');
+	});
 	this.route('signup',        function() {
 		Router.go('home');
 		Overlay.open('SignUp');
@@ -34,8 +38,7 @@ var requireLogin = function() {
 		if (Meteor.loggingIn()) {
 			this.render(this.loadingTemplate);
 		} else {
-			Router.go('home');
-			Overlay.open('SignIn');
+			Router.go('signin');
 		}
 	} else {
 		this.next();

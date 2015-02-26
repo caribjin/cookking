@@ -8,6 +8,7 @@ Meteor.startup(function() {
 	Fixtures = {};
 
 	createServiceConfiguration();
+	smtpMailConfiguration();
 
 	function setUsers(users) {
 		_.map(users, function(user, key) {
@@ -45,4 +46,11 @@ Meteor.startup(function() {
 			ServiceConfiguration.configurations.insert(service);
 		});
 	}
+
+	function smtpMailConfiguration() {
+		process.env.MAIL_URL = 'smtp://' +
+		Meteor.settings.mailgun.default_smtp_login + ':' +
+		Meteor.settings.mailgun.default_password + '@' +
+		Meteor.settings.mailgun.smtp_host + ':587';
+	};
 });
