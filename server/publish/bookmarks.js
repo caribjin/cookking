@@ -1,12 +1,12 @@
-Meteor.publish('bookmarks', function(userEmail) {
-	return Bookmarks.find({userEmail: userEmail}, {sort: {createdAt: -1}});
+Meteor.publish('bookmarks', function(userId) {
+	return Bookmarks.find({userId: userId}, {sort: {createdAt: -1}});
 });
 
-Meteor.publish('bookmarkedRecipes', function(userEmail) {
+Meteor.publish('bookmarkedRecipes', function(userId) {
 	var self = this;
 	var bookmarkHandle = null, recipeHandles = [];
 
-	bookmarkHandle = Bookmarks.find({userEmail: userEmail}).observeChanges({
+	bookmarkHandle = Bookmarks.find({userId: userId}).observeChanges({
 		added: function(id, bookmark) {
 			var recipeIds = bookmark.recipeIds;
 			var recipeCursor = Recipes.find({_id: {$in: recipeIds}});

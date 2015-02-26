@@ -1,9 +1,12 @@
 dataReadyHold = null;
 
 Router.configure({
-  layoutTemplate: 'MasterLayout',
-  loadingTemplate: 'Loading',
-  notFoundTemplate: 'NotFound'
+	layoutTemplate: 'MasterLayout',
+	loadingTemplate: 'Loading',
+	notFoundTemplate: 'NotFound',
+	waitOn: function() {
+		return Meteor.subscribe('user');
+	}
 });
 
 if (Meteor.isClient) {
@@ -27,9 +30,8 @@ Router.map(function() {
 		Overlay.open('SignUp');
 	});
 	this.route('signout',       function() {
-		Meteor.logout(function() {
-			Router.go('home');
-		});
+		Router.go('home');
+		Meteor.logout();
 	});
 });
 
