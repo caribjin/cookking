@@ -1,8 +1,12 @@
 Meteor.publish('bookmarks', function(userId) {
+	check(userId, String);
+
 	return Bookmarks.find({userId: userId}, {sort: {createdAt: -1}});
 });
 
 Meteor.publish('bookmarkedRecipes', function(userId) {
+	check(userId, String);
+
 	var self = this;
 	var bookmarkHandle = null, recipeHandles = [];
 

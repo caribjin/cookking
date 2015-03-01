@@ -12,8 +12,7 @@ Template.ShareOverlay.helpers({
 	},
 
 	avatar: function() {
-		//return Meteor.user().services.twitter.profile_image_url_https;
-		return '';
+		return Meteor.user().services.twitter.profile_image_url_https;
 	},
 
 	tweeting: function() {
@@ -25,7 +24,6 @@ Template.ShareOverlay.events({
 	'click .js-attach-image': function() {
 		MeteorCamera.getPicture({width: 1024, quality: 100}, function(error, data) {
 			if (!error) {
-				//alert(error.reason);
 				Session.set(IMAGE_KEY, data);
 			}
 		});

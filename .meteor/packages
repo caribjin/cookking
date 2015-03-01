@@ -26,3 +26,4 @@ meteorhacks:ssr
 meteorhacks:fast-render
 msavin:mongol
 request
+audit-argument-checks
