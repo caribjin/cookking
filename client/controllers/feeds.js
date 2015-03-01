@@ -2,7 +2,7 @@ FeedsController = RouteController.extend({
 	option: function() {
 		return {
 			sort: {
-				date: -1
+				createdAt: -1
 			},
 			limit: 10
 		};

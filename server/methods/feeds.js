@@ -28,21 +28,52 @@ Meteor.methods({
 	}
 });
 
+var getLocationPlace = function(loc) {
+	var url = 'https://api.twitter.com/1.1/geo/reverse_geocode.json?' +
+		'granularity=neighborhood&' +
+		'max_results=1&' +
+		'accuracy=' + loc.coords.accuracy + '&' +
+		'lat=' + loc.coords.latitude + '&' +
+		'long=' + loc.coords.longitude;
+
+	var response = callTwitter({ method: 'get', url: url });
+
+	if (response && response.statusCode === 200) {
+		var data = JSON.parse(response.body);
+		var place = _.find(data.result.places, function(place) {
+			return place.place_type === 'neighborhood';
+		});
+		var placeName = '';
+
+		if (!place) {
+			place = data.result.places[0];
+			placeName = place.place_type == 'city' ? place.country + ' ' + place.full_name : place.full_name;
+		}
+		return placeName;
+	}
+};
+
 // Uses the Npm request module directly as provided by the request local pkg
-//var callTwitter = function(options) {
-//	var config = Meteor.settings.twitter;
-//	var userConfig = Meteor.user().services.twitter;
-//
-//	options.oauth = {
-//		consumer_key: config.consumerKey,
-//		consumer_secret: config.secret,
-//		token: userConfig.accessToken,
-//		token_secret: userConfig.accessTokenSecret
-//	};
-//
-//	return Request(options);
-//};
-//
+var callTwitter = function(options) {
+	var result = null;
+	var userTwitterConfig = Meteor.user().services.twitter;
+
+	if (userTwitterConfig) {
+		var twitterConfig = Meteor.settings.authServices.twitter;
+
+		options.oauth = {
+			consumer_key: twitterConfig.consumerKey,
+			consumer_secret: twitterConfig.secret,
+			token: userTwitterConfig.accessToken,
+			token_secret: userTwitterConfig.accessTokenSecret
+		};
+
+		result = Request(options);
+	}
+
+	return result;
+};
+
 //var tweetFeed = function(feed) {
 //	// creates the tweet text, optionally truncating to fit the appended text
 //	function appendTweet(text, append) {
@@ -80,25 +111,3 @@ Meteor.methods({
 //	if (response.statusCode !== 200)
 //		throw new Meteor.Error(500, 'Unable to create tweet');
 //};
-
-var getLocationPlace = function(loc) {
-	var url = 'https://api.twitter.com/1.1/geo/reverse_geocode.json' +
-				'?granularity=neighborhood' +
-				'&max_results=1' +
-				'&accuracy=' + loc.coords.accuracy +
-				'&lat=' + loc.coords.latitude +
-				'&long=' + loc.coords.longitude;
-
-	return '경기도 부천시';
-
-	var response = callTwitter({ method: 'get', url: url });
-
-	if (response.statusCode === 200) {
-		var data = JSON.parse(response.body);
-		var place = _.find(data.result.places, function(place) {
-			return place.place_type === 'neighborhood';
-		});
-
-		return place && place.full_name;
-	}
-};

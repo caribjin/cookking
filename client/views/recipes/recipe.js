@@ -55,7 +55,7 @@ Template.Recipe.helpers({
 	},
 
 	feeds: function() {
-		return Feeds.find({recipeId: this._id}, {sort: {date: -1}});
+		return Feeds.find({recipeId: this._id}, {sort: {createdAt: -1}});
 	}
 });
 
