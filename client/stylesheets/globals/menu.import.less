@@ -1,14 +1,19 @@
 #menu {
-	.background-image(
-		linear-gradient(top, rgba(85,134,223,.1), rgba(0,0,0,0) 100%),
-		url('img/app/bg-menu-640x1136.jpg')
-	);
+//	.background-image(
+//		linear-gradient(top, rgba(85,134,223,.1), rgba(0,0,0,0) 100%),
+//		url('img/app/bg-menu-640x1136.jpg')
+//	);
+	background-color: #2b2b2b;
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 
+	div.empty {
+		height: 20px;
+	}
+
 	a {
 		box-shadow: rgba(129,206,200,.1) 0 1px 0 0;
-		color: rgba(255,255,255,.4);
+		color: rgba(255,255,255,1);
 		display: block;
 		height: 40px;
 		position: relative;
@@ -24,7 +29,7 @@
 		.wrapper-menu-item {
 			.font-s2;
 			.type-bold;
-			.position(absolute, 25%, auto, auto, 5%);
+			.position(absolute, 25%, auto, auto, 20px);
 			//.transform(translate3d(-50%, -50% ,0));
 			//display: block;
 		}
@@ -32,13 +37,14 @@
 		[class^="icon-"],
 		[class*=" icon-"] {
 			.font-m1;
-			//display: block;
+			display: block;
 			margin-bottom: 5%;
 		}
 
 		.title-menu {
 			.title-caps;
 			.position(absolute, 11%, auto, auto, 19px);
+			white-space: nowrap;
 			display: block;
 		}
 	}

@@ -47,7 +47,9 @@ Template.SignIn.events({
 	'click .btn-twitter': function() {
 		//Meteor.loginWithTwitter({loginStyle: 'redirect'});
 		Meteor.loginWithTwitter(function(error) {
-			console.log(error.reason);
+			if (error) {
+				console.log(error.reason);
+			}
 		});
 	},
 

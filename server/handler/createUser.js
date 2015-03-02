@@ -5,11 +5,11 @@ Accounts.onCreateUser(function(options, user) {
 	};
 
 	if (userData.email) {
-		Meteor.call('sendWelcomeEmail', userData, function(error) {
-			if (error) {
-				console.log(error);
-			}
-		});
+		//Meteor.call('sendWelcomeEmail', userData, function(error) {
+		//	if (error) {
+		//		console.log(error);
+		//	}
+		//});
 	}
 
 	if (options.profile) {
