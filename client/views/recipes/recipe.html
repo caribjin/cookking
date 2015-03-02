@@ -3,14 +3,17 @@
 		{{#Navigation title='Recipe' transparent=true back=true}}
 			{{#if bookmarked}}
 				<a href="#" class="nav-item js-remove-bookmark bookmarked">
-					<span class="icon-bookmark"></span>
+					<i class="fa fa-bookmark"></i>
 				</a>
 			{{else}}
 				<a href="#" class="nav-item js-add-bookmark">
-					<span class="icon-bookmark-hollow"></span>
+					<i class="fa fa-bookmark-o"></i>
 				</a>
 			{{/if}}
-			<a href="#" class="nav-item js-share"><span class="icon-camera"></span></a>
+			<a href="#" class="nav-item js-share">
+				<i class="fa fa-camera"></i>
+			</a>
+			<div class="nav-item-last"></div>
 		{{/Navigation}}
 
 		<div class="image-recipe" style="background-image: url('{{recipeImage recipe=this size='full'}}')"></div>

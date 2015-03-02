@@ -14,7 +14,7 @@ if (Meteor.isClient) {
 }
 
 Router.map(function() {
-	this.route('home',          {path: '/'});
+	this.route('home',          {path: '/', controller: 'RecipesController', template: 'Recipes'});
 	this.route('recipes',       {path: '/recipes'});
 	this.route('recipe',        {path: '/recipes/:_id'});
 	this.route('news',          {path: '/news'});

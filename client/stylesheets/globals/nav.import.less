@@ -1,5 +1,5 @@
 nav {
-	.position(absolute, 0, 0, auto, 0, 100%, 55px);
+	.position(absolute, 0, 0, auto, 0, 100%, 3.5rem);
 	.transform(translate3d(0,0,0));
 	.transition( all 200ms ease-out );
 
@@ -54,12 +54,14 @@ nav {
 		}
 	}
 	.nav-item {
-		.font-m1;
+		//.font-m1;
 		//color: @color-full;
 		color: @color-empty;
-		display: inline-block;
-		height: 3rem;
-		width: 40px;
+		//display: inline-block;
+		display: table-cell;
+		vertical-align: middle;
+		height: 3.5rem;
+		width: 2.5rem;
 
 		&:active { opacity: .5; }
 
@@ -68,6 +70,14 @@ nav {
 			line-height: 3rem;
 			vertical-align: middle;
 		}
+	}
+	.nav-item-first {
+		width: 10px;
+		display: table-cell;
+	}
+	.nav-item-last {
+		width: 10px;
+		display: table-cell;
 	}
 	.nav-group {
 		.position(absolute, 0, auto, auto, 0);

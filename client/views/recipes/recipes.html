@@ -1,6 +1,12 @@
 <template name="Recipes">
 	<div class="page recipes">
-		{{> Navigation title='Recipes' transparent=true}}
+		<!--{{> Navigation title='Recipes'}}-->
+		{{# Navigation title='COOKKING'}}
+			<a href="#" class="nav-item js-search">
+				<i class="fa fa-search"></i>
+			</a>
+			<div class="nav-item-last"></div>
+		{{/Navigation}}
 
 		<div class="content-scrollable">
 			<div class="list-recipes">

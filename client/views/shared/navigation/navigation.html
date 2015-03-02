@@ -1,13 +1,14 @@
 <template name="Navigation">
 	<nav class="{{#if isTransparent}}transparent{{/if}}">
 		<div class="nav-group">
+			<div class="nav-item-first"></div>
 			{{#if back}}
 				<a class="nav-item js-back" href="#">
-					<span class="icon-arrow-left-alt"></span>
+					<i class="fa fa-chevron-left"></i>
 				</a>
 			{{else}}
 				<a class="nav-item js-menu" href="#">
-					<span class="icon-menu"></span>
+					<i class="fa fa-bars"></i>
 				</a>
 			{{/if}}
 		</div>
