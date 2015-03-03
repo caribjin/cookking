@@ -8,7 +8,19 @@ Template.RecipeItem.helpers({
 			return 'highlighted';
 	},
 
-	bookmarkedCount: function () {
-		return this.bookmarkedCount || 0;
+	isBookmarked: function() {
+		return this.bookmarkedCount > 0;
+	},
+
+	favoritesCount: function() {
+		return Math.round(Math.random() * 1000);
+	},
+
+	commentsCount: function() {
+		return Math.round(Math.random() * 100);
+	},
+
+	sharedCount: function() {
+		return Math.round(Math.random() * 200);
 	}
 });

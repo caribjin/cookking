@@ -16,7 +16,7 @@ Fixtures = {
 	"recipes": {
 		"spring-fromage-fort": {
 			"title": "Fromage Fort",
-			"highlighted": true,
+			"highlighted": false,
 			"excerpt": "When I’ve got too many cheese bits on hand, it's now fromage fort to the rescue",
 			"source": {
 				"name": "David Lebovitz",
@@ -162,7 +162,7 @@ Fixtures = {
 		},
 		"spring-meatloaf": {
 			"title": "Fatted Calf's Meatloaf",
-			"highlighted": true,
+			"highlighted": false,
 			"excerpt": "It is a thing of beauty, shaped into a large oval loaf and glazed with tangy cocktail sauce",
 			"source": {
 				"name": "Food52",
@@ -431,7 +431,7 @@ Fixtures = {
 		},
 		"fall-roasted-butternut-squash-lasagna": {
 			"title": "Roasted Butternut Squash Lasagna",
-			"highlighted": true,
+			"highlighted": false,
 			"excerpt": "Making homemade pasta may seem arduous, but this dish is worth the extra work",
 			"source": {
 				"name": "Martha Stewart",
@@ -581,7 +581,7 @@ Fixtures = {
 		},
 		"winter-braised-duck": {
 			"title": "Italian Red-Wine Braised Duck w/ Olive Gremolata",
-			"highlighted": true,
+			"highlighted": false,
 			"excerpt": "A good braise always trumps a steak or a roast, both in terms of complex flavors and satisfaction",
 			"source": {
 				"name": "NY Times",
@@ -718,7 +718,7 @@ Fixtures = {
 		},
 		"winter-chocolate-tart": {
 			"title": "Chocolate Tart",
-			"highlighted": true,
+			"highlighted": false,
 			"excerpt": "A good chocolate tart doesn’t need to be fancy, but it needs to be deep, dark, and yes, somewhat decadent.",
 			"source": {
 				"name": "David Lebovitz",
