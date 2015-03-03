@@ -4,6 +4,7 @@ Router.configure({
 	layoutTemplate: 'MasterLayout',
 	loadingTemplate: 'Loading',
 	notFoundTemplate: 'NotFound',
+	progressSpinner: false,
 	waitOn: function() {
 		return Meteor.subscribe('user');
 	}
