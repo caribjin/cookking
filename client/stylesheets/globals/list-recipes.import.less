@@ -6,6 +6,7 @@
 	overflow: hidden;
 	position: relative;
 	width: 50%;
+	height: 180px;
 
 	.recipe-information {
 		.transform(translate3d(0,0,0));
@@ -54,14 +55,14 @@
 
 	img {
 		display: block;
-		width: 100%;
 		height: auto;
+		width: 100%;
 	}
 }
 
 .recipe.highlighted {
 	width: 100%;
-	height: 320px;
+	height: 350px;
 
 	.recipe-information {
 		background: rgba(33, 33, 33, 0.51);
@@ -100,6 +101,7 @@
 	}
 
 	img {
-		.position(absolute, auto, auto, auto, auto, 100%, auto);
+		.position(absolute, auto, auto, auto, 50%, auto, 100%);
+		.transform(translate3d(-50%,0,0));
 	}
 }
