@@ -23,10 +23,7 @@ Meteor.methods({
 	},
 
 	sendWelcomeEmail: function(userData) {
-		check(userData, {
-			email: String,
-			name: String
-		});
+		check(userData, {email: String, name: String});
 
 		SSR.compileTemplate('welcomeEmail', Assets.getText('email/welcome-email.html'));
 

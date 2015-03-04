@@ -52,6 +52,13 @@ var DIMENSIONS = {
 };
 
 App.helpers = {
+	recipeImage: function(options) {
+		var size = options.hash.size || 'large';
+
+		if (options.hash.recipe)
+			return '/img/recipes/' + DIMENSIONS[size] + '/' + options.hash.recipe.name + '.jpg';
+	},
+
 	pluralize: function(n, thing, options) {
 		var plural = thing;
 		if (_.isUndefined(n)) {
@@ -144,13 +151,6 @@ App.helpers = {
 
 _.each(App.helpers, function (helper, key) {
 	Handlebars.registerHelper(key, helper);
-});
-
-UI.registerHelper('recipeImage', function(options) {
-	var size = options.hash.size || 'large';
-
-	if (options.hash.recipe)
-		return '/img/recipes/' + DIMENSIONS[size] + '/' + options.hash.recipe.name + '.jpg';
 });
 
 Tracker.autorun(function() {

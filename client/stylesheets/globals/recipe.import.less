@@ -4,7 +4,7 @@
 
 	nav .bookmarked { color: @color-primary !important; }
 
-	.image-recipe {
+	.recipe-image {
 		.transform(translate3d(0,0,0));         //Gpu rendering
 		background-position: center center;
 		background-repeat: no-repeat;
@@ -23,7 +23,7 @@
 		}
 	}
 
-	.attribution-recipe {
+	.recipe-information {
 		.position(absolute, auto, 0, 0, 0, auto, auto);
 		.transform(translate3d(0,0,0)); // Gpu rendering
 		box-shadow: rgba(0,0,0,.1) 0 2px 2px 0;
@@ -44,7 +44,7 @@
 			z-index: -1;
 		}
 
-		.title-recipe {
+		.recipe-title {
 			.font-m2;
 			.type-bold;
 			.transform(translateY(0));
@@ -54,14 +54,14 @@
 			width: 100%; // Needed for iOS animation
 		}
 
-		.metadata-wrapper {
+		.recipe-subdata {
 			.transform(translate3d(0,0,0));
 			max-height: 10em;
 			opacity: 1;
 			overflow: hidden;
 		}
 
-		.description-recipe {
+		.recipe-description {
 			.font-s3;
 			color: @color-well;
 			margin-bottom: .5rem;
@@ -71,21 +71,21 @@
 			&:empty { display: none; }
 		}
 
-		.source,
-		.time {
+		.recipe-source,
+		.recipe-time {
 			.font-s1;
 			color: @color-medium;
 			display: inline-block;
 			vertical-align: middle;
 		}
 
-		.source {
+		.recipe-source {
 			.type-secondary;
 			.title-caps;
 			padding-right: .25rem;
 		}
 
-		.time {
+		.recipe-time {
 			.type-bold;
 			border-left: 1px solid @color-medium-rare;
 			padding-left: .5rem;
@@ -167,11 +167,11 @@
 	.feed-scrollable { .transform(translate3d(100%, 0, 0)); }
 	.make-scrollable { .transform(translate3d(0,0,0)); }
 
-	.image-recipe:before {
+	.recipe-image:before {
 		opacity: 1;
 	}
 
-	.attribution-recipe {
+	.recipe-information {
 		bottom: 70%;
 		min-height: 30%;
 		cursor: pointer;
@@ -182,14 +182,14 @@
 			top: 100%;
 		}
 	}
-	.title-recipe {
+	.recipe-title {
 		.transform(translateY(-30%));
 		color: @color-empty;
 		margin-top: 50%;
 		width: 100%;
 	}
 
-	.metadata-wrapper {
+	.recipe-subdata {
 		.transform(translate3d(0,100%,0));
 		max-height: 0;
 		opacity: 0;
@@ -200,7 +200,7 @@
 @transition-time: 700ms;
 @easing: cubic-bezier(0.175, 0.885, 0.335, 1.05);
 .page.recipe {
-	.image-recipe:before { .transition( all @transition-time + 100ms ease-out ); }
+	.recipe-image:before { .transition( all @transition-time + 100ms ease-out ); }
 
 	.content-scrollable {
 		.transform(translate3d(0,0,0));
@@ -215,7 +215,7 @@
 		}
 	}
 
-	.attribution-recipe {
+	.recipe-information {
 		.transform(translate3d(0,0,0));
 		.transition( all @transition-time @easing );
 		.backface-visibility(hidden);
@@ -223,11 +223,11 @@
 		&:after { .transition( all @transition-time * .95 @easing ); }
 	}
 
-	.title-recipe {
+	.recipe-title {
 		.transition( all @transition-time * .75 @easing );
 	}
 
-	.metadata-wrapper { .transition( all @transition-time * .5 @easing); }
+	.recipe-subdata { .transition( all @transition-time * .5 @easing); }
 }
 
 // Move the feeds over the top when we are on it
