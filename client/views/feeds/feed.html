@@ -1,14 +1,17 @@
 <template name="Feed">
 	<a href="{{path}}" class="item-feed">
-		<span class="attribution">
+		<span class="feed-information">
 			<span class="avatar">
 				<img src="{{userAvatar}}" class="image-avatar">
 			</span>
-			<span class="meta">
-				<span class="author">{{firstName}}</span> made <span class="recipe">{{recipeTitle}}</span>: {{text}}
+			<span class="subdata">
+				<span class="writer">{{firstName}}</span>
 				{{#if place}}
-					<span class="location">&mdash;{{place}}</span>
+					<i class="fa fa-map-marker"></i>
+					<span class="location">{{place}}</span>
 				{{/if}}
+				<br/>
+				{{text}}
 			</span>
 		</span>
 		<div class="bg-image" style="background-image: url('{{image}}');"></div>

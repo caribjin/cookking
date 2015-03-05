@@ -2,19 +2,19 @@
 	<a class="recipe {{highlightedClass}}" href="{{path}}">
 		{{#with recipe}}
 			<span class="recipe-information">
-				<span class="recipe-title">{{title}}</span>
-				<span class="recipe-subdata">
-					<span class="recipe-favorites">
+				<span class="title">{{title}}</span>
+				<span class="subdata">
+					<span class="favorites">
 						<i class="fa fa-heart"></i> {{favoritesCount}}
 					</span>
-					<span class="recipe-comments">
+					<span class="comments">
 						<i class="fa fa-comment"></i> {{commentsCount}}
 					</span>
-					<span class="recipe-share">
+					<span class="share">
 						<i class="fa fa-share-alt"></i> {{sharedCount}}
 					</span>
 					{{#if isBookmarked}}
-					<span class="recipe-bookmarked">
+					<span class="bookmarked">
 						<i class="fa fa-bookmark"></i>
 					</span>
 					{{/if}}

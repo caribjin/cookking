@@ -22,11 +22,26 @@ Template.ShareOverlay.helpers({
 
 Template.ShareOverlay.events({
 	'click .js-attach-image': function() {
-		MeteorCamera.getPicture({width: 1024, quality: 100}, function(error, data) {
-			if (!error) {
-				Session.set(IMAGE_KEY, data);
-			}
-		});
+		if (Meteor.isCordova) {
+			MeteorCamera.getPicture({
+				width: 1024,
+				quality: 100,
+				sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+			}, function (error, data) {
+				if (!error) {
+					Session.set(IMAGE_KEY, data);
+				}
+			});
+		} else {
+			MeteorCamera.getPicture({
+				width: 1024,
+				quality: 100
+			}, function(error, data) {
+				if (!error) {
+					Session.set(IMAGE_KEY, data);
+				}
+			});
+		}
 	},
 
 	'click .js-unattach-image': function() {

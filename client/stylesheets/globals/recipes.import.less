@@ -1,6 +1,6 @@
 .list-recipes { overflow: hidden; }
 
-.recipe {
+.page.recipes .recipe {
 	.transform(translate3d(0,0,0));
 	float: left;
 	overflow: hidden;
@@ -16,7 +16,7 @@
 		text-align: center;
 		z-index: 1;
 
-		.recipe-title {
+		.title {
 			.font-s3;
 			.type-bold;
 			.ellipsized;
@@ -27,7 +27,7 @@
 			line-height: 1.1em;
 		}
 
-		.recipe-subdata {
+		.subdata {
 			display: block;
 			white-space: nowrap;
 			color: @color-empty;
@@ -36,16 +36,13 @@
 			color: @color-medium-rare;
 			.font-size(12px);
 
-			.recipe-comments {
+			.comments {
 				.padding-left(7px);
 			}
-			.recipe-share {
+			.share {
 				.padding-left(7px);
 			}
-			.recipe-bookmarked {
-				.padding-left(7px);
-			}
-			.recipe-bookmarked {
+			.bookmarked {
 				.padding-left(7px);
 				color: @color-primary;
 			}
@@ -59,7 +56,7 @@
 	}
 }
 
-.recipe.highlighted {
+.page.recipes .recipe.highlighted {
 	width: 100%;
 	height: 350px;
 
@@ -79,7 +76,7 @@
 			.padding(8px, 8px);
 		}
 
-		.recipe-title {
+		.title {
 			.font-m3;
 			.type-bold;
 			color: @color-empty;
@@ -88,12 +85,12 @@
 			.padding-top(15px);
 		}
 
-		.recipe-subdata {
+		.subdata {
 			.font-size(13px);
 			text-align: left;
 			padding-bottom: .5rem;
 
-			.recipe-favorites {
+			.favorites {
 				.padding-left(15px);
 			}
 		}

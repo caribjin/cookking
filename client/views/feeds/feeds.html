@@ -3,7 +3,7 @@
 		{{> Navigation title="What's Cooking"}}
 
 		<div class="content-scrollable">
-			<div class="list-activities {{#unless ready}}loading{{/unless}}">
+			<div class="list-feeds {{#unless ready}}loading{{/unless}}">
 				{{#if ready}}
 					{{#each feeds}}
 						{{> Feed}}

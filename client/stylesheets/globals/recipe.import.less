@@ -29,8 +29,7 @@
 		box-shadow: rgba(0,0,0,.1) 0 2px 2px 0;
 		min-height: 9em;
 		overflow: hidden;
-		padding-top: 1.25em;
-		padding-bottom: 4em;
+		.padding-top(12px);
 		text-align: center;
 		z-index: 1;
 
@@ -44,51 +43,104 @@
 			z-index: -1;
 		}
 
-		.recipe-title {
-			.font-m2;
+		.writer {
+			.font-size(15px);
+			.type-bold;
+			.margin-right(30px);
+			.margin-bottom(5px);
+			color: @color-well;
+			float: right;
+
+			.avatar {
+				.size(40px, 40px);
+				.margin-left(5px);
+			}
+		}
+
+		.title {
+			.font-m3;
 			.type-bold;
 			.transform(translateY(0));
 			.backface-visibility(hidden);
+			clear: both;
+			color: @color-well;
 			margin-bottom: .5rem;
 			padding: 0 1rem;
 			width: 100%; // Needed for iOS animation
 		}
 
-		.recipe-subdata {
+		.description {
 			.transform(translate3d(0,0,0));
 			max-height: 10em;
 			opacity: 1;
 			overflow: hidden;
-		}
+			.padding-bottom(3.6em);
+			.padding-left(20px);
+			.padding-right(20px);
 
-		.recipe-description {
 			.font-s3;
 			color: @color-well;
 			margin-bottom: .5rem;
-			padding: 0 1em;
+			//padding: 0 1em;
 
 			&:after { content: '\2026'; } // Ellipsis
 			&:empty { display: none; }
 		}
 
-		.recipe-source,
-		.recipe-time {
+		.subdata {
+			.transform(translate3d(0,0,0));
+			.font-size(16px);
+			white-space: nowrap;
+			color: @color-medium-well;
+			display: inline-block;
+			vertical-align: middle;
+			float: left;
+			.margin-top(9px);
+
+			[class^="fa-"],
+			[class*=" fa-"] {
+				color: @color-negative;
+			}
+
+			.comments {
+				.padding-left(12px);
+			}
+			.share {
+				.padding-left(12px);
+			}
+			.favorites {
+				.padding-left(15px);
+			}
+		}
+
+		.source,
+		.time {
 			.font-s1;
 			color: @color-medium;
 			display: inline-block;
 			vertical-align: middle;
+			float: left;
+			.margin-top(10px);
+			display: none;
 		}
 
-		.recipe-source {
+		.source {
 			.type-secondary;
+			.type-bold;
 			.title-caps;
-			padding-right: .25rem;
+			.margin-left(20px);
+			.margin-right(4px);
+
+			[class^="fa-"],
+			[class*=" fa-"] {
+				color: @color-primary;
+			}
 		}
 
-		.recipe-time {
+		.time {
 			.type-bold;
+			.padding-left(8px);
 			border-left: 1px solid @color-medium-rare;
-			padding-left: .5rem;
 		}
 	}
 
@@ -109,7 +161,6 @@
 			vertical-align: text-top;
 		}
 	}
-
 	.content-scrollable {
 		top: 100%;
 		margin-top: -1px; // Fixes flicker from animations behind content-scrollable
@@ -124,7 +175,8 @@
 	.item-direction {
 		.font-s3;
 		background: @color-empty;
-		padding: .75rem 1.25rem;
+		.padding(12px, 30px);
+		.padding-left(0);
 	}
 
 	.list-directions {
@@ -150,22 +202,27 @@
 		}
 	}
 
+	.list-ingredients + .btn-primary,
 	.list-directions + .btn-primary {
 		.force-wrap;
 		white-space: normal;
-		width: 100%;
+		width: 50%;
+		align: center;
 	}
 }
 
 // Collapse end-state
-.page.recipe.make,
+.page.recipe.ingredients,
+.page.recipe.directions,
 .page.recipe.feeds {
 	.content-scrollable {
 		min-height: 70%;
 		top: 30%;
 	}
-	.feed-scrollable { .transform(translate3d(100%, 0, 0)); }
-	.make-scrollable { .transform(translate3d(0,0,0)); }
+
+	.ingredient-scrollable { .transform(translate3d(0,0,0)); }
+	.direction-scrollable { .transform(translate3d(100%,0,0)); }
+	.feed-scrollable { .transform(translate3d(200%, 0, 0)); }
 
 	.recipe-image:before {
 		opacity: 1;
@@ -181,18 +238,24 @@
 			opacity: .5;
 			top: 100%;
 		}
-	}
-	.recipe-title {
-		.transform(translateY(-30%));
-		color: @color-empty;
-		margin-top: 50%;
-		width: 100%;
+
+		.title {
+			.transform(translateY(-100%));
+			color: @color-empty;
+			margin-top: 50%;
+			width: 100%;
+		}
+
+		.description {
+			.transform(translate3d(0,100%,0));
+			max-height: 0;
+			opacity: 0;
+		}
 	}
 
-	.recipe-subdata {
-		.transform(translate3d(0,100%,0));
-		max-height: 0;
-		opacity: 0;
+	.btn-group {
+		.width(100%);
+		text-align: right;
 	}
 }
 
@@ -223,15 +286,28 @@
 		&:after { .transition( all @transition-time * .95 @easing ); }
 	}
 
-	.recipe-title {
+	.title {
 		.transition( all @transition-time * .75 @easing );
 	}
 
-	.recipe-subdata { .transition( all @transition-time * .5 @easing); }
+	.description { .transition( all @transition-time * .5 @easing); }
 }
 
 // Move the feeds over the top when we are on it
+.page.recipe.ingredients {
+	.ingredient-scrollable { .transform(translate3d(0,0,0)); }
+	.direction-scrollable { .transform(translate3d(100%,0,0)); }
+	.feed-scrollable { .transform(translate3d(200%,0,0)); }
+}
+
+.page.recipe.directions {
+	.ingredient-scrollable { .transform(translate3d(-100%,0,0)); }
+	.direction-scrollable { .transform(translate3d(0,0,0)); }
+	.feed-scrollable { .transform(translate3d(100%,0,0)); }
+}
+
 .page.recipe.feeds {
+	.ingredient-scrollable { .transform(translate3d(-200%,0,0)); }
+	.direction-scrollable { .transform(translate3d(-100%,0,0)); }
 	.feed-scrollable { .transform(translate3d(0,0,0)); }
-	.make-scrollable { .transform(translate3d(-100%,0,0)); }
 }

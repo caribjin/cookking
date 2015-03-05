@@ -11,11 +11,11 @@ Template.Recipe.rendered = function () {
 	this.$('.recipe').touchwipe({
 		wipeDown: function () {
 			if (Session.equals(TAB_KEY, 'recipe'))
-				Template.Recipe.setTab('make')
+				Template.Recipe.setTab('ingredients')
 		},
 		preventDefaultEvents: false
 	});
-	this.$('.attribution-recipe').touchwipe({
+	this.$('.recipe-information').touchwipe({
 		wipeUp: function () {
 			if (!Session.equals(TAB_KEY, 'recipe'))
 				Template.Recipe.setTab('recipe')
@@ -56,6 +56,18 @@ Template.Recipe.helpers({
 
 	feeds: function() {
 		return Feeds.find({recipeId: this._id}, {sort: {createdAt: -1}});
+	},
+
+	favoritesCount: function() {
+		return Math.round(Math.random() * 1000);
+	},
+
+	commentsCount: function() {
+		return Math.round(Math.random() * 100);
+	},
+
+	sharedCount: function() {
+		return Math.round(Math.random() * 200);
 	}
 });
 
@@ -75,21 +87,27 @@ Template.Recipe.events({
 		Meteor.call('unbookmarkRecipe', this._id);
 	},
 
-	'click .js-show-make': function(event) {
-		event.stopPropagation();
-		Template.Recipe.setTab('make')
+	'click .js-share': function() {
+		Overlay.open('ShareOverlay', this);
 	},
 
-	'click .js-show-feed': function(event) {
+	'click .js-show-ingredients': function(event) {
+		event.stopPropagation();
+		Template.Recipe.setTab('ingredients');
+	},
+
+	'click .js-show-directions': function(event) {
+		event.stopPropagation();
+		Template.Recipe.setTab('directions')
+	},
+
+	'click .js-show-feeds': function(event) {
 		event.stopPropagation();
 		Template.Recipe.setTab('feeds')
 	},
 
 	'click .js-recipe': function() {
 		Template.Recipe.setTab('recipe')
-	},
-
-	'click .js-share': function() {
-		Overlay.open('ShareOverlay', this);
 	}
 });
+

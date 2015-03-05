@@ -20,52 +20,73 @@
 		     style="background-image: url('{{recipeImage recipe=this size='full'}}')"></div>
 
 		<div class="recipe-information js-recipe">
-			<h1 class="recipe-title">
+			<span class="subdata">
+				<span class="favorites">
+					<i class="fa fa-heart"></i> {{favoritesCount}}
+				</span>
+				<span class="comments">
+					<i class="fa fa-comment"></i> {{commentsCount}}
+				</span>
+				<span class="share">
+					<i class="fa fa-share-alt"></i> {{sharedCount}}
+				</span>
+			</span>
+
+			<span class="source">
+				<i class="fa fa-user"></i>
+				{{source.name}}
+			</span>
+			<span class="time">
+				조리시간 {{cookTime}}
+			</span>
+			<div class="writer">
+				{{writer.name}}
+				<img class="avatar" src="{{writer.avatar}}">
+			</div>
+			<h1 class="title">
 				{{title}}
 			</h1>
-			<div class="recipe-subdata">
-				<p class="recipe-description">
-					{{excerpt}}
-				</p>
-				<span class="recipe-source">
-					{{source.name}}
-				</span>
-				<span class="recipe-time">
-					{{cookTime}}
-				</span>
+			<div class="description">
+				{{excerpt}}
 			</div>
 			<div class="btns-group">
-				<a class="btn-secondary {{#if isActiveTab 'make'}}active{{/if}} {{#if isActiveTab 'recipe'}}no-state{{/if}} js-show-make">Make It</a>
-				<a class="btn-secondary {{#if isActiveTab 'feeds'}}active{{/if}} {{#if isActiveTab 'recipe'}}no-state{{/if}} js-show-feed">Pictures</a>
+				<a class="btn-secondary {{#if isActiveTab 'ingredients'}}active{{/if}} {{#if isActiveTab 'recipe'}}no-state{{/if}} js-show-ingredients">재료소개</a>
+				<a class="btn-secondary {{#if isActiveTab 'directions'}}active{{/if}} {{#if isActiveTab 'recipe'}}no-state{{/if}} js-show-directions">조리법</a>
+				<a class="btn-secondary {{#if isActiveTab 'feeds'}}active{{/if}} {{#if isActiveTab 'recipe'}}no-state{{/if}} js-show-feeds">요리자랑</a>
 			</div>
 		</div>
 
-		<div class="content-scrollable static-nav make-scrollable">
-			<a class="btn-tertiary js-share"><span class="icon-camera"></span> Share that you made this</a>
-			<h2 class="list-title">Ingredients</h2>
+		<div class="content-scrollable static-nav ingredient-scrollable">
+			<h2 class="list-title">이런 재료들이 들어가요</h2>
 			<ul class="list-ingredients">
 				{{#each ingredients}}
 					<li class="item-ingredient">{{this}}</li>
 				{{/each}}
 			</ul>
+			<div class="btn-group">
+				<a href="{{source.url}}" target="_blank" class="btn-primary js-open">전체 레시피 보기</a>
+			</div>
+		</div>
 
-			<h2 class="list-title">Directions</h2>
+		<div class="content-scrollable static-nav direction-scrollable">
+			<h2 class="list-title">순서대로 따라해 보세요</h2>
 			<ol class="list-directions">
 				{{#each directions}}
 					<li class="item-direction">
 						<span class="text">{{this}}</span>
 					</li>
 				{{/each}}
-				<li class="item-direction">
-					...
-				</li>
 			</ol>
-			<a href="{{source.url}}" target="_blank" class="btn-primary js-open">See full recipe on {{source.name}}</a>
+			<div class="btn-group">
+				<a href="{{source.url}}" target="_blank" class="btn-primary js-open">전체 레시피 보기</a>
+			</div>
 		</div>
 
 		<div class="content-scrollable static-nav feed-scrollable">
-			<a class="btn-tertiary js-share"><span class="icon-camera"></span> Share that you made this</a>
-			<div class="list-activities">
+			<h2 class="list-title js-share">
+				<i class="fa fa-camera"></i> 이 요리를 직접 만들어 보셨나요?<br/>그럼 여기에 올려서 공유해 보세요
+			</h2>
+			<div class="list-feeds">
 				{{#each feeds}}
 					{{> Feed}}
 				{{else}}

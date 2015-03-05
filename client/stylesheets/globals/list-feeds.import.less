@@ -18,7 +18,7 @@
 	position: relative;
 	width: 100%;
 
-	.attribution {
+	.feed-information {
 		.font-s2;
 		display: block;
 		margin-bottom: .5rem;
@@ -33,20 +33,20 @@
 			width: 2rem;
 		}
 
-		.meta {
+		.subdata {
 			color: @color-well;
 			overflow: hidden;
 			display: block;
-		}
+			.padding-top(8px);
 
-		.author { .type-black; }
+			.writer { .type-black; }
+			.location { color: @color-medium-well; }
+		}
 
 		.recipe {
 			.type-bold;
 			color: @color-primary;
 		}
-
-		.location { color: @color-medium-well; }
 	}
 
 	.bg-image {

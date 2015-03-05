@@ -50,6 +50,7 @@ localstorage@1.0.2
 logging@1.0.6
 mdg:camera@1.1.4
 mdg:geolocation@1.0.2
+mdg:reload-on-resume@1.0.4
 meteor@1.1.4
 meteor-platform@1.2.1
 meteorhacks:fast-render@2.3.1
@@ -81,7 +82,6 @@ routepolicy@1.0.4
 service-configuration@1.0.3
 session@1.0.5
 sha@1.0.2
-smeevil:syntax-error-notifier@1.0.6
 spacebars@1.0.5
 spacebars-compiler@1.0.4
 srp@1.0.2
