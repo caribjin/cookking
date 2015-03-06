@@ -19,6 +19,10 @@
 		<div class="recipe-image"
 		     style="background-image: url('{{recipeImage recipe=this size='full'}}')"></div>
 
+		<div class="recipe-source-view">
+			<a href="{{source.url}}" target="_blank" class="btn-primary js-open">원본 보기</a>
+		</div>
+
 		<div class="recipe-information js-recipe">
 			<span class="subdata">
 				<span class="favorites">
@@ -63,9 +67,6 @@
 					<li class="item-ingredient">{{this}}</li>
 				{{/each}}
 			</ul>
-			<div class="btn-group">
-				<a href="{{source.url}}" target="_blank" class="btn-primary js-open">전체 레시피 보기</a>
-			</div>
 		</div>
 
 		<div class="content-scrollable static-nav direction-scrollable">
@@ -77,9 +78,6 @@
 					</li>
 				{{/each}}
 			</ol>
-			<div class="btn-group">
-				<a href="{{source.url}}" target="_blank" class="btn-primary js-open">전체 레시피 보기</a>
-			</div>
 		</div>
 
 		<div class="content-scrollable static-nav feed-scrollable">

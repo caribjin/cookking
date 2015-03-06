@@ -33,10 +33,16 @@ Template.Recipe.setTab = function(tab) {
 	var lastTab = Session.get(TAB_KEY);
 	Session.set(TAB_KEY, tab);
 
+	// 패널이 위로 올라갈 때
 	var fromRecipe = (lastTab === 'recipe') && (tab !== 'recipe');
+	$('.ingredient-scrollable').toggleClass('instant', fromRecipe);
+	$('.direction-scrollable').toggleClass('instant', fromRecipe);
 	$('.feed-scrollable').toggleClass('instant', fromRecipe);
 
+	// 패널이 밑으로 내려갈 떄
 	var toRecipe = (lastTab !== 'recipe') && (tab === 'recipe');
+	$('.ingredient-scrollable').toggleClass('delayed', toRecipe);
+	$('.direction-scrollable').toggleClass('delayed', toRecipe);
 	$('.feed-scrollable').toggleClass('delayed', toRecipe);
 };
 
