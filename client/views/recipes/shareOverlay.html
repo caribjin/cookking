@@ -5,12 +5,18 @@
 				<a href="#" class="js-close-overlay overlay-dismiss"><span class="icon-cross"></span></a>
 				<div class="wrapper-heading">
 					<div class="title-overlay">Share</div>
-					<div class="subtitle-overlay">Share that you made this recipe with the Local Market community.</div>
+					<div class="subtitle-overlay">바로 사진을 찍거나 앨범의 사진을 선택해서 올려주세요</div>
 				</div>
 
-				<div class="wrapper-camera">
-					<a class="js-attach-image btn-camera"><span class="icon-camera"></span></a>
-					<div class="subtext-camera">Add your photo</div>
+				<div class="wrapper">
+					<a class="js-attach-from-camera btn-camera">
+						<i class="fa fa-camera"></i>
+						<div class="subtext-camera">사진촬영</div>
+					</a>
+					<a class="js-attach-from-album btn-album">
+						<i class="fa fa-picture-o"></i>
+						<div class="subtext-album">앨범에서</div>
+					</a>
 				</div>
 			{{else}}
 				<a href="#" class="js-unattach-image overlay-back"><span class="icon-arrow-left-alt"></span></a>
@@ -35,15 +41,15 @@
 					<div class="wrapper-checkbox">
 						<label for="tweeting" class="checkbox">
 							<input type="checkbox" name="tweeting" id="tweeting" checked>
-							<span>Post to Twitter</span>
+							<span>트위터에도 등록</span>
 						</label>
 					</div>
 
 					<button class="btn-primary" type='submit'>
 						{{#if tweeting}}
-							Share &amp; Tweet
+							올리기 & 트윗
 						{{else}}
-							Share
+							올리기
 						{{/if}}
 					</button>
 				</form>

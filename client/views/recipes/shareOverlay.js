@@ -21,7 +21,7 @@ Template.ShareOverlay.helpers({
 });
 
 Template.ShareOverlay.events({
-	'click .js-attach-image': function() {
+	'click .js-attach-from-album': function() {
 		if (Meteor.isCordova) {
 			MeteorCamera.getPicture({
 				width: 1024,
@@ -33,15 +33,20 @@ Template.ShareOverlay.events({
 				}
 			});
 		} else {
-			MeteorCamera.getPicture({
-				width: 1024,
-				quality: 100
-			}, function(error, data) {
-				if (!error) {
-					Session.set(IMAGE_KEY, data);
-				}
-			});
+			alert('모바일 환경에서만 실행 가능한 명령입니다');
+			return;
 		}
+	},
+
+	'click .js-attach-from-camera': function() {
+		MeteorCamera.getPicture({
+			width: 1024,
+			quality: 100
+		}, function(error, data) {
+			if (!error) {
+				Session.set(IMAGE_KEY, data);
+			}
+		});
 	},
 
 	'click .js-unattach-image': function() {
