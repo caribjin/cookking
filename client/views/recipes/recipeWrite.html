@@ -50,7 +50,12 @@
 						{{#each ingredients 'must'}}
 							<div class="form-subrow">
 								<span>{{index}}.</span>
-								<input type="text" id="{{type}}-ingredient-{{order}}" class="sm underline" placeholder="재료명과 필요량을 입력해 주세요"/>
+								<input type="text" id="{{type}}-ingredient-{{index}}" class="sm underline" placeholder="재료명과 필요량을 입력해 주세요"/>
+								<span>
+									<a class="js-remove-ingredient btn-remove-circle">
+										<i class="fa fa-minus"></i>
+									</a>
+								</span>
 							</div>
 						{{/each}}
 					</div>
@@ -63,6 +68,11 @@
 							<div class="form-subrow">
 								<span>{{index}}.</span>
 								<input type="text" id="{{type}}-ingredient-{{order}}" class="sm underline" placeholder="재료명과 필요량을 입력해 주세요"/>
+								<span>
+									<a class="js-remove-ingredient btn-remove-circle">
+										<i class="fa fa-minus"></i>
+									</a>
+								</span>
 							</div>
 						{{/each}}
 					</div>

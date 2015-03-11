@@ -17,6 +17,10 @@ Template.RecipeWrite.ingredientAdd = function(type, text) {
 	}
 };
 
+Template.RecipeWrite.ingredientRemove = function(docId) {
+	WriteIngredients.remove(docId);
+};
+
 Template.RecipeWrite.created = function() {
 	WriteIngredients = new Meteor.Collection(null);
 	WriteDirections = new Meteor.Collection(null);
@@ -88,6 +92,13 @@ Template.RecipeWrite.events({
 
 	'click .js-add-option-ingredient': function(e, tmpl) {
 		Template.RecipeWrite.ingredientAdd('option', '');
+	},
+
+	'click .js-remove-ingredient': function(e, tmpl) {
+		// 필수재료는 최소 1개 이상은 있어야 한다.
+		if (this.type !== 'must' || this.index > 1) {
+			Template.RecipeWrite.ingredientRemove(this._id);
+		}
 	}
 });
 
