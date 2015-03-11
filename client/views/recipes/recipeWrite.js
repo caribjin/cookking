@@ -8,7 +8,13 @@ Template.RecipeWrite.setTab = function(tab) {
 };
 
 Template.RecipeWrite.ingredientAdd = function(type, text) {
-	WriteIngredients.insert({type: type, text: text, createAt: new Date()});
+	var limitCount = App.settings.ingredientsCountLimit || 20;
+
+	var currentCount = WriteIngredients.find({type: type}).count();
+
+	if (currentCount < limitCount) {
+		WriteIngredients.insert({type: type, text: text, createAt: new Date()});
+	}
 };
 
 Template.RecipeWrite.created = function() {
