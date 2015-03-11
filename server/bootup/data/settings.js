@@ -1,5 +1,3 @@
-//if (typeof Meteor.settings === 'undefined') Meteor.settings = {};
-
 Meteor.settings || {};
 
 var settings = {

@@ -1,3 +1,77 @@
 <template name="RecipeWrite">
+	<div class="page recipe-write {{activeTabClass}}">
+		{{> Navigation title='Recipe Write' transparent=false back=true}}
 
+		<div class="content-recipe">
+			<div class="header">
+				<input type="text" class="lg" placeholder="레시피 이름을 적어주세요">
+				<div class="btns-group">
+					<a class="btn-secondary {{#if isActiveTab 'basic-info'}}active{{/if}} js-show-basic-info">기본정보</a>
+					<a class="btn-secondary {{#if isActiveTab 'ingredients'}}active{{/if}} js-show-ingredients">재료</a>
+					<a class="btn-secondary {{#if isActiveTab 'directions'}}active{{/if}} js-show-directions">조리법</a>
+				</div>
+			</div>
+
+			<div class="content-scrollable basic-info-scrollable">
+				<div class="form">
+					<div class="form-row">
+						<label>비공개</label>
+						<input type="checkbox" id="checkbox-10-public" checked /><label for="checkbox-10-public"></label>
+						<label>공개</label>
+					</div>
+					<div class="form-row">
+						<label>기준 인원</label>
+						<input type="text" id="people" value="2" size="1" maxlength="1">
+						<span> 명</span>
+					</div>
+					<div class="form-row">
+						<label>요리 종류</label>
+						{{#each categories}}
+							<div class="form-subrow">
+								<div class="col">
+									{{{drawRadiobox this.[0].key this.[0].value 'category' false}}}
+								</div>
+								<div class="col">
+									{{{drawRadiobox this.[1].key this.[1].value 'category' false}}}
+								</div>
+							</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+
+			<div class="content-scrollable ingredients-scrollable">
+				<div class="form">
+					<div class="form-row">
+						<label>필수 재료</label>
+						<a class="js-add-must-ingredient btn-add-circle">
+							<i class="fa fa-plus"></i>
+						</a>
+						{{#each ingredients 'must'}}
+							<div class="form-subrow">
+								<span>{{index}}.</span>
+								<input type="text" id="{{type}}-ingredient-{{order}}" class="sm underline" placeholder="재료명과 필요량을 입력해 주세요"/>
+							</div>
+						{{/each}}
+					</div>
+					<div class="form-row">
+						<label>선택 재료</label>
+						<a class="js-add-option-ingredient btn-add-circle">
+							<i class="fa fa-plus"></i>
+						</a>
+						{{#each ingredients 'option'}}
+							<div class="form-subrow">
+								<span>{{index}}.</span>
+								<input type="text" id="{{type}}-ingredient-{{order}}" class="sm underline" placeholder="재료명과 필요량을 입력해 주세요"/>
+							</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+
+			<div class="content-scrollable directions-scrollable">
+				조리법
+			</div>
+		</div>
+	</div>
 </template>

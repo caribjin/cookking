@@ -1,19 +1,19 @@
 {
 	"modules": {
-		"normalize":            true,
+		"normalize":            false,
 		"print":                false,
 
 		"scaffolding":          false,
 		"type":                 false,
 		"code":                 false,
-		"grid":                 true,
+		"grid":                 false,
 		"tables":               false,
-		"forms":                true,
-		"buttons":              true,
+		"forms":                false,
+		"buttons":              false,
 
 		"glyphicons":           false,
-		"button-groups":        true,
-		"input-groups":         true,
+		"button-groups":        false,
+		"input-groups":         false,
 		"navs":                 false,
 		"navbar":               false,
 		"breadcrumbs":          false,

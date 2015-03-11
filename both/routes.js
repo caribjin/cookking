@@ -17,7 +17,8 @@ if (Meteor.isClient) {
 Router.map(function() {
 	this.route('home',          {path: '/', controller: 'RecipesController', template: 'Recipes'});
 	this.route('recipes',       {path: '/recipes'});
-	this.route('recipe',        {path: '/recipes/:_id'});
+	this.route('recipe.write',  {path: '/recipe/write', controller: 'RecipeWriteController', template: 'RecipeWrite'});
+	this.route('recipe',        {path: '/recipe/:_id'});
 	this.route('news',          {path: '/news'});
 	this.route('feeds',         {path: '/feeds'});
 	this.route('bookmarks',     {path: '/bookmarks'});
@@ -33,6 +34,12 @@ Router.map(function() {
 	this.route('signout',       function() {
 		Router.go('home');
 		Meteor.logout();
+	});
+
+	// examples
+	this.route('examples.checkbox', {
+		path: '/examples/checkbox',
+		template: 'Examples_Checkbox'
 	});
 });
 

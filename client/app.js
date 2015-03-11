@@ -51,12 +51,39 @@ var DIMENSIONS = {
 	full: '640x800'
 };
 
+var CATEGORIES = {
+	'category-0': '반찬/샐러드',
+	'category-1': '메인요리',
+	'category-2': '국/찌개/탕/전골',
+	'category-3': '면/죽/스프',
+	'category-4': '빵/떡/과자/음료',
+	'category-5': '소스/양념장/육수',
+	'category-99': '기타'
+};
+
 App.helpers = {
 	recipeImage: function(options) {
 		var size = options.hash.size || 'large';
 
 		if (options.hash.recipe)
 			return '/img/recipes/' + DIMENSIONS[size] + '/' + options.hash.recipe.name + '.jpg';
+	},
+
+	isChecked: function(selector) {
+		return $(selector) && $(selector).is(':checked');
+	},
+
+	getCheckedValue: function(groupName) {
+		return $('[name=' + groupName + ']:checked').val();
+	},
+
+	drawRadiobox: function(value, text, name, checked, options) {
+		if (!value) return;
+
+		var tag = _.sprintf('<input type="radio" id="checkbox-3-%s" name="%s" value="%s" %s />', value, name, value, checked ? 'checked' : '');
+		tag += _.sprintf('<label for="checkbox-3-%s"></label><label for="checkbox-3-%s">%s</label>', value, value, text);
+
+		return tag;
 	},
 
 	pluralize: function(n, thing, options) {
@@ -156,4 +183,10 @@ _.each(App.helpers, function (helper, key) {
 Tracker.autorun(function() {
 	var path = Iron.Location.get().path;
 	App.track('Page Views');
+});
+
+Meteor.startup(function() {
+	_.map(CATEGORIES, function(num, key) {
+		Categories.insert({key: key, value: CATEGORIES[key]});
+	});
 });

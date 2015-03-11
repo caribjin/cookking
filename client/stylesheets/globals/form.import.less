@@ -6,18 +6,17 @@ textarea {
 	.font-s2;
 	.type-regular;
 
-	//Sizing
-	padding: 1rem 1.25rem; //total height ~48
 	line-height: 1.5em !important;
 
 	//Style
 	.placeholder(@color-medium);
-//	background: transparent;
+	//background: transparent;
 	border: none;
 	border-radius: 0;
 	box-sizing: border-box;
 	color: @color-full;
 	outline: none;
+	width: 100%;
 
 	&:active,
 	&:focus {
@@ -25,6 +24,38 @@ textarea {
 	}
 
 	&[disabled] { opacity: .5; }
+}
+
+input[type="text"].lg,
+input[type="email"].lg,
+input[type="password"].lg,
+textarea.lg {
+	.padding(16px, 20px);
+}
+
+input[type="text"].md,
+input[type="email"].md,
+input[type="password"].md,
+textarea.md {
+	.padding(12px, 15px);
+}
+
+input[type="text"].sm,
+input[type="email"].sm,
+input[type="password"].sm,
+textarea.sm {
+	.padding(8px, 10px);
+}
+
+input[type="text"].xs,
+input[type="email"].xs,
+input[type="password"].xs,
+textarea.xs {
+	.padding(4px, 5px);
+}
+
+input[type=text].underline {
+	border-bottom: #6699cc 1px dashed;
 }
 
 // Custom checkbox
@@ -121,5 +152,43 @@ textarea {
 		position: absolute;
 		top: 50%;
 		width: 1em;
+	}
+}
+
+.form {
+	.padding-left(10px);
+	.padding-right(10px);
+	.width(100%);
+
+	.form-row {
+		.font-s3;
+		.margin-bottom(25px);
+		.line-height(20px);
+
+		label {
+			.type-bold;
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		label:first-child {
+			.min-width(75px);
+		}
+
+		.form-subrow {
+			.margin-top(15px);
+			.margin-left(4%);
+			display: flex;
+
+			.col {
+				display: inline-block;
+				width: 50%;
+				float: left;
+			}
+
+			span:first-child {
+				.padding-top(6px);
+			}
+		}
 	}
 }

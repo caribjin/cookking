@@ -52,5 +52,5 @@ Meteor.startup(function() {
 		Meteor.settings.mailgun.default_smtp_login + ':' +
 		Meteor.settings.mailgun.default_password + '@' +
 		Meteor.settings.mailgun.smtp_host + ':587';
-	};
+	}
 });
