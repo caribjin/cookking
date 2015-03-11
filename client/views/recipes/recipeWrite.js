@@ -1,5 +1,5 @@
-WriteIngredients = new Meteor.Collection(null);
-WriteDirections = new Meteor.Collection(null);
+var WriteIngredients,
+	WriteDirections = null;
 
 var TAB_KEY = 'recipeWriteShowTab';
 
@@ -18,11 +18,9 @@ Template.RecipeWrite.ingredientAdd = function(type, text) {
 };
 
 Template.RecipeWrite.created = function() {
-	//if (Router.current().params.recipeId) {
-	//	Template.RecipeWrite.setTab('edit');
-	//} else {
-	//	Template.RecipeWrite.setTab('new');
-	//}
+	WriteIngredients = new Meteor.Collection(null);
+	WriteDirections = new Meteor.Collection(null);
+
 	Template.RecipeWrite.setTab('basic-info');
 
 	Template.RecipeWrite.ingredientAdd('must', '');
@@ -92,3 +90,8 @@ Template.RecipeWrite.events({
 		Template.RecipeWrite.ingredientAdd('option', '');
 	}
 });
+
+Template.RecipeWrite.destroyed = function() {
+	WriteIngredients = null;
+	WriteDirections = null;
+};
