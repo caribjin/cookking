@@ -1,10 +1,15 @@
 <template name="RecipeWrite">
 	<div class="page recipe-write {{activeTabClass}}">
-		{{> Navigation title='Recipe Write' transparent=false back=true}}
+		{{#Navigation title='Recipe Write' transparent=false back=true}}
+			<a href="#" class="nav-item js-recipe-save">
+				<span id="save">저장</span>
+			</a>
+			<div class="nav-item-last"></div>
+		{{/Navigation}}
 
 		<div class="content-recipe">
 			<div class="header">
-				<input type="text" class="lg" placeholder="레시피 이름을 적어주세요">
+				<input type="text" id="recipeName" class="lg {{errorClass 'recipeName'}}" placeholder="레시피 이름을 적어주세요">
 				<div class="btns-group">
 					<a class="btn-secondary {{#if isActiveTab 'basic-info'}}active{{/if}} js-show-basic-info">기본정보</a>
 					<a class="btn-secondary {{#if isActiveTab 'ingredients'}}active{{/if}} js-show-ingredients">재료</a>
@@ -21,8 +26,20 @@
 					</div>
 					<div class="form-row">
 						<label>기준 인원</label>
-						<input type="text" id="people" value="2" size="1" maxlength="1">
-						<span> 명</span>
+						<span>
+							<i id="servingDown" class="fa fa-lg fa-chevron-left"></i>
+						</span>
+						<input type="text" id="serving" value="2" maxlength="2" readonly>
+						<span>
+							<i id="servingUp" class="fa fa-chevron-right"></i>
+						</span>
+						<span>인분</span>
+					</div>
+					<div class="form-row">
+						<label>간단한 소개</label>
+						<div class="form-subrow description">
+							<input type="text" id="description" class="md underline" placeholder="간단한 요리 소개를 적어주세요" maxlength="100"/>
+						</div>
 					</div>
 					<div class="form-row">
 						<label>요리 종류</label>
@@ -50,12 +67,14 @@
 						{{#each ingredients 'must'}}
 							<div class="form-subrow">
 								<span>{{index}}.</span>
-								<input type="text" id="{{type}}-ingredient-{{index}}" class="sm underline" placeholder="재료명과 필요량을 입력해 주세요"/>
+								<input type="text" name="ingredients" data-type="{{type}}" data-id="{{_id}}" class="sm underline {{#if isFirstIngredient this}}{{errorClass 'mustIngredient'}}{{/if}}" placeholder="재료명과 필요량을 입력해 주세요" maxlength="100"/>
+								{{#if isNotFirstIngredient this}}
 								<span>
 									<a class="js-remove-ingredient btn-remove-circle">
 										<i class="fa fa-minus"></i>
 									</a>
 								</span>
+								{{/if}}
 							</div>
 						{{/each}}
 					</div>
@@ -67,7 +86,7 @@
 						{{#each ingredients 'option'}}
 							<div class="form-subrow">
 								<span>{{index}}.</span>
-								<input type="text" id="{{type}}-ingredient-{{order}}" class="sm underline" placeholder="재료명과 필요량을 입력해 주세요"/>
+								<input type="text" name="ingredients" data-type="{{type}}" data-id="{{_id}}" class="sm underline" placeholder="재료명과 필요량을 입력해 주세요" maxlength="100"/>
 								<span>
 									<a class="js-remove-ingredient btn-remove-circle">
 										<i class="fa fa-minus"></i>
@@ -80,7 +99,29 @@
 			</div>
 
 			<div class="content-scrollable directions-scrollable">
-				조리법
+				<div class="form">
+					<div class="form-row-header">
+						<span>조리과정 추가</span>
+						<a class="js-add-direction btn-add-circle">
+							<i class="fa fa-plus"></i>
+						</a>
+					</div>
+					<div class="form-row">
+						{{#each directions}}
+							<div class="form-subrow">
+								<span>{{index}}.</span>
+								<input type="text" name="directions" data-id="{{_id}}" class="sm underline {{#if isFirstDirection this}}{{errorClass 'direction'}}{{/if}}" placeholder="조리법을 입력해 주세요" maxlength="100"/>
+								{{#if isNotFirstDirection this}}
+								<span>
+									<a class="js-remove-direction btn-remove-circle">
+										<i class="fa fa-minus"></i>
+									</a>
+								</span>
+								{{/if}}
+							</div>
+						{{/each}}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

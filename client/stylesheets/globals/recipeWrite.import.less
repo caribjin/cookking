@@ -25,6 +25,10 @@
 
 			input {
 				.margin-bottom(100%);
+				.padding-top(0.7rem);
+				.padding-bottom(0.7rem);
+				.type-bold;
+				font-size: 1rem;
 			}
 
 			.btns-group {
@@ -83,7 +87,7 @@
 
 .form {
 	.form-row {
-		input#people {
+		input#serving {
 			.padding-left(3px);
 			.padding-right(0px);
 			.font-l1;
@@ -95,10 +99,14 @@
 		}
 		.form-subrow {
 			.font-size(15px);
+
+			span:first-child {
+				.margin-right(7px);
+			}
 		}
 		input[id^="checkbox-3-"] + label,
 		input[id*=" checkbox-3-"] + label {
-			margin-left: 0 !important;
+			.margin-left(0px) !important;
 			.margin-right(7px);
 		}
 	}
@@ -110,6 +118,13 @@
 			.size(40px);
 			.line-height(40px);
 		}
+	}
+
+	.form-row-header > span:first-child {
+		.margin-right(5px);
+		.font-size(13px);
+		.type-bold;
+		color: #545054;
 	}
 
 	.btn-remove-circle {
@@ -125,3 +140,45 @@
 		}
 	}
 }
+
+.basic-info-scrollable {
+	.form-subrow.description {
+		.margin-top(10px) !important;
+	}
+}
+
+.directions-scrollable {
+	.form-subrow {
+		.margin-left(0px) !important;
+	}
+}
+
+.error {
+	color: #ffffff !important;
+	background-color: rgba(175, 0, 0, 0.78);
+}
+
+#serving {
+	.width(50px) !important;
+	text-align: center;
+	vertical-align: sub;
+}
+
+#servingUp,
+#servingDown {
+	.font-size(27px);
+	color: #a0a39e;
+}
+
+#servingUp {
+	.margin-right(5px);
+}
+
+[id^="checkbox-10-"]:checked + label:after {
+	background-color: #D83E14;
+}
+
+[id^="checkbox-10-"] + label {
+	background-color: #dad5d2;
+}
+

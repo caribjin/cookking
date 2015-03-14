@@ -182,16 +182,29 @@
 	.item-direction {
 		.font-s3;
 		background: @color-empty;
-		.padding(12px, 30px);
-		.padding-left(0);
+		.padding(10px, 0px);
+		.padding-right(15px);
 	}
 
+	.item-ingredient {
+		.padding-left(20px);
+	}
+
+	.list-ingredients {
+		.margin-bottom(20px);
+	}
+
+	.list-ingredients,
 	.list-directions {
 		counter-reset: ol-counter;
 		list-style-type: decimal;
 		background-color: @color-empty;
 
+
+		.item-ingredient,
 		.item-direction {
+			list-style-type: none;
+
 			&:before {
 				color: @color-primary;
 				content: counter(ol-counter);
@@ -231,7 +244,20 @@
 
 	.ingredient-scrollable,
 	.direction-scrollable,
-	.feed-scrollable { z-index: 1; }
+	.feed-scrollable {
+		z-index: 1;
+
+		label {
+			.type-bold;
+			.font-s3;
+		}
+
+		.content {
+			.transform(transition3d(0,0,0));
+			background-color: @color-empty;
+			.padding(7%);
+		}
+	}
 
 	.ingredient-scrollable { .transform(translate3d(0,0,0)); }
 	.direction-scrollable { .transform(translate3d(100%,0,0)); }
@@ -243,8 +269,8 @@
 
 	.recipe-source-view {
 		top: auto;
-		bottom: 78%;
-		margin-right: 7px;
+		.bottom(78%);
+		.margin-right(3%);
 		z-index: 2;
 		opacity: 1;
 	}

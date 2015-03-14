@@ -24,11 +24,6 @@ Template.Recipe.rendered = function () {
 	});
 };
 
-// CSS transitions can't tell the difference between e.g. reaching
-//   the "make" tab from the expanded state or the "feeds" tab
-//   so we need to help the transition out by attaching another
-//   class that indicates if the feeds tab should slide out of the
-//   way smoothly, right away, or after the transition is over
 Template.Recipe.setTab = function(tab) {
 	var lastTab = Session.get(TAB_KEY);
 	Session.set(TAB_KEY, tab);

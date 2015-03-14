@@ -16,35 +16,6 @@ var isUserAgentBlacklisted = function() {
 	return false;
 };
 
-_.extend(App, {
-	track: function(key, meta) {
-		meta = meta || {};
-
-		if (isUserAgentBlacklisted()) return;
-
-		//Meteor.autorun(function(c) {
-		//	if (!Meteor.loggingIn()) {
-		//		var user =  Tracker.nonreactive(function() { return Meteor.user(); });
-		//		var email;
-		//
-		//		if (user && user.emails.length > 0) {
-		//			email = user.emails[0].address;
-		//		} else {
-		//			email = 'anonymous';
-		//		}
-		//
-		//		_.extend(meta, {
-		//			email: email,
-		//			path: location.pathname
-		//		});
-		//
-		//		mixpanel.track(key, meta);
-		//		c.stop();
-		//	}
-		//});
-	}
-});
-
 var DIMENSIONS = {
 	small: '320x350',
 	large: '640x480',
@@ -61,12 +32,15 @@ var CATEGORIES = {
 	'category-99': '기타'
 };
 
-App.helpers = {
+_.extend(App, {
+});
+
+_.extend(App.helpers, {
 	recipeImage: function(options) {
 		var size = options.hash.size || 'large';
 
 		if (options.hash.recipe)
-			return '/img/recipes/' + DIMENSIONS[size] + '/' + options.hash.recipe.name + '.jpg';
+			return '/img/recipes/' + DIMENSIONS[size] + '/' + options.hash.recipe.image;
 	},
 
 	isChecked: function(selector) {
@@ -173,8 +147,35 @@ App.helpers = {
 		return str.replace(/(?:^|\s)\w/g, function(match) {
 			return match.toUpperCase();
 		});
+	},
+
+	track: function(key, meta) {
+		meta = meta || {};
+
+		if (isUserAgentBlacklisted()) return;
+
+		//Meteor.autorun(function(c) {
+		//	if (!Meteor.loggingIn()) {
+		//		var user =  Tracker.nonreactive(function() { return Meteor.user(); });
+		//		var email;
+		//
+		//		if (user && user.emails.length > 0) {
+		//			email = user.emails[0].address;
+		//		} else {
+		//			email = 'anonymous';
+		//		}
+		//
+		//		_.extend(meta, {
+		//			email: email,
+		//			path: location.pathname
+		//		});
+		//
+		//		mixpanel.track(key, meta);
+		//		c.stop();
+		//	}
+		//});
 	}
-};
+});
 
 _.each(App.helpers, function (helper, key) {
 	Handlebars.registerHelper(key, helper);
@@ -182,7 +183,7 @@ _.each(App.helpers, function (helper, key) {
 
 Tracker.autorun(function() {
 	var path = Iron.Location.get().path;
-	App.track('Page Views');
+	App.helpers.track('Page Views');
 });
 
 Meteor.startup(function() {

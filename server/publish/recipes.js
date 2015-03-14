@@ -1,6 +1,4 @@
 Meteor.publish('recipes', function (options) {
-
-
 	return Recipes.find({}, options);
 });
 

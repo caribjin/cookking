@@ -51,7 +51,7 @@
 				{{title}}
 			</h1>
 			<div class="description">
-				{{excerpt}}
+				{{description}}
 			</div>
 			<div class="btns-group">
 				<a class="btn-secondary {{#if isActiveTab 'ingredients'}}active{{/if}} {{#if isActiveTab 'recipe'}}no-state{{/if}} js-show-ingredients">재료소개</a>
@@ -61,38 +61,63 @@
 		</div>
 
 		<div class="content-scrollable static-nav ingredient-scrollable">
-			<h2 class="list-title">이런 재료들이 들어가요</h2>
-			<ul class="list-ingredients">
-				{{#each ingredients}}
-					<li class="item-ingredient">{{this}}</li>
-				{{/each}}
-			</ul>
+			<h2 class="list-title">
+				<i class="fa fa-skyatlas"></i>
+				이런 재료들이 들어가요
+			</h2>
+			<div class="content">
+				<label>필수 재료</label>
+				<ol class="list-ingredients">
+					{{#each ingredients.must}}
+						<li class="item-ingredient">
+							<span class="text">{{this}}</span>
+						</li>
+					{{/each}}
+				</ol>
+				<label>선택 재료</label>
+				<ol class="list-ingredients">
+					{{#if ingredients.option}}
+						{{#each ingredients.option}}
+							<li class="item-ingredient">
+								<span class="text">{{this}}</span>
+							</li>
+						{{/each}}
+					{{/if}}
+				</ol>
+			</div>
 		</div>
 
 		<div class="content-scrollable static-nav direction-scrollable">
-			<h2 class="list-title">순서대로 따라해 보세요</h2>
-			<ol class="list-directions">
-				{{#each directions}}
-					<li class="item-direction">
-						<span class="text">{{this}}</span>
-					</li>
-				{{/each}}
-			</ol>
+			<h2 class="list-title">
+				<i class="fa fa-clock-o"></i>
+				순서대로 따라해 보세요
+			</h2>
+			<div class="content">
+				<ol class="list-directions">
+					{{#each directions}}
+						<li class="item-direction">
+							<span class="text">{{this.text}}</span>
+						</li>
+					{{/each}}
+				</ol>
+			</div>
 		</div>
 
 		<div class="content-scrollable static-nav feed-scrollable">
 			<h2 class="list-title js-share">
-				<i class="fa fa-camera"></i> 이 요리를 직접 만들어 보셨나요?<br/>그럼 여기에 올려서 공유해 보세요
+				<i class="fa fa-camera"></i> 이 요리를 직접 만들어 보셨나요?<br/>그럼 이 곳에 올려서 공유해 보세요
 			</h2>
-			<div class="list-feeds">
-				{{#each feeds}}
-					{{> Feed}}
-				{{else}}
-					<div class="wrapper-message">
-						<div class="title-message">No feed activity yet</div>
-						<div class="subtitle-message">Be the first to share that you made this recipe. <a class="js-share">Share now</a></div>
-					</div>
-				{{/each}}
+			<div class="content">
+				<div class="list-feeds">
+					{{#each feeds}}
+						{{> Feed}}
+					{{else}}
+						<div class="wrapper-message">
+							<div class="title-message">아직 이 요리를 만들어본 사용자가 없습니다</div>
+							<div class="subtitle-message">이 요리를 만들어본 최초의 쉐프가 되어 보세요!</div>
+						</div>
+					{{/each}}
+				</div>
 			</div>
 		</div>
 	</div>

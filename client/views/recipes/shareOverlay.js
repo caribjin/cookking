@@ -12,7 +12,7 @@ Template.ShareOverlay.helpers({
 	},
 
 	avatar: function() {
-		return Meteor.user().services.twitter.profile_image_url_https;
+		return App.helpers.getUserAvatar();
 	},
 
 	tweeting: function() {

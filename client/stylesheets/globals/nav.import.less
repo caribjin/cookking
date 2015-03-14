@@ -40,7 +40,7 @@ nav {
 		.type-bold;
 		.title-caps;
 		.ellipsized;
-		.position(absolute, 50%, 0, auto, 0);
+		.position(absolute, 49%, 0, auto, 0);
 		.transform(translate3d(0, -40%, 0));
 		line-height: 1;
 
@@ -63,11 +63,12 @@ nav {
 		vertical-align: middle;
 		height: 3.5rem;
 		width: 2.5rem;
+		white-space: nowrap;
 
 		&:active { opacity: .5; }
 
-		[class^="icon-"],
-		[class*=" icon-"] {
+		[class^="fa-"],
+		[class*=" fa-"] {
 			line-height: 3rem;
 			vertical-align: middle;
 		}
@@ -87,6 +88,14 @@ nav {
 		&.right {
 			left: auto;
 			right: 0;
+		}
+
+		span#save {
+			.type-bold;
+			.font-size(15px);
+			.padding-left(2px);
+			.padding-right(10px);
+			.margin-top(2px);
 		}
 	}
 }

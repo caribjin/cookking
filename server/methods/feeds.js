@@ -10,12 +10,9 @@ Meteor.methods({
 		check(loc, Match.OneOf(Object, null));
 
 		feed.userId = Meteor.userId();
-		feed.userAvatar = getUserAvatar(feed.userId);
+		feed.userAvatar = App.helpers.getUserAvatar();
 		feed.createdAt = new Date;
-
-		if (Meteor.user().profile && Meteor.user().profile.name) {
-			feed.userName = Meteor.user().profile.name;
-		}
+		feed.userName = App.helpers.getUserName();
 
 		if (!this.isSimulation && loc)
 			feed.place = getLocationPlace(loc);
@@ -113,14 +110,14 @@ var callTwitter = function(options) {
 //		throw new Meteor.Error(500, 'Unable to create tweet');
 //};
 
-var getUserAvatar = function(userId) {
-	var result = '';
-
-	if (Meteor.user()) {
-		if (Meteor.user().services.twitter) {
-			result = Meteor.user().services.twitter.profile_image_url_https;
-		}
-	}
-
-	return result;
-};
+//var getUserAvatar = function(userId) {
+//	var result = '';
+//
+//	if (Meteor.user()) {
+//		if (Meteor.user().services.twitter) {
+//			result = Meteor.user().services.twitter.profile_image_url_https;
+//		}
+//	}
+//
+//	return result;
+//};
