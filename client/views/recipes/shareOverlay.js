@@ -22,33 +22,19 @@ Template.ShareOverlay.helpers({
 
 Template.ShareOverlay.events({
 	'click .js-attach-from-album': function() {
-		if (Meteor.isCordova) {
-			MeteorCamera.getPicture({
-				width: App.settings.defaultCameraImageWidth,
-				height: App.settings.defaultCameraImageHeight,
-				quality: App.settings.defaultCameraImageQuality,
-				sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
-			}, function (error, data) {
-				if (!error) {
-					Session.set(IMAGE_KEY, data);
-				}
-			});
-		} else {
-			App.helpers.error('모바일 환경에서만 실행 가능한 명령입니다');
-			return;
-		}
-	},
-
-	'click .js-attach-from-camera': function() {
-		MeteorCamera.getPicture({
-			width: App.settings.defaultCameraImageWidth,
-			height: App.settings.defaultCameraImageHeight,
-			quality: App.settings.defaultCameraImageQuality
-		}, function(error, data) {
+		App.helpers.getPicture('album', function(error, data) {
 			if (!error) {
 				Session.set(IMAGE_KEY, data);
 			}
 		});
+	},
+
+	'click .js-attach-from-camera': function() {
+		App.helpers.getPicture('camera', function(error, data) {
+			if (!error) {
+				Session.set(IMAGE_KEY, data);
+			}
+		})
 	},
 
 	'click .js-unattach-image': function() {

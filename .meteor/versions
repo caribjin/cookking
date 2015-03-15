@@ -51,7 +51,6 @@ localstorage@1.0.2
 logging@1.0.6
 mdg:camera@1.1.4
 mdg:geolocation@1.0.2
-mdg:reload-on-resume@1.0.4
 meteor@1.1.4
 meteor-platform@1.2.1
 meteorhacks:fast-render@2.3.1

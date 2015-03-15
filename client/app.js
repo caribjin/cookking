@@ -1,6 +1,10 @@
 /*****************************************************************************/
 /* Client App Namespace  */
 /*****************************************************************************/
+/**
+ * 현재 접속 에이전트가 기본적인 차단 에이전트중 한개인지 검사한다.
+ * @returns {boolean}   기본 차단에이전트인지 여부
+ */
 var isUserAgentBlacklisted = function() {
 	var blacklist = ['PhantomJS', 'Googlebot', 'Bing', 'Yahoo'];
 	var userAgent = navigator.userAgent;
@@ -22,6 +26,9 @@ var DIMENSIONS = {
 	full: '640x800'
 };
 
+/**
+ * 레시피 종류
+ */
 var CATEGORIES = {
 	'category-0': '반찬/샐러드',
 	'category-1': '메인요리',
@@ -31,9 +38,6 @@ var CATEGORIES = {
 	'category-5': '소스/양념장/육수',
 	'category-99': '기타'
 };
-
-_.extend(App, {
-});
 
 _.extend(App.helpers, {
 	recipeImage: function(options) {
@@ -67,7 +71,7 @@ _.extend(App.helpers, {
 	 * @param type      아이콘유형. error | info | warning | success
 	 * @param close     확인버튼 클릭 시 창 닫음 여부. 콜백함수에서 alert이나 confirm이 또다시 호출될 경우
 	 *                  외부에서는 false, callback 내부에서는 true로 지정할 것.
-	 * @param callback  callback 함수
+	 * @param callback  콜 함수
 	 */
 	alert: function(title, text, type, close, callback) {
 		if (!title) return;
@@ -92,6 +96,13 @@ _.extend(App.helpers, {
 		}, callback);
 	},
 
+	/**
+	 * 오류 알림창을 출력한다.
+	 * 기본적으로 alert과 동일하고, 아이콘과 버튼 색상등만 오류상황에 맞게 최적화되있는것만
+	 * 차이점이 있다.
+	 * @param text          텍스트
+	 * @param callback      콜백 함수
+	 */
 	error: function(text, callback) {
 		if (!text) return;
 
@@ -118,7 +129,7 @@ _.extend(App.helpers, {
 	 * @param type      아이콘유형. error | info | warning | success
 	 * @param close     확인버튼 클릭 시 창 닫음 여부. 콜백함수에서 alert이나 confirm이 또다시 호출될 경우
 	 *                  외부에서는 false, callback 내부에서는 true로 지정할 것.
-	 * @param callback  callback 함수
+	 * @param callback  콜백 함수
 	 */
 	confirm: function(title, text, type, close, callback) {
 		if (!title) return;
@@ -143,12 +154,50 @@ _.extend(App.helpers, {
 		}, callback);
 	},
 
+	/**
+	 * 노티 메시지 큐에 정보를 추가한다. 일정시간동안 유지된 후 자동 삭제된다.
+	 * @param title         출력 메시지
+	 * @param actionText    액션버튼 출력문자
+	 * @param callback      콜백 함수
+	 */
 	addNotification: function(title, actionText, callback) {
 		Template.MasterLayout.addNotification({
 			action: actionText,
 			title: title,
 			callback: callback
 		});
+	},
+
+	/**
+	 * 카메라 촬영을 하거나 앨범에서 사진을 선택한다.
+	 * 모바일 환경에서만 동작한다.
+	 * @param type      촬영 유형. camera: 카메라촬영 | album: 앨범에서 선택
+	 * @param callback  콜백 함수 args (error, data)
+	 */
+	getPicture: function(type, callback) {
+		var sourceType;
+
+		if (type === 'album' && !Meteor.isCordova) {
+			App.helpers.error('모바일 환경에서만 실행 가능한 명령입니다');
+			return;
+		}
+
+		if (type === 'album') sourceType = 0;
+		else sourceType = 1;
+
+		if (!_.isFunction(callback)) callback = new Function();
+
+		MeteorCamera.getPicture({
+			sourceType: sourceType,
+			width: App.settings.defaultCameraImageWidth,
+			height: App.settings.defaultCameraImageHeight,
+			quality: App.settings.defaultCameraImageQuality,
+			destinationType: 0,                                 // DATA_URL(0) | FILE_URI(1) | NATIVE_URI(2)
+			mediaType: 2,                                       // PICTURE(0) | VIDEO(1) | ALLMEDIA(2)
+			encodingType: 0,                                    // JPEG(0) | PNG(1)
+			saveToPhotoAlbum: true,
+			correctOrientation: true
+		}, callback);
 	},
 
 	pluralize: function(n, thing, options) {

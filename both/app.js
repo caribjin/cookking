@@ -8,9 +8,9 @@ App = {
 		emptyAvatarImage: '/img/profile/profile-empty.png',
 
 		// 사진촬영 이미지 기본 사이즈
-		defaultCameraImageWidth: 1024,
+		defaultCameraImageWidth: 640,
 		defaultCameraImageHeight: 0,
-		defaultCameraImageQuality: 100
+		defaultCameraImageQuality: 75
 	},
 
 	helpers: {
