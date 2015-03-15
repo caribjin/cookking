@@ -1,6 +1,11 @@
 <template name="Recipe">
 	<div class="page recipe {{activeTabClass}}">
 		{{#Navigation title='Recipe' transparent=true back=true}}
+			{{#if deletable}}
+				<a href="#" class="nav-item js-delete">
+					<i class="fa fa-trash"></i>
+				</a>
+			{{/if}}
 			{{#if bookmarked}}
 				<a href="#" class="nav-item js-remove-bookmark bookmarked">
 					<i class="fa fa-bookmark"></i>
@@ -45,7 +50,9 @@
 			</span>
 			<div class="writer">
 				{{writer.name}}
-				<img class="avatar" src="{{writer.avatar}}">
+				<div class="avatar">
+					<img class="image-avatar" src="{{avatarImage}}">
+				</div>
 			</div>
 			<h1 class="title">
 				{{title}}
@@ -105,7 +112,7 @@
 
 		<div class="content-scrollable static-nav feed-scrollable">
 			<h2 class="list-title js-share">
-				<i class="fa fa-camera"></i> 이 요리를 직접 만들어 보셨나요?<br/>그럼 이 곳에 올려서 공유해 보세요
+				<i class="fa fa-camera"></i> 직접 만든 이 요리를 공유해 보세요
 			</h2>
 			<div class="content">
 				<div class="list-feeds">

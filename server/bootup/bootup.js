@@ -1,4 +1,6 @@
 Meteor.startup(function() {
+	Future = Npm.require('fibers/future');
+
 	setUsers(Fixtures.users);
 
 	setFixture(Fixtures.recipes, Recipes);

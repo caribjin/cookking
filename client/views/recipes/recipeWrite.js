@@ -145,53 +145,55 @@ Template.RecipeWrite.save = function(e, tmpl) {
 	var errors = {};
 
 	if (errorCount <= 0) {
-		// 모든 동적입력값들을 컬렉션에 업데이트한다.
-		Template.RecipeWrite.syncDataToCollection();
+		App.helpers.confirm('저장하시겠습니까?', '레시피를 저장합니다', 'info', true, function() {
+			// 모든 동적입력값들을 컬렉션에 업데이트한다.
+			Template.RecipeWrite.syncDataToCollection();
 
-		recipe = {
-			title: tmpl.find('#recipeName').value,
-			description: tmpl.find('#description').value,
-			image: '',
-			public: App.helpers.isChecked('#checkbox-10-public'),
-			serving: parseInt(tmpl.find('#serving').value, 10),
-			cookTime: 0,
-			source: {
-				name: 'source.name',
-				url: 'source.url'
-			},
-			ingredients: {
-				must: _.map(WriteIngredients.find(
-					{type: 'must', text: {$ne: ''}},
-					{fields: {text: 1, _id: 0}},
-					{sort: {createdAt: 1}}).fetch(), function(doc) {
-					return doc.text;
-				}),
-				option: _.map(WriteIngredients.find(
-					{type: 'option', text: {$ne: ''}},
-					{fields: {text: 1, _id: 0}},
-					{sort: {createdAt: 1}}).fetch(), function(doc) {
-					return doc.text;
-				})
-			},
-			directions: WriteDirections.find(
+			recipe = {
+				title: tmpl.find('#recipeName').value,
+				description: tmpl.find('#description').value,
+				image: '',
+				public: App.helpers.isChecked('#checkbox-10-public'),
+				serving: parseInt(tmpl.find('#serving').value, 10),
+				cookTime: 0,
+				source: {
+					name: 'source.name',
+					url: 'source.url'
+				},
+				ingredients: {
+					must: _.map(WriteIngredients.find(
+						{type: 'must', text: {$ne: ''}},
+						{fields: {text: 1, _id: 0}},
+						{sort: {createdAt: 1}}).fetch(), function(doc) {
+						return doc.text;
+					}),
+					option: _.map(WriteIngredients.find(
+						{type: 'option', text: {$ne: ''}},
+						{fields: {text: 1, _id: 0}},
+						{sort: {createdAt: 1}}).fetch(), function(doc) {
+						return doc.text;
+					})
+				},
+				directions: WriteDirections.find(
 					{text: {$ne: ''}},
 					{fields: {text: 1, image: 1, _id: 0}},
 					{sort: {createdAt: 1}}).fetch(),
-			highlighted: false,
-			bookmarkedCount: 0
-		};
+				highlighted: false,
+				bookmarkedCount: 0
+			};
 
-		Meteor.call('createRecipe', recipe, function(error, result) {
-			if (error) {
-				errors.etc = error.reason;
-			} else if (!result) {
-				errors.etc = 'Unknown error raised during save recipe';
-			}
+			Meteor.call('createRecipe', recipe, function(error, result) {
+				if (error) {
+					App.helpers.error(error.reason);
+				} else if (!result) {
+					App.helpers.error('알 수 없는 오류가 발생했습니다.')
+				}
 
-			Session.set(ERRORS_KEY, errors);
-			if (_.keys(errors).length) return;
+				Session.set(ERRORS_KEY, errors);
+				if (_.keys(errors).length) return;
 
-			Router.go('home');
+				Router.go('home');
+			});
 		});
 	}
 };

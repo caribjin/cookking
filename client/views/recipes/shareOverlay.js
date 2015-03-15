@@ -11,8 +11,8 @@ Template.ShareOverlay.helpers({
 		return Session.get(IMAGE_KEY);
 	},
 
-	avatar: function() {
-		return App.helpers.getUserAvatar();
+	avatarImage: function() {
+		return App.helpers.getCurrentUserAvatar() || App.settings.emptyAvatarImage;
 	},
 
 	tweeting: function() {
@@ -24,24 +24,26 @@ Template.ShareOverlay.events({
 	'click .js-attach-from-album': function() {
 		if (Meteor.isCordova) {
 			MeteorCamera.getPicture({
-				width: 1024,
-				quality: 100,
-				sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+				width: App.settings.defaultCameraImageWidth,
+				height: App.settings.defaultCameraImageHeight,
+				quality: App.settings.defaultCameraImageQuality,
+				sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
 			}, function (error, data) {
 				if (!error) {
 					Session.set(IMAGE_KEY, data);
 				}
 			});
 		} else {
-			alert('모바일 환경에서만 실행 가능한 명령입니다');
+			App.helpers.error('모바일 환경에서만 실행 가능한 명령입니다');
 			return;
 		}
 	},
 
 	'click .js-attach-from-camera': function() {
 		MeteorCamera.getPicture({
-			width: 1024,
-			quality: 100
+			width: App.settings.defaultCameraImageWidth,
+			height: App.settings.defaultCameraImageHeight,
+			quality: App.settings.defaultCameraImageQuality
 		}, function(error, data) {
 			if (!error) {
 				Session.set(IMAGE_KEY, data);
@@ -71,17 +73,11 @@ Template.ShareOverlay.events({
 			image: Session.get(IMAGE_KEY)
 		}, tweet, Geolocation.currentLocation(), function(error, result) {
 			if (error) {
-				alert(error.reason);
+				App.helpers.error(error.reason);
 			} else {
-				Template.MasterLayout.addNotification({
-					action: 'View',
-					title: 'Your photo was shared.',
-					callback: function() {
-						Router.go('recipe', { _id: self._id },
-							{ query: { feedId: result } });
-
-						Template.Recipe.setTab('feed');
-					}
+				App.helpers.addNotification('사진을 공유했습니다', '보기', function() {
+					Router.go('recipe', {_id: self._id}, {query: {feedId: result}});
+					Template.Recipe.setTab('feed');
 				});
 			}
 		});
@@ -89,3 +85,7 @@ Template.ShareOverlay.events({
 		Overlay.close();
 	}
 });
+
+Template.ShareOverlay.destroyed = function() {
+	Session.set(IMAGE_KEY, null);
+};

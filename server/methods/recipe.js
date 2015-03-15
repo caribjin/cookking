@@ -25,8 +25,8 @@ Meteor.methods({
 
 		recipe.writer = {
 			userId: Meteor.userId(),
-			userName: App.helpers.getUserName(),
-			userAvatar: App.helpers.getUserAvatar()
+			userName: App.helpers.getCurrentUserName(),
+			userAvatar: App.helpers.getCurrentUserAvatar()
 		};
 
 		recipe.createdAt = new Date();
@@ -34,5 +34,21 @@ Meteor.methods({
 		var id = Recipes.insert(recipe);
 
 		return id;
+	},
+
+	deleteRecipe: function(recipeId) {
+		check(recipeId, String);
+
+		var f = new Future();
+
+		Recipes.remove(recipeId, function(error, result) {
+			if (error) {
+				f.throw(error);
+			} else {
+				f.return(result);
+			}
+		});
+
+		return f.wait();
 	}
 });

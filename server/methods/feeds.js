@@ -10,9 +10,9 @@ Meteor.methods({
 		check(loc, Match.OneOf(Object, null));
 
 		feed.userId = Meteor.userId();
-		feed.userAvatar = App.helpers.getUserAvatar();
+		feed.userAvatar = App.helpers.getCurrentUserAvatar();
 		feed.createdAt = new Date;
-		feed.userName = App.helpers.getUserName();
+		feed.userName = App.helpers.getCurrentUserName();
 
 		if (!this.isSimulation && loc)
 			feed.place = getLocationPlace(loc);
@@ -110,7 +110,7 @@ var callTwitter = function(options) {
 //		throw new Meteor.Error(500, 'Unable to create tweet');
 //};
 
-//var getUserAvatar = function(userId) {
+//var getCurrentUserAvatar = function(userId) {
 //	var result = '';
 //
 //	if (Meteor.user()) {

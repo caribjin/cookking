@@ -1,5 +1,3 @@
-Future = Npm.require('fibers/future');
-
 Meteor.methods({
 	validateEmailAddress: function(email) {
 		check(email, String);

@@ -26,12 +26,12 @@
 					</div>
 					<div class="form-row">
 						<label>기준 인원</label>
-						<span>
-							<i id="servingDown" class="fa fa-lg fa-chevron-left"></i>
+						<span id="servingDown">
+							<i class="fa fa-chevron-left"></i>
 						</span>
 						<input type="text" id="serving" value="2" maxlength="2" readonly>
-						<span>
-							<i id="servingUp" class="fa fa-chevron-right"></i>
+						<span id="servingUp">
+							<i class="fa fa-chevron-right"></i>
 						</span>
 						<span>인분</span>
 					</div>
@@ -61,7 +61,7 @@
 				<div class="form">
 					<div class="form-row">
 						<label>필수 재료</label>
-						<a class="js-add-must-ingredient btn-add-circle">
+						<a class="js-add-must-ingredient btn-md-add-circle">
 							<i class="fa fa-plus"></i>
 						</a>
 						{{#each ingredients 'must'}}
@@ -70,7 +70,7 @@
 								<input type="text" name="ingredients" data-type="{{type}}" data-id="{{_id}}" class="sm underline {{#if isFirstIngredient this}}{{errorClass 'mustIngredient'}}{{/if}}" placeholder="재료명과 필요량을 입력해 주세요" maxlength="100"/>
 								{{#if isNotFirstIngredient this}}
 								<span>
-									<a class="js-remove-ingredient btn-remove-circle">
+									<a class="js-remove-ingredient btn-sm-remove-circle">
 										<i class="fa fa-minus"></i>
 									</a>
 								</span>
@@ -80,7 +80,7 @@
 					</div>
 					<div class="form-row">
 						<label>선택 재료</label>
-						<a class="js-add-option-ingredient btn-add-circle">
+						<a class="js-add-option-ingredient btn-md-add-circle">
 							<i class="fa fa-plus"></i>
 						</a>
 						{{#each ingredients 'option'}}
@@ -88,7 +88,7 @@
 								<span>{{index}}.</span>
 								<input type="text" name="ingredients" data-type="{{type}}" data-id="{{_id}}" class="sm underline" placeholder="재료명과 필요량을 입력해 주세요" maxlength="100"/>
 								<span>
-									<a class="js-remove-ingredient btn-remove-circle">
+									<a class="js-remove-ingredient btn-sm-remove-circle">
 										<i class="fa fa-minus"></i>
 									</a>
 								</span>
@@ -100,9 +100,15 @@
 
 			<div class="content-scrollable directions-scrollable">
 				<div class="form">
-					<div class="form-row-header">
+					<div class="form-row-header complete-image">
+						<a class="js-add-complete-image btn-md-add-circle">
+							<i class="fa fa-picture-o"></i>
+						</a>
+						<span>완성사진 등록</span>
+					</div>
+					<div class="form-row-header direction">
 						<span>조리과정 추가</span>
-						<a class="js-add-direction btn-add-circle">
+						<a class="js-add-direction btn-md-add-circle">
 							<i class="fa fa-plus"></i>
 						</a>
 					</div>
@@ -113,7 +119,7 @@
 								<input type="text" name="directions" data-id="{{_id}}" class="sm underline {{#if isFirstDirection this}}{{errorClass 'direction'}}{{/if}}" placeholder="조리법을 입력해 주세요" maxlength="100"/>
 								{{#if isNotFirstDirection this}}
 								<span>
-									<a class="js-remove-direction btn-remove-circle">
+									<a class="js-remove-direction btn-sm-remove-circle">
 										<i class="fa fa-minus"></i>
 									</a>
 								</span>

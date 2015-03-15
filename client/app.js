@@ -60,6 +60,97 @@ _.extend(App.helpers, {
 		return tag;
 	},
 
+	/**
+	 * 경고창을 출력한다
+	 * @param title     제목
+	 * @param text      내용
+	 * @param type      아이콘유형. error | info | warning | success
+	 * @param close     확인버튼 클릭 시 창 닫음 여부. 콜백함수에서 alert이나 confirm이 또다시 호출될 경우
+	 *                  외부에서는 false, callback 내부에서는 true로 지정할 것.
+	 * @param callback  callback 함수
+	 */
+	alert: function(title, text, type, close, callback) {
+		if (!title) return;
+
+		text = text || '';
+		type = type || '';
+		close = typeof close === 'undefined' ? true : close;
+
+		//if (callback !== 'undefined' && typeof callback !== 'function') callback = new Function();
+		if (!_.isFunction(callback)) callback = new Function();
+
+		sweetAlert({
+			title: title,
+			text: text,
+			type: type,
+			showCancelButton: false,
+			confirmButtonColor: '#6699cc',
+			allowOutsideClick: false,
+			confirmButtonText: '확인',
+			closeOnConfirm: close,
+			html: false
+		}, callback);
+	},
+
+	error: function(text, callback) {
+		if (!text) return;
+
+		//if (callback !== 'undefined' && typeof callback !== 'function') callback = new Function();
+		if (!_.isFunction(callback)) callback = new Function();
+
+		sweetAlert({
+			title: 'ERROR',
+			text: text,
+			type: 'error',
+			showCancelButton: false,
+			confirmButtonColor: '#DD4B39',
+			allowOutsideClick: false,
+			confirmButtonText: '확인',
+			closeOnconfirm: true,
+			html: true
+		}, callback);
+	},
+
+	/**
+	 * 확인창을 출력한다.
+	 * @param title     제목
+	 * @param text      내용
+	 * @param type      아이콘유형. error | info | warning | success
+	 * @param close     확인버튼 클릭 시 창 닫음 여부. 콜백함수에서 alert이나 confirm이 또다시 호출될 경우
+	 *                  외부에서는 false, callback 내부에서는 true로 지정할 것.
+	 * @param callback  callback 함수
+	 */
+	confirm: function(title, text, type, close, callback) {
+		if (!title) return;
+
+		text = text || '';
+		type = type || '';
+		close = typeof close === 'undefined' ? true : close;
+
+		//if (callback !== 'undefined' && typeof callback !== 'function') callback = new Function();
+		if (!_.isFunction(callback)) callback = new Function();
+
+		sweetAlert({
+			title: title,
+			text: text,
+			type: type,
+			showCancelButton: true,
+			confirmButtonColor: "#DD4B39",
+			confirmButtonText: "네",
+			cancelButtonText: '아니오',
+			closeOnConfirm: close,
+			html: false
+		}, callback);
+	},
+
+	addNotification: function(title, actionText, callback) {
+		Template.MasterLayout.addNotification({
+			action: actionText,
+			title: title,
+			callback: callback
+		});
+	},
+
 	pluralize: function(n, thing, options) {
 		var plural = thing;
 		if (_.isUndefined(n)) {

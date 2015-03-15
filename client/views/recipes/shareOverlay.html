@@ -28,14 +28,15 @@
 				<form class="form-share">
 					<div class="form-group">
 						<div class="avatar">
-							<img src="{{avatar}}" class="image-avatar">
+							<img src="{{avatarImage}}" class="image-avatar">
 						</div>
 
                         <textarea name="text" type="text"
                             autocapitalize="off" autocorrect="off"
                             required maxlength="140"
                             class="message-share"
-                            placeholder="Add advice, suggestions, or thoughts to share with the community..."></textarea>
+                            rows="4"
+                            placeholder="쓰고 싶은 내용을 적어주세요..."></textarea>
 					</div>
 
 					<div class="wrapper-checkbox">
@@ -46,11 +47,7 @@
 					</div>
 
 					<button class="btn-primary" type='submit'>
-						{{#if tweeting}}
-							올리기 & 트윗
-						{{else}}
-							올리기
-						{{/if}}
+						올리기
 					</button>
 				</form>
 			{{/unless}}

@@ -1,5 +1,5 @@
 var ANIMATION_DURATION = 300;
-var NOTIFICATION_TIMEOUT = 3000;
+var NOTIFICATION_TIMEOUT = 5000;
 var MENU_KEY = 'menuOpen';
 var IGNORE_CONNECTION_ISSUE_KEY = 'ignoreConnectionIssue';
 var CONNECTION_ISSUE_TIMEOUT = 5000;
@@ -12,7 +12,6 @@ Session.setDefault(MENU_KEY, false);
 // that initator is set
 var nextInitiator = null, initiator = null;
 Tracker.autorun(function() {
-	// add a tracker
 	Router.current();
 
 	initiator = nextInitiator;
@@ -30,7 +29,7 @@ Template.MasterLayout.addNotification = function(notification) {
 };
 
 Meteor.startup(function () {
-	// set up a swipe left / right handler
+	// 왼쪽/오른쪽 스와이프 동작에 대한 핸들러를 설정
 	$(document.body).touchwipe({
 		wipeLeft: function () {
 			Session.set(MENU_KEY, false);
@@ -41,13 +40,11 @@ Meteor.startup(function () {
 		preventDefaultEvents: false
 	});
 
-	// Only show the connection error box if it has been 5 seconds since
-	// the app started
+	// 앱이 시작한 뒤 5초 이후부터만 connection error 메시지를 출력
 	setTimeout(function () {
-		// Launch screen handle created in lib/router.js
+		// Launch screen handle created in both/router.js
 		dataReadyHold.release();
 
-		// Allow the connection error box to be shown if there is an issue
 		Session.set(IGNORE_CONNECTION_ISSUE_KEY, false);
 	}, CONNECTION_ISSUE_TIMEOUT);
 });

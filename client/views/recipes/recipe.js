@@ -69,6 +69,14 @@ Template.Recipe.helpers({
 
 	sharedCount: function() {
 		return Math.round(Math.random() * 200);
+	},
+
+	deletable: function() {
+		return true;
+	},
+
+	avatarImage: function() {
+		return this.writer.avatar || App.settings.emptyAvatarImage;
 	}
 });
 
@@ -87,6 +95,35 @@ Template.Recipe.events({
 
 		Meteor.call('unbookmarkRecipe', this._id);
 	},
+
+	'click .js-delete': function(event) {
+		event.preventDefault();
+
+		var self = this;
+
+		App.helpers.confirm(
+			'레시피를 삭제하시겠습니까?',
+			'한번 삭제된 레시피는 복구할 수 없습니다.',
+			'warning', false, function() {
+				Meteor.call('deleteRecipe', self._id, function (error, result) {
+					if (error) {
+						App.helpers.error(error.reason);
+					} else {
+						if (result > 0) {
+							Router.go('/');
+
+							App.helpers.alert(
+								'삭제되었습니다!',
+								'레시피가 삭제되었습니다',
+								'success', true);
+						} else {
+							App.helpers.error('일치하는 레시피를 찾을 수 없습니다');
+						}
+					}
+				});
+			});
+	},
+
 
 	'click .js-share': function() {
 		Overlay.open('ShareOverlay', this);
