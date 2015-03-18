@@ -193,7 +193,7 @@ _.extend(App.helpers, {
 			height: App.settings.defaultCameraImageHeight,
 			quality: App.settings.defaultCameraImageQuality,
 			destinationType: 0,                                 // DATA_URL(0) | FILE_URI(1) | NATIVE_URI(2)
-			mediaType: 2,                                       // PICTURE(0) | VIDEO(1) | ALLMEDIA(2)
+			mediaType: 0,                                       // PICTURE(0) | VIDEO(1) | ALLMEDIA(2)
 			encodingType: 0,                                    // JPEG(0) | PNG(1)
 			saveToPhotoAlbum: true,
 			correctOrientation: true
@@ -318,7 +318,7 @@ _.extend(App.helpers, {
 });
 
 _.each(App.helpers, function (helper, key) {
-	Handlebars.registerHelper(key, helper);
+	Template.registerHelper(key, helper);
 });
 
 Tracker.autorun(function() {

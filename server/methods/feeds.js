@@ -4,7 +4,7 @@ Meteor.methods({
 		check(feed, {
 			recipeId: String,
 			text: String,
-			image: String
+			imageId: String
 		});
 		check(isTweet, Boolean);
 		check(loc, Match.OneOf(Object, null));

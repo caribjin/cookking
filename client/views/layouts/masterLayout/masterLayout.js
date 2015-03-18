@@ -37,7 +37,8 @@ Meteor.startup(function () {
 		wipeRight: function () {
 			Session.set(MENU_KEY, true);
 		},
-		preventDefaultEvents: false
+		min_move_x: 180,
+		preventDefaultEvents: true
 	});
 
 	// 앱이 시작한 뒤 5초 이후부터만 connection error 메시지를 출력

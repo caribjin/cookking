@@ -5,7 +5,28 @@
 				<a href="#" class="js-close-overlay overlay-dismiss"><span class="icon-cross"></span></a>
 				<div class="wrapper-heading">
 					<div class="title-overlay">Share</div>
-					<div class="subtitle-overlay">바로 사진을 찍거나 앨범의 사진을 선택해서 올려주세요</div>
+					<div class="subtitle-overlay">바로 사진을 찍거나 앨범의 사진을 선택해서 올려주세요
+						<!--{{#each uploadedImages}}-->
+							<!--<div>-->
+								<!--name : {{this.name}}<br>-->
+								<!--extension: {{this.extension}}<br>-->
+								<!--size: {{this.size store="thumbs"}}<br>-->
+								<!--size2: {{this.formattedSize store="thumbs"}}<br>-->
+
+								<!--{{#if isImage}}this is image.{{/if}}-->
+								<!--{{#if isVideo}}this is video.{{/if}}-->
+								<!--{{#if isAudio}}this is audio.{{/if}}<br><br>-->
+								<!--{{#if isUploaded}}-->
+									<!--Uploaded-->
+								<!--{{else}}-->
+									<!--Now uploading...-->
+								<!--{{/if}}<br>-->
+								<!--<a href="{{this.url}}" target="_blank">-->
+									<!--<img src="{{this.url store='thumbs' uploading='/img/uploading.gif' storing='/img/storing.gif'}}" class="thumbnail" style="max-width: 300px;">-->
+								<!--</a>-->
+							<!--</div>-->
+						<!--{{/each}}-->
+					</div>
 				</div>
 
 				<div class="wrapper">
@@ -18,14 +39,19 @@
 						<div class="subtext-album">앨범에서</div>
 					</a>
 				</div>
+				<div>
+					<input type="file" id="imageFile" class="imageFile" style="visibility: hidden; position: absolute; top: 0; left: -5000px;"/>
+				</div>
 			{{else}}
 				<a href="#" class="js-unattach-image overlay-back"><span class="icon-arrow-left-alt"></span></a>
 				<div class="title-page">Share</div>
 				<a href="#" class="js-close-overlay overlay-dismiss"><span class="icon-cross"></span></a>
 
-				<div class="bg-image" style="background-image: url('{{attachedImage}}')"></div>
+				<div class="cropper">
+					<img src="{{attachedImage}}">
+				</div>
 
-				<form class="form-share">
+				<form class="form-share" style="display: ">
 					<div class="form-group">
 						<div class="avatar">
 							<img src="{{avatarImage}}" class="image-avatar">
@@ -33,9 +59,9 @@
 
                         <textarea name="text" type="text"
                             autocapitalize="off" autocorrect="off"
-                            required maxlength="140"
+                            maxlength="140"
                             class="message-share"
-                            rows="4"
+                            rows="2"
                             placeholder="쓰고 싶은 내용을 적어주세요..."></textarea>
 					</div>
 

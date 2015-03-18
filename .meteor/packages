@@ -24,9 +24,14 @@ http
 email
 meteorhacks:ssr
 meteorhacks:fast-render
-msavin:mongol
 request
 multiply:iron-router-progress
 wizonesolutions:underscore-string
 audit-argument-checks
 kevohagan:sweetalert
+jonblum:jquery-cropper
+cfs:standard-packages
+cfs:filesystem
+cfs:graphicsmagick
+numeral:numeral
+msavin:mongol

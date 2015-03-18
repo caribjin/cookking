@@ -6,7 +6,9 @@ Router.configure({
 	notFoundTemplate: 'NotFound',
 	progressSpinner: false,
 	waitOn: function() {
-		return Meteor.subscribe('user');
+		return [
+			Meteor.subscribe('user')
+		];
 	}
 });
 
