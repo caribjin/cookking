@@ -1,13 +1,13 @@
 var ERRORS_KEY = 'signinErrors';
 
-Template.SignIn.created = function() {
+Template.SignIn.onCreated(function() {
 	this.autorun(function() {
 		if (Meteor.userId() && Overlay.template() === 'SignIn')
 			Overlay.close();
 	});
 
 	Session.set(ERRORS_KEY, {});
-};
+});
 
 Template.SignIn.helpers({
 	errorMessages: function() {

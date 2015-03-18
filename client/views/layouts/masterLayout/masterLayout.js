@@ -37,7 +37,7 @@ Meteor.startup(function () {
 		wipeRight: function () {
 			Session.set(MENU_KEY, true);
 		},
-		min_move_x: 180,
+		min_move_x: 150,
 		preventDefaultEvents: true
 	});
 
@@ -110,7 +110,7 @@ Template.MasterLayout.helpers({
 	}
 });
 
-Template.MasterLayout.rendered = function () {
+Template.MasterLayout.onRendered(function () {
 	//this.find("#content-container")._uihooks = {
 	//	insertElement: function(node, next) {
 	//		// short-circuit and just do it right away
@@ -165,4 +165,4 @@ Template.MasterLayout.rendered = function () {
 	//			});
 	//	}
 	//};
-};
+});

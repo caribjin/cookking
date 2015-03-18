@@ -8,7 +8,7 @@ Template.Navigation.helpers({
 	}
 });
 
-Template.Navigation.rendered = function() {
+Template.Navigation.onRendered(function() {
 	var $nav = this.$('nav');
 	$nav.siblings('.content-scrollable:not(.static-nav)').children().first().waypoint(function(direction) {
 		$nav.toggleClass('scrolled', direction === 'down');
@@ -16,4 +16,4 @@ Template.Navigation.rendered = function() {
 		context: '.content-scrollable',
 		offset: -200
 	});
-};
+});

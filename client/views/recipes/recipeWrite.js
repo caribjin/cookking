@@ -199,7 +199,7 @@ Template.RecipeWrite.save = function(e, tmpl) {
 };
 
 
-Template.RecipeWrite.created = function() {
+Template.RecipeWrite.onCreated(function() {
 	WriteIngredients = new Meteor.Collection(null);
 	WriteDirections = new Meteor.Collection(null);
 
@@ -214,9 +214,9 @@ Template.RecipeWrite.created = function() {
 
 	// 에러 세션 개체를 초기화
 	Session.set(ERRORS_KEY, {});
-};
+});
 
-Template.RecipeWrite.rendered = function() {
+Template.RecipeWrite.onRendered(function() {
 	this.$('.content-scrollable').touchwipe({
 		wipeLeft: function() {
 			//alert('wipe left');
@@ -231,7 +231,7 @@ Template.RecipeWrite.rendered = function() {
 
 	// 요리 종류 중 처음 항목을 기본 선택
 	this.$('input[type=radio][name=category]')[0].checked = true;
-};
+});
 
 Template.RecipeWrite.helpers({
 	/**
@@ -385,7 +385,7 @@ Template.RecipeWrite.events({
  * 템플릿 소멸시 이벤트 핸들러
  * 재료와 조리법을 위한 컬렉션의 메모리를 초기화한다.
  */
-Template.RecipeWrite.destroyed = function() {
+Template.RecipeWrite.onDestroyed(function() {
 	WriteIngredients = null;
 	WriteDirections = null;
-};
+});

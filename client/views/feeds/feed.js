@@ -1,4 +1,4 @@
-Template.Feed.rendered = function() {
+Template.Feed.onRendered(function() {
 	var self = this;
 
 	// If the activity is in a list, scroll it into view. Note, we can't just use
@@ -11,7 +11,7 @@ Template.Feed.rendered = function() {
 		var parentTop = $parent.offset().top;
 		$parent.scrollTop(top - parentTop);
 	}
-};
+});
 
 Template.Feed.helpers({
 	firstName: function() {

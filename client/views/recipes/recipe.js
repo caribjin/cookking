@@ -1,13 +1,13 @@
 var TAB_KEY = 'recipeShowTab';
 
-Template.Recipe.created = function() {
+Template.Recipe.onCreated(function() {
 	if (Router.current().params.feedId)
 		Template.Recipe.setTab('feeds');
 	else
 		Template.Recipe.setTab('recipe');
-};
+});
 
-Template.Recipe.rendered = function () {
+Template.Recipe.onRendered(function () {
 	this.$('.recipe').touchwipe({
 		wipeDown: function () {
 			if (Session.equals(TAB_KEY, 'recipe'))
@@ -22,7 +22,7 @@ Template.Recipe.rendered = function () {
 		},
 		preventDefaultEvents: false
 	});
-};
+});
 
 Template.Recipe.setTab = function(tab) {
 	var lastTab = Session.get(TAB_KEY);

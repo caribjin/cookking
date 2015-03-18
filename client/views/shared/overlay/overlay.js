@@ -24,7 +24,7 @@ Overlay = {
 	}
 };
 
-Template.Overlay.rendered = function() {
+Template.Overlay.onRendered(function() {
 	this.find('#overlay-hook')._uihooks = {
 		insertElement: function(node, next, done) {
 			var $node = $(node);
@@ -48,7 +48,7 @@ Template.Overlay.rendered = function() {
 				});
 		}
 	}
-};
+});
 
 Template.Overlay.helpers({
 	template: function() {

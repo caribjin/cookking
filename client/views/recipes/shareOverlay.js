@@ -22,10 +22,10 @@ Template.ShareOverlay.generateFileInfo = function() {
 	return file;
 };
 
-Template.ShareOverlay.created = function() {
+Template.ShareOverlay.onCreated(function() {
 	Session.set(TWEETING_KEY, true);
 	Session.set(IMAGE_KEY, null);
-};
+});
 
 Template.ShareOverlay.helpers({
 	attachedImage: function() {
@@ -173,6 +173,6 @@ Template.ShareOverlay.events({
 	}
 });
 
-Template.ShareOverlay.destroyed = function() {
+Template.ShareOverlay.onDestroyed(function() {
 	Session.set(IMAGE_KEY, null);
-};
+});
