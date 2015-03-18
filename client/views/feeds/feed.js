@@ -26,5 +26,9 @@ Template.Feed.helpers({
 
 	path: function() {
 		return Router.path('recipe', {_id: this.recipeId}, {query: {feedId: this._id}});
+	},
+
+	image: function(id) {
+		return Images.findOne(id);
 	}
 });

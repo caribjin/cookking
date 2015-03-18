@@ -1,26 +1,37 @@
 Meteor.publish('feeds', function(options) {
-	//check(options, {
-	//	sort: {
-	//		createdAt: Number
-	//	},
-	//	limit: Number
-	//});
+	check(options, {
+		sort: {
+			createdAt: Number
+		},
+		limit: Number
+	});
+
+	return Feeds.find({}, options);
+});
+
+Meteor.publish('feedsForRecipe', function(recipeId) {
+	check(recipeId, String);
 
 	var self = this;
-	var feedHandle = null, imageHandles = [];
+	var feedHandle = null, feedHandles = [], imageHandles = [];
 
-	feedHandle = Feeds.find({}, options).observeChanges({
+	feedHandle = Feeds.find({recipeId: recipeId}).observeChanges({
 		added: function(id, feed) {
-			var imageId = feed.imageId;
-			var imageCursor = Images.find(imageId);
+			var feedCursor = Feeds.find(id);
+			feedHandles[id] = Meteor.Collection._publishCursor(feedCursor, self, 'feeds');
+
+			var imageCursor = Images.find(feed.imageId);
 			imageHandles[id] = Meteor.Collection._publishCursor(imageCursor, self, 'images');
 		},
 		changed: function(id, fields) {
-			var imageId = feed.imageId;
-			var imageCursor = Images.find(imageId);
+			var feedCursor = Feeds.find(id);
+			feedHandles[id] = Meteor.Collection._publishCursor(feedCursor, self, 'feeds');
+
+			var imageCursor = Images.find(fields.imageId);
 			imageHandles[id] = Meteor.Collection._publishCursor(imageCursor, self, 'images');
 		},
-		remove: function(id) {
+		removed: function(id) {
+			feedHandles[id] && feedHandles[id].stop();
 			imageHandles[id] && imageHandles[id].stop();
 		}
 	});

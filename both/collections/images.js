@@ -17,8 +17,8 @@ var imageThumbStore = new FS.Store.FileSystem('thumbs', {
 
 Images = new FS.Collection('images', {
 	stores: [
-		imageThumbStore,
-		imageStore
+		imageStore,
+		imageThumbStore
 	],
 	filter: {
 		maxsize: App.settings.uploadMaxLimitSize,

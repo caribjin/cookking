@@ -9,15 +9,15 @@ App = {
 
 		// 사진촬영 이미지 기본 사이즈
 		defaultCameraImageWidth: 640,
-		defaultCameraImageHeight: 160,
-		defaultCameraImageQuality: 75,
+		defaultCameraImageHeight: 640,
+		defaultCameraImageQuality: 90,
 
 		// 기본 저장소 경로
 		defaultFileStoragePath: '~/app-files/',
 
 		// 피드 썸네일 이미지 크기
-		thumbnailImageWidth: 180,
-		thumbnailImageHeight: 180,
+		thumbnailImageWidth: 320,
+		thumbnailImageHeight: 320,
 
 		// 업로드 최대 제한 용량
 		uploadMaxLimitSize: 10485760,

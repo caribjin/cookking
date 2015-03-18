@@ -12,17 +12,15 @@ Meteor.publish('bookmarkedRecipes', function(userId) {
 
 	bookmarkHandle = Bookmarks.find({userId: userId}).observeChanges({
 		added: function(id, bookmark) {
-			var recipeIds = bookmark.recipeIds;
-			var recipeCursor = Recipes.find({_id: {$in: recipeIds}});
+			var recipeCursor = Recipes.find({_id: {$in: bookmark.recipeIds}});
 			recipeHandles[id] = Meteor.Collection._publishCursor(recipeCursor, self, 'recipes');
 		},
 		changed: function(id, fields) {
-			var recipeIds = fields.recipeIds;
-			var recipeCursor = Recipes.find({_id: {$in: recipeIds}});
+			var recipeCursor = Recipes.find({_id: {$in: fields.recipeIds}});
 			recipeHandles[id] = Meteor.Collection._publishCursor(recipeCursor, self, 'recipes');
 		},
 		removed: function(id) {
-			recipeHandles[id] && recipeHandles[i].stop();
+			recipeHandles[id] && recipeHandles[id].stop();
 		}
 	});
 
