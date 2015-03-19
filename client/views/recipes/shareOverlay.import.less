@@ -66,12 +66,12 @@
 				width: 2.5rem;
 				max-width: 2.5rem;
 				float: left;
-				margin-left: 1rem;
-				margin-top: 1rem;
+				.margin(16px);
 			}
 
 			.message-share {
 				//height: 12em;
+				.margin(15px);
 				resize: none;
 			}
 		}
@@ -89,21 +89,20 @@
 
 	.cropper {
 		width: 100%;
-		height: 100%;
+		height: 78%;
 		//min-height: 500px;
 		background-color: black;
 
-		& > img {
-			width: 100%;
-			height: 100%;
-		}
-
-		.cropper-cropbox {
+		.cropper-crop-box {
 			.transform(translate3d(0,0,0)) !important;
 		}
 
-		.cropper-container img {
+		.cropper-canvas {
 			.transform(translate3d(0,0,0)) !important;
+
+			img {
+				width: 100%;
+			}
 		}
 	}
 }

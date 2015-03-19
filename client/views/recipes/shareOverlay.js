@@ -1,10 +1,11 @@
 var TWEETING_KEY = 'shareOverlayTweeting';
 var IMAGE_KEY = 'shareOverlayAttachedImage';
 
-Template.ShareOverlay.generateFileInfo = function() {
+Template.ShareOverlay.generateFileInfo = function(cropData) {
 	var file = new FS.File();
 	file.name('feed-image-' + Meteor.uuid());
 	file.attachData(Session.get(IMAGE_KEY));
+	file.cropData = cropData;
 
 	var type = file.original.type;
 	if (type.indexOf('/') && type.split('/').length > 1) {
@@ -14,8 +15,7 @@ Template.ShareOverlay.generateFileInfo = function() {
 			file.extension(ext);
 		}
 	} else {
-		App.helpers.error('인식할 수 없는 유형의 파일입니다');
-		return;
+		return null;
 	}
 	file.category = 'feed';
 
@@ -31,40 +31,47 @@ Template.ShareOverlay.helpers({
 	attachedImage: function() {
 		if (Session.get(IMAGE_KEY)) {
 			setTimeout(function () {
-				$('.cropper > img').cropper({
-					aspectRatio: 1,
-					autoCropArea: 0.80,
-					strict: true,
-					responsive: true,
-					checkImageOrigin: true,
-					modal: true,
-					guides: false,
-					highlight: true,
-					background: false,
-					autoCrop: true,
-					dragCrop: false,
-					movable: true,
-					resizable: true,
-					rotatable: true,
-					mouseWheelZoom: false,
-					touchDragZoom: false,
-					minContainerWidth: 300,
-					minContainerHeight: 400,
-					minCropBoxWidth: 100,
-					minCropBoxHeight: 100,
+				var option = {
 					crop: function(data) {
-						//var str = 'x: ' + Math.round(data.x) +
-						//		  'y: ' + Math.round(data.y) +
-						//		  'width: ' + Math.round(data.width) +
-						//		  'height: ' + Math.round(data.height) +
-						//		  'rotate: ' + Math.round(data.rotate);
-						//App.helpers.addNotification(str, '확인', function() {});
+						var str = 'x: ' + Math.round(data.x) +
+							' / y: ' + Math.round(data.y) +
+							' / w: ' + Math.round(data.width) +
+							' / h: ' + Math.round(data.height) +
+							' / rot: ' + Math.round(data.rotate);
+
+						$('.wrapper-checkbox > .checkbox > span').text(str);
+
+						//if (Math.round(data.y) <= 0) e.defaultPrevent();
 					},
 					built: function() {
-						$('div.cropper-canvas > .cropper-container > .cropper-drag-box').remove();
-						$('div.cropper-canvas > .cropper-container > .cropper-crop-box').remove();
+						$('div.cropper-container > .cropper-canvas > .cropper-container').remove();
+						$('div.cropper-container > .cropper-canvas > img').attr('class', '');
+					},
+					dragmove: function(e) {
+						if (e.dragType === 'move') e.preventDefault();
+
+						//var cropboxData = $(this).cropper('getData'),
+						//	imageData = $(this).cropper('getImageData');
+						//
+						//console.log(e.dragType);
+						//console.log(JSON.stringify(cropboxData));
+						//console.log(JSON.stringify(imageData));
+						//
+						//if (e.dragType === 'all') {
+						//	var x = cropboxData.x,
+						//		y = cropboxData.y,
+						//		w = cropboxData.width,
+						//		h = cropboxData.height,
+						//		imageWidth = imageData.naturalWidth,
+						//		imageHeight = imageData.naturalHeight,
+						//		imageRatio = imageData.aspectRatio,
+						//		imageRotate = imageData.rotate;
+						//
+						//	if (x < 0 || y < 0 || x + w > imageWidth || y + h > imageHeight) e.preventDefault();
+						//}
 					}
-				});
+				};
+				App.helpers.cropper('.cropper > img', option);
 			}, 0);
 		}
 
@@ -78,10 +85,6 @@ Template.ShareOverlay.helpers({
 	tweeting: function() {
 		return Session.get(TWEETING_KEY);
 	}
-
-	//uploadedImages: function() {
-	//	return Images.find();
-	//}
 });
 
 Template.ShareOverlay.events({
@@ -137,38 +140,46 @@ Template.ShareOverlay.events({
 	},
 
 	'submit': function(event, template) {
-		var self = this;
-
 		event.preventDefault();
 
-		var text = $(event.target).find('[name=text]').val();
-		var tweet = Session.get(TWEETING_KEY);
+		var self = this;
 
-		var file = Template.ShareOverlay.generateFileInfo();
+		App.helpers.confirm('글 등록', '작성한 글을 올리시겠습니까?', 'info', true, function() {
+			var text = $(event.target).find('[name=text]').val();
+			var tweet = Session.get(TWEETING_KEY);
+			var cropData = $('.cropper > img').cropper('getData');
+			var file = Template.ShareOverlay.generateFileInfo(cropData);
 
-		Images.insert(file, function(error, file) {
-			if (error) {
-				console.log(error.reason);
+			if (!file) {
+				App.helpers.error('인식할 수 없는 유형의 파일입니다');
+				return;
 			}
 
-			Session.set(IMAGE_KEY, null);
-
-			Meteor.call('createFeed', {
-				recipeId: self._id,
-				text: text,
-				imageId: file._id
-			}, tweet, Geolocation.currentLocation(), function(error, result) {
+			Images.insert(file, function(error, file) {
 				if (error) {
-					App.helpers.error(error.reason);
-				} else {
-					App.helpers.addNotification('사진을 공유했습니다', '보기', function() {
-						Router.go('recipe', {_id: self._id}, {query: {feedId: result}});
-						Template.Recipe.setTab('feed');
-					});
+					console.log(error.reason);
 				}
+
+				Session.set(IMAGE_KEY, null);
+
+				Meteor.call('createFeed', {
+					recipeId: self._id,
+					text: text,
+					imageId: file._id
+				}, tweet, Geolocation.currentLocation(), function(error, result) {
+					if (error) {
+						App.helpers.addNotification('오류: ' + error.reason);
+					} else {
+						App.helpers.addNotification('사진을 공유했습니다', '보기', function() {
+							Router.go('recipe', {_id: self._id}, {query: {feedId: result}});
+							Template.Recipe.setTab('feed');
+						});
+					}
+				});
+
+				Overlay.close();
 			});
 
-			Overlay.close();
 		});
 	}
 });

@@ -6,11 +6,11 @@ var imageThumbStore = new FS.Store.FileSystem('thumbs', {
 	path: App.settings.defaultFileStoragePath + 'thumbs/',
 	transformWrite: function(file, readStream, writeStream) {
 		gm(readStream, file.name).
-			gravity('Center').
-			crop(100, 100).
-			resize(App.settings.thumbnailImageWidth, App.settings.thumbnailImageHeight, '^').
-			quality(100).
-			autoOrient().
+			//autoOrient().
+			//gravity('Center').
+			crop(file.cropData.width, file.cropData.height, file.cropData.x, file.cropData.y).
+			//resize(App.settings.thumbnailImageWidth, App.settings.thumbnailImageHeight, '^').
+			quality(App.settings.thumbnailImageQuality).
 			stream().pipe(writeStream);
 	}
 });

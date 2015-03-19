@@ -38,7 +38,7 @@ Meteor.startup(function () {
 			Session.set(MENU_KEY, true);
 		},
 		min_move_x: 150,
-		preventDefaultEvents: true
+		preventDefaultEvents: false
 	});
 
 	// 앱이 시작한 뒤 5초 이후부터만 connection error 메시지를 출력

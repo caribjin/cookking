@@ -195,9 +195,38 @@ _.extend(App.helpers, {
 			destinationType: 0,                                 // DATA_URL(0) | FILE_URI(1) | NATIVE_URI(2)
 			mediaType: 0,                                       // PICTURE(0) | VIDEO(1) | ALLMEDIA(2)
 			encodingType: 0,                                    // JPEG(0) | PNG(1)
+			allowEdit: false,
 			saveToPhotoAlbum: true,
 			correctOrientation: true
 		}, callback);
+	},
+
+	cropper: function(selector, option) {
+		var defaultOption = {
+			aspectRatio: 1,
+			autoCropArea: 0.8,
+			strict: false,
+			responsive: false,
+			checkImageOrigin: true,
+			modal: true,
+			guides: false,
+			highlight: true,
+			background: false,
+			autoCrop: true,
+			dragCrop: false,
+			movable: true,
+			resizable: true,
+			rotatable: true,
+			mouseWheelZoom: false,
+			touchDragZoom: false,
+			minContainerWidth: 200,
+			minContainerHeight: 200,
+			minCropBoxWidth: 100,
+			minCropBoxHeight: 100
+		};
+
+		option = _.extend(defaultOption, option);
+		$(selector).cropper(option);
 	},
 
 	pluralize: function(n, thing, options) {
