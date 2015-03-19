@@ -8,7 +8,6 @@ RecipeController = RouteController.extend({
 		return [
 			Meteor.subscribe('recipe', this.params._id),
 			Meteor.subscribe('feedsForRecipe', this.params._id),
-			Meteor.subscribe('images'),
 			Meteor.subscribe('bookmarks', Meteor.userId())
 		];
 	},

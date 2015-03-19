@@ -29,6 +29,6 @@ Template.Feed.helpers({
 	},
 
 	image: function(id) {
-		return Images.findOne(id);
+		return new FS.File(FeedsImages.findOne(id));
 	}
 });

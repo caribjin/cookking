@@ -1,0 +1,1 @@
+FeedsImages = new Mongo.Collection('feedsImages');

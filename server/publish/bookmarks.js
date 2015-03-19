@@ -8,24 +8,32 @@ Meteor.publish('bookmarkedRecipes', function(userId) {
 	check(userId, String);
 
 	var self = this;
-	var bookmarkHandle = null, recipeHandles = [];
+	var handles = {};
 
-	bookmarkHandle = Bookmarks.find({userId: userId}).observeChanges({
-		added: function(id, bookmark) {
-			var recipeCursor = Recipes.find({_id: {$in: bookmark.recipeIds}});
-			recipeHandles[id] = Meteor.Collection._publishCursor(recipeCursor, self, 'recipes');
+	handles['bookmark'] = Bookmarks.find({userId: userId}).observe({
+		added: function(bookmark) {
+			handles['recipes'] = Recipes.find({_id: {$in: bookmark.recipeIds}}).observe({
+				added: function(recipe) {
+					self.added('recipes', recipe._id, recipe);
+				},
+				changed: function(recipe, oldRecipe) {
+					self.changed('recipes', recipe._id, recipe);
+				},
+				removed: function(recipe) {
+					self.remove('recipes', recipe);
+				}
+			});
 		},
-		changed: function(id, fields) {
-			var recipeCursor = Recipes.find({_id: {$in: fields.recipeIds}});
-			recipeHandles[id] = Meteor.Collection._publishCursor(recipeCursor, self, 'recipes');
-		},
-		removed: function(id) {
-			recipeHandles[id] && recipeHandles[id].stop();
+		removed: function(bookmark) {
+			handles['recipes'] && handles['recipes'].stop();
 		}
 	});
 
-	self.ready();
 	self.onStop(function() {
-		bookmarkHandle.stop();
+		_.each(handles, function(handle) {
+			handle.stop();
+		});
 	});
+
+	self.ready();
 });
