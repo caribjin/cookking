@@ -19,6 +19,11 @@ Accounts.onCreateUser(function(options, user) {
 	return user;
 });
 
+Accounts.onLogin(function(result) {
+	// TODO: 데이터 확인용. 삭제할 것
+	console.dir(result);
+});
+
 var determineEmail = function(user) {
 	var email = '';
 

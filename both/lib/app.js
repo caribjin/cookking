@@ -32,7 +32,19 @@ App = {
 	helpers: {
 		getCurrentUserAvatar: function() {
 			var user = Meteor.user();
-			return (user && user.services.twitter && user.services.twitter.profile_image_url_https) || '';
+			var result = '';
+
+			if (user) {
+				var service = user.services;
+
+				if (service.twitter) {
+					result = service.twitter.profile_image_url_https;
+				} else if (user.services.google) {
+					result = service.google.picture;
+				}
+			}
+
+			return result;
 		},
 
 		getCurrentUserName: function() {
