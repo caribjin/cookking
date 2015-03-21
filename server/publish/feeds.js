@@ -6,7 +6,7 @@ Meteor.publish('feeds', function(options) {
 		limit: Number
 	});
 
-	return Feeds.find({}, options);
+	return Feeds.find({deleted: {$exists: false}}, options);
 });
 
 Meteor.publish('feedsForRecipe', function(recipeId) {
@@ -15,7 +15,7 @@ Meteor.publish('feedsForRecipe', function(recipeId) {
 	var self = this;
 	var handles = {};
 
-	handles['feeds'] = Feeds.find({recipeId: recipeId}).observe({
+	handles['feeds'] = Feeds.find({recipeId: recipeId, deleted: {$exists: false}}).observe({
 		added: function(feed) {
 			self.added('feeds', feed._id, feed);
 
@@ -48,6 +48,6 @@ Meteor.publish('feedsForRecipe', function(recipeId) {
 });
 
 Meteor.publish('feed', function(id) {
-	return Feeds.find(id);
+	return Feeds.find({_id: id, deleted: {$exists: false}});
 });
 

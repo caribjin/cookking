@@ -17,7 +17,7 @@ Meteor.methods({
 			},
 			directions: Match.Optional([{
 				text: String,
-				image: String,
+				image: String
 			}]),
 			highlighted: Boolean,
 			bookmarkedCount: Number
@@ -41,7 +41,17 @@ Meteor.methods({
 
 		var f = new Future();
 
-		Recipes.remove(recipeId, function(error, result) {
+		tx.start('delete recipe');
+		tx.softDelete = true;
+
+		Feeds.find({recipeId: recipeId}).forEach(function(feed) {
+			Images.remove(feed.imageId, {tx: true});
+			Feeds.remove({_id: feed._id}, {tx: true});
+		});
+
+		Recipes.remove({_id: recipeId}, {tx: true});
+
+		tx.commit(function(error, result) {
 			if (error) {
 				f.throw(error);
 			} else {

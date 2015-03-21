@@ -1,5 +1,5 @@
 <template name="ShareOverlay">
-	{{#if currentUser}}
+	<!--{{#if currentUser}}-->
 		<div class="overlay share">
 			{{#unless attachedImage}}
 				<a href="#" class="js-close-overlay overlay-dismiss"><span class="icon-cross"></span></a>
@@ -51,7 +51,7 @@
 					<img src="{{attachedImage}}">
 				</div>
 
-				<form class="form-share" style="display: ">
+				<form class="form-share">
 					<div class="form-group">
 						<div class="avatar">
 							<img src="{{avatarImage}}" class="image-avatar">
@@ -78,7 +78,7 @@
 				</form>
 			{{/unless}}
 		</div>
-	{{else}}
-		{{> SignIn}}
-	{{/if}}
+	<!--{{else}}-->
+		<!--{{> SignIn}}-->
+	<!--{{/if}}-->
 </template>

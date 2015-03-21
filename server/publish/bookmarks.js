@@ -12,7 +12,7 @@ Meteor.publish('bookmarkedRecipes', function(userId) {
 
 	handles['bookmark'] = Bookmarks.find({userId: userId}).observe({
 		added: function(bookmark) {
-			handles['recipes'] = Recipes.find({_id: {$in: bookmark.recipeIds}}).observe({
+			handles['recipes'] = Recipes.find({_id: {$in: bookmark.recipeIds}, deleted: {$exists: false}}).observe({
 				added: function(recipe) {
 					self.added('recipes', recipe._id, recipe);
 				},

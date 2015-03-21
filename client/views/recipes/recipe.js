@@ -104,18 +104,26 @@ Template.Recipe.events({
 		App.helpers.confirm(
 			'레시피를 삭제하시겠습니까?',
 			'한번 삭제된 레시피는 복구할 수 없습니다.',
-			'warning', false, function() {
+			'warning', true, function() {
 				Meteor.call('deleteRecipe', self._id, function (error, result) {
 					if (error) {
 						App.helpers.error(error.reason);
 					} else {
-						if (result > 0) {
+						if (result) {
 							Router.go('/');
 
-							App.helpers.alert(
-								'삭제되었습니다!',
-								'레시피가 삭제되었습니다',
-								'success', true);
+							App.helpers.addNotification('삭제되었습니다', '실행취소', function() {
+								tx.undo();
+							}, 'infinite');
+
+							//App.helpers.alert(
+							//	'삭제되었습니다!',
+							//	'레시피가 삭제되었습니다',
+							//	'success', true, function() {
+							//		App.helpers.addNotification('삭제했습니다', '실행취소', function() {
+							//			tx.undo();
+							//		});
+							//	});
 						} else {
 							App.helpers.error('일치하는 레시피를 찾을 수 없습니다');
 						}

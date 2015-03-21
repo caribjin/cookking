@@ -16,7 +16,7 @@
 		</span>
 		{{#with image imageId}}
 		<div class="feed-image">
-			<img src="{{url store="thumbs" storing="/home/caribjin/meteor/cookking/packages/jquery-cropper/cropper/examples/crop-avatar/img/loading.gif"}}">
+			<img src="{{url store="thumbs" uploading="/img/app/loading/progress.gif"}}" class="{{#if isUploaded}}{{else}}loading{{/if}}">
 		</div>
 		{{/with}}
 	</a>

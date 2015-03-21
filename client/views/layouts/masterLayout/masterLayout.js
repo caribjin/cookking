@@ -20,12 +20,18 @@ Tracker.autorun(function() {
 
 var Notifications = new Meteor.Collection(null);
 
-Template.MasterLayout.addNotification = function(notification) {
+Template.MasterLayout.addNotification = function(notification, duration) {
 	var id = Notifications.insert(notification);
+
+	if (!duration) {
+		duration = NOTIFICATION_TIMEOUT;
+	} else if (duration === 0 || duration === 'infinite') {
+		duration = 3600 * 1000;
+	}
 
 	Meteor.setTimeout(function() {
 		Notifications.remove(id);
-	}, NOTIFICATION_TIMEOUT);
+	}, duration);
 };
 
 Meteor.startup(function () {
@@ -89,6 +95,10 @@ Template.MasterLayout.events({
 			this.callback();
 			Notifications.remove(this._id);
 		}
+	},
+
+	'click .title-notification': function() {
+		Notifications.remove(this._id);
 	}
 });
 

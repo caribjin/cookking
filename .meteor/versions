@@ -9,6 +9,7 @@ aldeed:template-extension@3.4.1
 audit-argument-checks@1.0.3
 autoupdate@1.2.0
 babrahams:editable-json@0.3.9
+babrahams:transactions@0.6.16
 base64@1.0.3
 binary-heap@1.0.3
 blaze@2.1.0

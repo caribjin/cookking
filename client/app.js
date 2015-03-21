@@ -160,12 +160,12 @@ _.extend(App.helpers, {
 	 * @param actionText    액션버튼 출력문자
 	 * @param callback      콜백 함수
 	 */
-	addNotification: function(title, actionText, callback) {
+	addNotification: function(title, actionText, callback, duration) {
 		Template.MasterLayout.addNotification({
 			action: actionText,
 			title: title,
 			callback: callback
-		});
+		}, duration);
 	},
 
 	/**
