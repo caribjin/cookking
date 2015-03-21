@@ -2,7 +2,7 @@ Meteor.methods({
 	'bookmarkRecipe': function(recipeId) {
 		check(recipeId, String);
 
-		var affected = Bookmarks.upsert({
+		Bookmarks.upsert({
 			userId: Meteor.userId()
 		}, {
 			$addToSet: {
@@ -22,7 +22,7 @@ Meteor.methods({
 	'unbookmarkRecipe': function(recipeId) {
 		check(recipeId, String);
 
-		var affected = Bookmarks.update({
+		Bookmarks.update({
 			userId: Meteor.userId(),
 			recipeIds: recipeId
 		}, {
@@ -39,4 +39,4 @@ Meteor.methods({
 			}
 		});
 	}
-})
+});

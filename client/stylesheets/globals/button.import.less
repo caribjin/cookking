@@ -92,7 +92,7 @@
 	&[class*="album"],
 	&[class*="camera"] {
 		border-radius: 10em;
-		box-shadow: @color-primary 0 0 0px 2px inset;
+		box-shadow: @color-primary 0 0 0 2px inset;
 		font-size: 20px; //reset
 		height: 4rem;
 		letter-spacing: 0; //reset
@@ -115,12 +115,12 @@
 		}
 
 		&:hover {
-			box-shadow: darken(@color-primary, 3%) 0 0 0px 2px inset;
+			box-shadow: darken(@color-primary, 3%) 0 0 0 2px inset;
 			.icon-camera { background-color: darken(@color-primary, 3%); }
 		}
 
 		&:active {
-			box-shadow: darken(@color-primary, 3%) 0 0 0px 2px inset;
+			box-shadow: darken(@color-primary, 3%) 0 0 0 2px inset;
 			.icon-camera { background-color: darken(@color-primary, 3%); }
 		}
 	}
@@ -141,7 +141,7 @@
 	&[class*="sm-album"],
 	&[class*="sm-camera"] {
 		.size(24px);
-		box-shadow: #a0a39e 0 0 0px 2px inset;
+		box-shadow: #a0a39e 0 0 0 2px inset;
 
 		i[class*="fa-"] {
 			.size(17px);

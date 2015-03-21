@@ -248,9 +248,7 @@ _.extend(App.helpers, {
 
 	activePage: function() {
 		// includes Spacebars.kw but that's OK because the route name ain't that.
-		var routeNames = arguments;
-
-		return _.include(routeNames, Router.current().route.name) && 'active';
+		return _.include(arguments, Router.current().route.name) && 'active';
 	},
 
 	formatDate: function(datetime) {
@@ -321,7 +319,7 @@ _.extend(App.helpers, {
 	track: function(key, meta) {
 		meta = meta || {};
 
-		if (isUserAgentBlacklisted()) return;
+		if (isUserAgentBlacklisted()) return null;
 
 		//Meteor.autorun(function(c) {
 		//	if (!Meteor.loggingIn()) {

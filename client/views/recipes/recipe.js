@@ -28,17 +28,21 @@ Template.Recipe.setTab = function(tab) {
 	var lastTab = Session.get(TAB_KEY);
 	Session.set(TAB_KEY, tab);
 
+	var $ingredient = $('.ingredient-scrollable');
+	var $direction = $('.direction-scrollable');
+	var $feed = $('.feed-scrollable');
+
 	// 패널이 위로 올라갈 때
 	var fromRecipe = (lastTab === 'recipe') && (tab !== 'recipe');
-	$('.ingredient-scrollable').toggleClass('instant', fromRecipe);
-	$('.direction-scrollable').toggleClass('instant', fromRecipe);
-	$('.feed-scrollable').toggleClass('instant', fromRecipe);
+	$ingredient.toggleClass('instant', fromRecipe);
+	$direction.toggleClass('instant', fromRecipe);
+	$feed.toggleClass('instant', fromRecipe);
 
 	// 패널이 밑으로 내려갈 떄
 	var toRecipe = (lastTab !== 'recipe') && (tab === 'recipe');
-	$('.ingredient-scrollable').toggleClass('delayed', toRecipe);
-	$('.direction-scrollable').toggleClass('delayed', toRecipe);
-	$('.feed-scrollable').toggleClass('delayed', toRecipe);
+	$ingredient.toggleClass('delayed', toRecipe);
+	$direction.toggleClass('delayed', toRecipe);
+	$feed.toggleClass('delayed', toRecipe);
 };
 
 Template.Recipe.helpers({
@@ -51,8 +55,7 @@ Template.Recipe.helpers({
 	},
 
 	bookmarked: function() {
-		var exist = Meteor.user() && Bookmarks.find({'recipeIds': this._id}).count() > 0;
-		return exist;
+		return Meteor.user() && Bookmarks.find({'recipeIds': this._id}).count() > 0;
 	},
 
 	feeds: function() {
