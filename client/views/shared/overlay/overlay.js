@@ -9,16 +9,20 @@ Overlay = {
 		Session.set(TEMPLATE_KEY, template);
 		Session.set(DATA_KEY, data);
 	},
+
 	close: function() {
 		Session.set(TEMPLATE_KEY, null);
 		Session.set(DATA_KEY, null);
 	},
+
 	isOpen: function() {
-		return ! Session.equals(TEMPLATE_KEY, null);
+		return !Session.equals(TEMPLATE_KEY, null);
 	},
+
 	template: function () {
 		return Session.get(TEMPLATE_KEY);
 	},
+
 	data: function () {
 		return Session.get(DATA_KEY);
 	}
@@ -32,7 +36,7 @@ Template.Overlay.onRendered(function() {
 			$node
 				.hide()
 				.insertBefore(next)
-				.velocity('fadeIn', {
+				.velocity('slideDown', {
 					duration: ANIMATION_DURATION
 				});
 		},
@@ -40,7 +44,7 @@ Template.Overlay.onRendered(function() {
 			var $node = $(node);
 
 			$node
-				.velocity("fadeOut", {
+				.velocity("slideUp", {
 					duration: ANIMATION_DURATION,
 					complete: function() {
 						$node.remove();
