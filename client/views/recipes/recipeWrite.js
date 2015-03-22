@@ -3,6 +3,7 @@ var WriteIngredients,
 
 var TAB_KEY = 'recipeWriteShowTab';
 var ERRORS_KEY = 'recipeWriteErrors';
+var IMAGE_KEY = 'shareOverlayAttachedImage';
 
 Template.RecipeWrite.setTab = function(tab) {
 	Session.set(TAB_KEY, tab);
@@ -305,6 +306,12 @@ Template.RecipeWrite.helpers({
 
 	errorClass: function(key) {
 		return Session.get(ERRORS_KEY)[key] && 'error';
+	},
+
+	completeImage: function() {
+		if (Session.get(IMAGE_KEY)) return Session.get(IMAGE_KEY);
+		else return '/img/recipes/640x800/summer-apricots-honey-panna-cotta.jpg';
+		//else return '/img/app/bg-about-640x540.jpg';
 	}
 });
 
@@ -355,6 +362,15 @@ Template.RecipeWrite.events({
 		Template.RecipeWrite.directionRemove(this._id);
 	},
 
+	// 완성사진 등록 버튼 클릭
+	'click .js-add-complete-image': function(e, tmpl) {
+		var data = {
+			purpose: 'recipe-complete-image'
+		};
+
+		Overlay.open('Share', data);
+	},
+
 	// 저장 버튼 클릭
 	'click .js-recipe-save': function(e, tmpl) {
 		Template.RecipeWrite.save(e, tmpl);
@@ -388,4 +404,5 @@ Template.RecipeWrite.events({
 Template.RecipeWrite.onDestroyed(function() {
 	WriteIngredients = null;
 	WriteDirections = null;
+	Session.set(IMAGE_KEY, null);
 });

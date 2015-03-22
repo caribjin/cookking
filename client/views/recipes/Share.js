@@ -1,7 +1,7 @@
 var TWEETING_KEY = 'shareOverlayTweeting';
 var IMAGE_KEY = 'shareOverlayAttachedImage';
 
-Template.ShareOverlay.generateFileInfo = function(cropData) {
+Template.Share.generateFileInfo = function(cropData) {
 	var file = new FS.File();
 	file.name('feed-image-' + Meteor.uuid());
 	file.attachData(Session.get(IMAGE_KEY));
@@ -22,14 +22,30 @@ Template.ShareOverlay.generateFileInfo = function(cropData) {
 	return file;
 };
 
-Template.ShareOverlay.onCreated(function() {
+/**
+ * 촬영화면을 종료해야할 조건인지를 체크한다.
+ * 레시피 완료 이미지 작성을 위한 촬영이였다면 편집이 없으므로 바로 촬영화면을 종료한다.
+ * 기본적으로 촬영화면 종료 시 촬영된 이미지정보를 파기하지만, 이 경우 호출자(레시피 작성화면)에서
+ * 이미지 정보를 사용해야 하므로 바로 파기 하지 않고, 사용 후 파기시킨다.
+ * Feed 작성용 촬영이였다면, 편집을 거쳐야 하므로 바로 종료하지 않는다.
+ * @param purpose   현재 오버레이창을 닫아야 하는지 여부. true: 닫는다. false: 닫지 않는다.
+ */
+Template.Share.skipEditImage = function(purpose) {
+	var result = false;
+
+	if (purpose === 'recipe-complete-image' || purpose === 'direction-image') result = true;
+
+	return result;
+};
+
+Template.Share.onCreated(function() {
 	Session.set(TWEETING_KEY, true);
 	Session.set(IMAGE_KEY, null);
 });
 
-Template.ShareOverlay.helpers({
+Template.Share.helpers({
 	attachedImage: function() {
-		if (Session.get(IMAGE_KEY)) {
+		if (Session.get(IMAGE_KEY) && !Template.Share.skipEditImage(this.purpose)) {
 			setTimeout(function () {
 				var option = {
 					crop: function(data) {
@@ -75,7 +91,7 @@ Template.ShareOverlay.helpers({
 			}, 0);
 		}
 
-		return Session.get(IMAGE_KEY);
+		return !Template.Share.skipEditImage(this.purpose) ? Session.get(IMAGE_KEY) : null;
 	},
 
 	avatarImage: function() {
@@ -87,12 +103,14 @@ Template.ShareOverlay.helpers({
 	}
 });
 
-Template.ShareOverlay.events({
+Template.Share.events({
 	'click .js-attach-from-album': function(e, tmpl) {
+		var purpose = this.purpose;
 		if (Meteor.isCordova) {
 			App.helpers.getPicture('album', function (error, data) {
 				if (!error) {
 					Session.set(IMAGE_KEY, data);
+					if (Template.Share.skipEditImage(purpose)) Overlay.close();
 				}
 			});
 		} else {
@@ -101,9 +119,11 @@ Template.ShareOverlay.events({
 	},
 
 	'click .js-attach-from-camera': function() {
+		var purpose = this.purpose;
 		App.helpers.getPicture('camera', function(error, data) {
 			if (!error) {
 				Session.set(IMAGE_KEY, data);
+				if (Template.Share.skipEditImage(purpose)) Overlay.close();
 			}
 		})
 	},
@@ -121,12 +141,14 @@ Template.ShareOverlay.events({
 
 		if (files.length === 0) return;
 		var file = files[0];
+		var self = this;
 
 		// file => base64 변환
 		var fileReader = new FileReader();
 		fileReader.onload = function(e) {
 			var dataUrl = this.result;
 			Session.set(IMAGE_KEY, dataUrl);
+			if (Template.Share.skipEditImage(self.purpose)) Overlay.close();
 		};
 		fileReader.readAsDataURL(file);
 
@@ -148,7 +170,7 @@ Template.ShareOverlay.events({
 			var text = $(event.target).find('[name=text]').val();
 			var tweet = Session.get(TWEETING_KEY);
 			var cropData = $('.cropper > img').cropper('getData');
-			var file = Template.ShareOverlay.generateFileInfo(cropData);
+			var file = Template.Share.generateFileInfo(cropData);
 
 			if (!file) {
 				App.helpers.error('인식할 수 없는 유형의 파일입니다');
@@ -168,7 +190,7 @@ Template.ShareOverlay.events({
 					imageId: file._id
 				}, tweet, Geolocation.currentLocation(), function(error, result) {
 					if (error) {
-						App.helpers.addNotification('오류: ' + error.reason);
+						App.helpers.addNotification('ERROR: ' + error.reason, '확인', function() {});
 					} else {
 						App.helpers.addNotification('사진을 공유했습니다', '보기', function() {
 							Router.go('recipe', {_id: self._id}, {query: {feedId: result}});
@@ -184,6 +206,9 @@ Template.ShareOverlay.events({
 	}
 });
 
-Template.ShareOverlay.onDestroyed(function() {
-	Session.set(IMAGE_KEY, null);
+Template.Share.onDestroyed(function() {
+	// 레시피 완료사진 촬영일 경우는 촬영화면 종료시 이미지정보를 파기하지 않고, 호출화면에서 정보를 사용한 뒤 파기시킨다.
+	if (!Template.Share.skipEditImage(this.data.purpose)) {
+		Session.set(IMAGE_KEY, null);
+	}
 });

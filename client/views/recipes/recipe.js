@@ -87,9 +87,6 @@ Template.Recipe.events({
 	'click .js-add-bookmark': function(event) {
 		event.preventDefault();
 
-		if (!Meteor.userId())
-			return Overlay.open('authOverlay');
-
 		Meteor.call('bookmarkRecipe', this._id);
 	},
 
@@ -135,9 +132,11 @@ Template.Recipe.events({
 			});
 	},
 
-
 	'click .js-share': function() {
-		Overlay.open('ShareOverlay', this);
+		_.extend(this, {
+			purpose: 'feed-image'
+		});
+		Overlay.open('Share', this);
 	},
 
 	'click .js-show-ingredients': function(event) {
