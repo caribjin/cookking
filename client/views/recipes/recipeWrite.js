@@ -3,7 +3,9 @@ var WriteIngredients,
 
 var TAB_KEY = 'recipeWriteShowTab';
 var ERRORS_KEY = 'recipeWriteErrors';
-var IMAGE_KEY = 'shareOverlayAttachedImage';
+var SHARE_IMAGE_KEY = 'shareAttachedImage';
+var SHARE_IMAGE_PURPOSE_KEY = 'shareImagePurpose';
+var RECIPE_IMAGE_KEY = 'recipeCompleteImage';
 var HEADER_EXPANDED_KEY = 'headerExpanded';
 
 Template.RecipeWrite.setTab = function(tab) {
@@ -194,7 +196,7 @@ Template.RecipeWrite.save = function(e, tmpl) {
 				bookmarkedCount: 0
 			};
 
-			var imageData = Session.get(IMAGE_KEY);
+			var imageData = Session.get(RECIPE_IMAGE_KEY);
 
 			if (imageData) {
 				var file = Template.Share.generateFileInfo('recipe', imageData);
@@ -205,7 +207,7 @@ Template.RecipeWrite.save = function(e, tmpl) {
 				}
 
 				Images.insert(file, function(error, file) {
-					Session.set(IMAGE_KEY, null);
+					Session.set(RECIPE_IMAGE_KEY, null);
 
 					if (error) {
 						console.log(error.reason);
@@ -245,6 +247,16 @@ Template.RecipeWrite.onCreated(function() {
 
 	// 최초 조리법 입력행에 행을 한 개 추가
 	Template.RecipeWrite.directionAdd();
+
+	Tracker.autorun(function() {
+		if (Session.get(SHARE_IMAGE_KEY)) {
+			if (Session.get(SHARE_IMAGE_PURPOSE_KEY) === 'recipe') {
+				Session.set(RECIPE_IMAGE_KEY, Session.get(SHARE_IMAGE_KEY));
+				Session.set(SHARE_IMAGE_KEY, null);
+				Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
+			}
+		}
+	});
 
 	// 에러 세션 개체를 초기화
 	Session.set(ERRORS_KEY, {});
@@ -345,9 +357,10 @@ Template.RecipeWrite.helpers({
 	},
 
 	completeImage: function() {
-		if (Session.get(IMAGE_KEY)) return Session.get(IMAGE_KEY);
+		var imageData = Session.get(RECIPE_IMAGE_KEY);
+
+		if (imageData) return imageData;
 		else return '/img/recipes/640x800/summer-apricots-honey-panna-cotta.jpg';
-		//else return '/img/app/bg-about-640x540.jpg';
 	}
 });
 
@@ -494,5 +507,8 @@ Template.RecipeWrite.events({
 Template.RecipeWrite.onDestroyed(function() {
 	WriteIngredients = null;
 	WriteDirections = null;
-	Session.set(IMAGE_KEY, null);
+
+	Session.set(SHARE_IMAGE_KEY, null);
+	Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
+	Session.set(RECIPE_IMAGE_KEY, null);
 });
