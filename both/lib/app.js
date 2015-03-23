@@ -26,7 +26,10 @@ App = {
 		// 업로드 이미지 제한 확장자
 		uploadLimitExtensions: {
 			images: ['jpg', 'jpeg', 'png', 'gif']
-		}
+		},
+
+		// 기본 애니메이션 속도 (ms)
+		defaultAnimationDuration: 200
 	},
 
 	helpers: {

@@ -4,9 +4,20 @@ var WriteIngredients,
 var TAB_KEY = 'recipeWriteShowTab';
 var ERRORS_KEY = 'recipeWriteErrors';
 var IMAGE_KEY = 'shareOverlayAttachedImage';
+var HEADER_EXPANDED_KEY = 'headerExpanded';
 
 Template.RecipeWrite.setTab = function(tab) {
 	Session.set(TAB_KEY, tab);
+
+	var matrix = {
+		'basic-info':   [0, '100%', '200%'],
+		'ingredients':  ['-100%', 0, '100%'],
+		'directions':   ['-200%', '-100%', 0]
+	};
+
+	$('.basic-info-scrollable').velocity({translateZ: 0, translateX: matrix[tab][0]}, {duration: App.settings.defaultAnimationDuration, easing: 'ease-out'});
+	$('.ingredients-scrollable').velocity({translateZ: 0, translateX: matrix[tab][1]}, {duration: App.settings.defaultAnimationDuration, easing: 'ease-out', visibility: 'visible'});
+	$('.directions-scrollable').velocity({translateZ: 0, translateX: matrix[tab][2]}, {duration: App.settings.defaultAnimationDuration, easing: 'ease-out', visibility: 'visible'});
 };
 
 /**
@@ -204,9 +215,6 @@ Template.RecipeWrite.onCreated(function() {
 	WriteIngredients = new Meteor.Collection(null);
 	WriteDirections = new Meteor.Collection(null);
 
-	// 최초 선택탭을 기본정보 탭으로 설정
-	Template.RecipeWrite.setTab('basic-info');
-
 	// 최초 재료 입력행에 필수재료 행을 한 개 추가
 	Template.RecipeWrite.ingredientAdd('must', '');
 
@@ -227,6 +235,9 @@ Template.RecipeWrite.onRendered(function() {
 		},
 		preventDefaultEvents: false
 	});
+
+	// 최초 선택탭을 기본정보 탭으로 설정
+	Template.RecipeWrite.setTab('basic-info');
 
 	this.$('#recipeName').focus();
 
@@ -383,7 +394,7 @@ Template.RecipeWrite.events({
 
 		value = Template.RecipeWrite.servingRangeRole(value, 'up');
 
-		tmpl.find('#serving').value = value;
+		tmpl.fid('#serving').value = value;
 	},
 
 	// 기준인원 감소 버튼 클릭
@@ -394,6 +405,51 @@ Template.RecipeWrite.events({
 		value = Template.RecipeWrite.servingRangeRole(value, 'down');
 
 		tmpl.find('#serving').value = value;
+	},
+
+	'click #recipeName': function(e) {
+		e.stopPropagation();
+	},
+
+	'click .header': function(e, tmpl) {
+		var status = Session.get(HEADER_EXPANDED_KEY);
+
+		if (!status) {
+			$('.content-scrollable').velocity({top: '100%'}, {
+				duration: App.settings.defaultAnimationDuration,
+				complete: function (e) {
+					Session.set(HEADER_EXPANDED_KEY, true);
+				}
+			});
+			$('.header').velocity({height: '100%'}, {
+				duration: App.settings.defaultAnimationDuration
+			});
+			$('.btns-group').velocity({bottom: -48}, {
+				duration: App.settings.defaultAnimationDuration
+			});
+			$('#recipeName').velocity({top: '90%', color: '#ffffff', fontSize: '2rem', backgroundColorAlpha: 0}, {
+				duration: App.settings.defaultAnimationDuration * 2
+			});
+			$('.header').addClass('noblur');
+		} else {
+			$('.content-scrollable').velocity({top: '31%'}, {
+				duration: App.settings.defaultAnimationDuration,
+				complete: function(e) {
+					Session.set(HEADER_EXPANDED_KEY, false);
+				}
+			});
+			$('.header').velocity({height: '31%'}, {
+				duration: App.settings.defaultAnimationDuration
+			});
+			$('.btns-group').velocity({bottom: 0}, {
+				duration: App.settings.defaultAnimationDuration,
+				delay: 200
+			});
+			$('#recipeName').velocity({top: '39%', color: '#000000', fontSize: '1rem', backgroundColorAlpha: 100}, {
+				duration: App.settings.defaultAnimationDuration
+			});
+			$('.header').removeClass('noblur');
+		}
 	}
 });
 

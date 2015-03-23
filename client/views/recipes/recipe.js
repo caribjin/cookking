@@ -103,7 +103,7 @@ Template.Recipe.events({
 
 		App.helpers.confirm(
 			'레시피를 삭제하시겠습니까?',
-			'한번 삭제된 레시피는 복구할 수 없습니다.',
+			'이 레시피를 영구적으로 삭제합니다.',
 			'warning', true, function() {
 				Meteor.call('deleteRecipe', self._id, function (error, result) {
 					if (error) {

@@ -161,13 +161,13 @@ Template.Share.events({
 		//fileReader.readAsArrayBuffer(file);
 	},
 
-	'submit': function(event, template) {
-		event.preventDefault();
+	'submit': function(e, tmpl) {
+		e.preventDefault();
 
 		var self = this;
 
 		App.helpers.confirm('글 등록', '작성한 글을 올리시겠습니까?', 'info', true, function() {
-			var text = $(event.target).find('[name=text]').val();
+			var text = $(e.target).find('[name=text]').val();
 			var tweet = Session.get(TWEETING_KEY);
 			var cropData = $('.cropper > img').cropper('getData');
 			var file = Template.Share.generateFileInfo(cropData);
