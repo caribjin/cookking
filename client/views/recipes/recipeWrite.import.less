@@ -108,8 +108,17 @@
 		.form-subrow {
 			.font-size(15px);
 
-			span:first-child {
-				.margin-right(7px);
+			span {
+				white-space: nowrap;
+
+				&:first-child {
+					.margin-right(7px);
+					.margin-top(4px);
+				}
+				&:last-child {
+					.margin-right(7px);
+					.margin-top(4px);
+				}
 			}
 		}
 
@@ -135,10 +144,6 @@
 
 	.form-row-header.direction {
 		span { .margin-right(5px); }
-	}
-
-	.btn-sm-remove-circle {
-		.margin-top(4px);
 	}
 }
 
@@ -192,10 +197,19 @@
 	background-color: #dad5d2;
 }
 
+.js-add-direction-image {
+	box-shadow: #25506b 0 0 0 2px inset !important;
+	i[class*="fa-"] {
+		background-color: #25506b !important;
+	}
+}
+
 .js-add-complete-image {
 	box-shadow: @color-ancillary 0 0 0 2px inset !important;
 	i[class*="fa-"] {
 		background-color: @color-ancillary !important;
 	}
 }
+
+
 

@@ -20,8 +20,14 @@
 					{{/if}}
 				</span>
 			</span>
-		{{/with}}
 
-		<img src="{{recipeImage recipe=recipe size=size}}" />
+			{{#with image imageId}}
+				{{#if url store="thumbs"}}
+					<img src="{{url store="thumbs" uploading="/img/app/loading/progress.gif"}}" class="{{#if isUploaded}}{{else}}loading{{/if}}">
+				{{else}}
+					<img src="/img/app/empty-recipe-small.jpg">
+				{{/if}}
+			{{/with}}
+		{{/with}}
 	</a>
 </template>

@@ -164,7 +164,7 @@ Template.RecipeWrite.save = function(e, tmpl) {
 			recipe = {
 				title: tmpl.find('#recipeName').value,
 				description: tmpl.find('#description').value,
-				image: '',
+				imageId: '',
 				public: App.helpers.isChecked('#checkbox-10-public'),
 				serving: parseInt(tmpl.find('#serving').value, 10),
 				cookTime: 0,
@@ -194,22 +194,47 @@ Template.RecipeWrite.save = function(e, tmpl) {
 				bookmarkedCount: 0
 			};
 
-			Meteor.call('createRecipe', recipe, function(error, result) {
-				if (error) {
-					App.helpers.error(error.reason);
-				} else if (!result) {
-					App.helpers.error('알 수 없는 오류가 발생했습니다.')
+			var imageData = Session.get(IMAGE_KEY);
+
+			if (imageData) {
+				var file = Template.Share.generateFileInfo('recipe', imageData);
+
+				if (!file) {
+					App.helpers.error('인식할 수 없는 유형의 파일입니다');
+					return;
 				}
 
-				Session.set(ERRORS_KEY, errors);
-				if (_.keys(errors).length) return;
+				Images.insert(file, function(error, file) {
+					Session.set(IMAGE_KEY, null);
 
-				Router.go('home');
-			});
+					if (error) {
+						console.log(error.reason);
+						return;
+					}
+
+					recipe.imageId = file._id;
+
+					Template.RecipeWrite.callCreateRecipe(recipe);
+				});
+			} else {
+				Template.RecipeWrite.callCreateRecipe(recipe);
+			}
 		});
 	}
 };
 
+
+Template.RecipeWrite.callCreateRecipe = function(recipe) {
+	Meteor.call('createRecipe', recipe, function(error, result) {
+		if (error) {
+			App.helpers.error(error.reason);
+		} else if (!result) {
+			App.helpers.error('알 수 없는 오류가 발생했습니다.')
+		}
+
+		Router.go('home');
+	});
+};
 
 Template.RecipeWrite.onCreated(function() {
 	WriteIngredients = new Meteor.Collection(null);
@@ -376,7 +401,7 @@ Template.RecipeWrite.events({
 	// 완성사진 등록 버튼 클릭
 	'click .js-add-complete-image': function(e, tmpl) {
 		var data = {
-			purpose: 'recipe-complete-image'
+			purpose: 'recipe'
 		};
 
 		Overlay.open('Share', data);
@@ -394,7 +419,7 @@ Template.RecipeWrite.events({
 
 		value = Template.RecipeWrite.servingRangeRole(value, 'up');
 
-		tmpl.fid('#serving').value = value;
+		tmpl.find('#serving').value = value;
 	},
 
 	// 기준인원 감소 버튼 클릭
@@ -405,6 +430,15 @@ Template.RecipeWrite.events({
 		value = Template.RecipeWrite.servingRangeRole(value, 'down');
 
 		tmpl.find('#serving').value = value;
+	},
+
+	// 조리법 이미지 추가 버튼 클릭
+	'click .js-add-direction-image': function(e, tmpl) {
+		var data = {
+			purpose: 'direction'
+		};
+
+		Overlay.open('Share', data);
 	},
 
 	'click #recipeName': function(e) {

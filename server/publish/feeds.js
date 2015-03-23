@@ -21,13 +21,13 @@ Meteor.publish('feedsForRecipe', function(recipeId) {
 
 			handles['images'] = Images.find(feed.imageId).observe({
 				added: function(image) {
-					self.added('feedsImages', image._id, image);
+					self.added('feedsImage', image._id, image);
 				},
 				changed: function(image, oldImage) {
-					self.changed('feedsImages', image._id, image);
+					self.changed('feedsImage', image._id, image);
 				},
 				removed: function(image) {
-					self.removed('feedsImages', image._id);
+					self.removed('feedsImage', image._id);
 				}
 			});
 		},

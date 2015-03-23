@@ -3,7 +3,7 @@ Meteor.methods({
 		check(recipe, {
 			title: String,
 			description: String,
-			image: String,
+			imageId: String,
 			public: Boolean,
 			serving: Number,
 			cookTime: Number,

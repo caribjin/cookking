@@ -5,13 +5,21 @@ var imageStore = new FS.Store.FileSystem('images', {
 var imageThumbStore = new FS.Store.FileSystem('thumbs', {
 	path: App.settings.defaultFileStoragePath + 'thumbs/',
 	transformWrite: function(file, readStream, writeStream) {
-		gm(readStream, file.name).
-			//autoOrient().
-			//gravity('Center').
-			crop(file.cropData.width, file.cropData.height, file.cropData.x, file.cropData.y).
-			//resize(App.settings.thumbnailImageWidth, App.settings.thumbnailImageHeight, '^').
-			quality(App.settings.thumbnailImageQuality).
-			stream().pipe(writeStream);
+		if (file.cropData) {
+			gm(readStream, file.name)
+				//autoOrient().
+				//gravity('Center')
+				//resize(App.settings.thumbnailImageWidth, App.settings.thumbnailImageHeight, '^')
+				.crop(file.cropData.width, file.cropData.height, file.cropData.x, file.cropData.y)
+				.quality(App.settings.thumbnailImageQuality)
+				.stream()
+				.pipe(writeStream);
+		} else {
+			gm(readStream, file.name)
+				.quality(App.settings.thumbnailImageQuality)
+				.stream()
+				.pipe(writeStream);
+		}
 	}
 });
 

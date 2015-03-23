@@ -80,6 +80,10 @@ Template.Recipe.helpers({
 
 	avatarImage: function() {
 		return this.writer.avatar || App.settings.emptyAvatarImage;
+	},
+
+	image: function(id) {
+		return new FS.File(RecipesImage.findOne(id));
 	}
 });
 
@@ -134,7 +138,7 @@ Template.Recipe.events({
 
 	'click .js-share': function() {
 		_.extend(this, {
-			purpose: 'feed-image'
+			purpose: 'feed'
 		});
 		Overlay.open('Share', this);
 	},

@@ -1,10 +1,11 @@
 var TWEETING_KEY = 'shareOverlayTweeting';
 var IMAGE_KEY = 'shareOverlayAttachedImage';
 
-Template.Share.generateFileInfo = function(cropData) {
+Template.Share.generateFileInfo = function(type, imageData, cropData) {
 	var file = new FS.File();
-	file.name('feed-image-' + Meteor.uuid());
-	file.attachData(Session.get(IMAGE_KEY));
+
+	file.name(type + '-image-' + Meteor.uuid());
+	file.attachData(imageData);
 	file.cropData = cropData;
 
 	var type = file.original.type;
@@ -17,7 +18,7 @@ Template.Share.generateFileInfo = function(cropData) {
 	} else {
 		return null;
 	}
-	file.category = 'feed';
+	file.category = type;
 
 	return file;
 };
@@ -33,7 +34,7 @@ Template.Share.generateFileInfo = function(cropData) {
 Template.Share.skipEditImage = function(purpose) {
 	var result = false;
 
-	if (purpose === 'recipe-complete-image' || purpose === 'direction-image') result = true;
+	if (purpose === 'recipe' || purpose === 'direction') result = true;
 
 	return result;
 };
@@ -170,7 +171,7 @@ Template.Share.events({
 			var text = $(e.target).find('[name=text]').val();
 			var tweet = Session.get(TWEETING_KEY);
 			var cropData = $('.cropper > img').cropper('getData');
-			var file = Template.Share.generateFileInfo(cropData);
+			var file = Template.Share.generateFileInfo('feed', Session.get(IMAGE_KEY), cropData);
 
 			if (!file) {
 				App.helpers.error('인식할 수 없는 유형의 파일입니다');
@@ -178,11 +179,12 @@ Template.Share.events({
 			}
 
 			Images.insert(file, function(error, file) {
+				Session.set(IMAGE_KEY, null);
+
 				if (error) {
 					console.log(error.reason);
+					return;
 				}
-
-				Session.set(IMAGE_KEY, null);
 
 				Meteor.call('createFeed', {
 					recipeId: self._id,

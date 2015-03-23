@@ -22,5 +22,9 @@ Template.RecipeItem.helpers({
 
 	sharedCount: function() {
 		return Math.round(Math.random() * 200);
+	},
+
+	image: function(id) {
+		return new FS.File(RecipesImage.findOne(id));
 	}
 });

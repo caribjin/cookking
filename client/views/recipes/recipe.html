@@ -21,7 +21,9 @@
 			<div class="nav-item-last"></div>
 		{{/Navigation}}
 
-		<div class="recipe-image" style="background-image: url('{{recipeImage recipe=this size='full'}}')"></div>
+		{{#with image imageId}}
+			<div class="recipe-image" style="background-image: url('{{url}}')"></div>
+		{{/with}}
 
 		<div class="recipe-source-view">
 			<a href="{{source.url}}" target="_blank" class="btn-primary js-open">원본 보기</a>
