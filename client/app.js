@@ -77,7 +77,6 @@ _.extend(App.helpers, {
 		type = type || '';
 		close = typeof close === 'undefined' ? true : close;
 
-		//if (callback !== 'undefined' && typeof callback !== 'function') callback = new Function();
 		if (!_.isFunction(callback)) callback = new Function();
 
 		sweetAlert({
@@ -103,7 +102,6 @@ _.extend(App.helpers, {
 	error: function(text, callback) {
 		if (!text) return;
 
-		//if (callback !== 'undefined' && typeof callback !== 'function') callback = new Function();
 		if (!_.isFunction(callback)) callback = new Function();
 
 		sweetAlert({
@@ -135,7 +133,6 @@ _.extend(App.helpers, {
 		type = type || '';
 		close = typeof close === 'undefined' ? true : close;
 
-		//if (callback !== 'undefined' && typeof callback !== 'function') callback = new Function();
 		if (!_.isFunction(callback)) callback = new Function();
 
 		sweetAlert({
@@ -226,91 +223,9 @@ _.extend(App.helpers, {
 		$(selector).cropper(option);
 	},
 
-	pluralize: function(n, thing, options) {
-		var plural = thing;
-		if (_.isUndefined(n)) {
-			return thing;
-		} else if (n !== 1) {
-			if (thing.slice(-1) === 's')
-				plural = thing + 'es';
-			else
-				plural = thing + 's';
-		}
-
-		if (options && options.hash && options.hash.wordOnly)
-			return plural;
-		else
-			return n + ' ' + plural;
-	},
-
 	activePage: function() {
 		// includes Spacebars.kw but that's OK because the route name ain't that.
 		return _.include(arguments, Router.current().route.name) && 'active';
-	},
-
-	formatDate: function(datetime) {
-		if (moment && datetime){
-			return moment(datetime).format('MM/DD/YYYY');
-		} else {
-			return datetime;
-		}
-	},
-
-	formatDateTime: function(datetime) {
-		if (moment && datetime) {
-			if (datetime.getDate() === new Date().getDate()) {
-				return "Today " + moment(datetime).format("hh:mm");
-			} else {
-				return moment(datetime).format("MM/DD/YYYY hh:mm");
-			}
-		} else {
-			return datetime;
-		}
-	},
-
-	shorten: function(str, len) {
-		if (str && len) {
-			if (str.length > len && Session.get('shorten')) {
-				str = str.substring(0,len) + "...";
-			}
-		}
-		return str;
-	},
-
-	checkRole: function(userId, rolename) {
-		var authorized = false;
-		if (Roles.userIsInRole(userId, [rolename]) || Roles.userIsInRole(userId,['admin'])) {
-			authorized = true;
-		}
-		return authorized;
-	},
-
-	formatFileSize: function(str) {
-		str = (Number(str)/1000000).toFixed(2) + "MB";
-		return str;
-	},
-
-	formatPhone: function(str) {
-		if (str && str.length > 9) {
-			str = "(" + str.substring(0,3) + ")" + str.substring(3,6) + "-" + str.substring(6,13);
-		}
-		return str;
-	},
-
-	isAdmin: function() {
-		if (Meteor.user() && Meteor.user().profile)
-			var role = Meteor.user().profile.role;
-		return role === 'admin';
-	},
-
-	pad: function(number, digits) {
-		return String("00000000" + number).slice(-(digits+1));
-	},
-
-	camel: function(str) {
-		return str.replace(/(?:^|\s)\w/g, function(match) {
-			return match.toUpperCase();
-		});
 	},
 
 	track: function(key, meta) {

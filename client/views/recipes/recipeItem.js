@@ -26,5 +26,10 @@ Template.RecipeItem.helpers({
 
 	image: function(id) {
 		return new FS.File(RecipesImage.findOne(id));
+	},
+
+	isLarge: function(size) {
+		if (size === 'large') return true;
+		else return false;
 	}
 });

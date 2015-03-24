@@ -22,7 +22,7 @@
 			</span>
 
 			{{#with image imageId}}
-				{{#if url store="thumbs"}}
+				{{#if url}}
 					<img src="{{url store="thumbs" uploading="/img/app/loading/progress.gif"}}" class="{{#if isUploaded}}{{else}}loading{{/if}}">
 				{{else}}
 					<img src="/img/app/empty-recipe-small.jpg">
