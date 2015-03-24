@@ -116,12 +116,23 @@
 						{{#each directions}}
 							<div class="form-subrow">
 								<span>{{index}}.</span>
-								<input type="text" name="directions" data-id="{{_id}}" class="sm underline {{#if isFirstDirection this}}{{errorClass 'direction'}}{{/if}}" placeholder="조리법을 입력해 주세요" maxlength="100"/>
+								{{#if imageData}}
+									<div class="direction-image js-add-direction-image" style="background-image: url('{{imageData}}');"></div>
+								{{else}}
+									<div class="direction-image js-add-direction-image">
+										<img src="/img/app/take-picture.png">
+									</div>
+								{{/if}}
+								<textarea type="text"
+								          name="directions"
+								          data-id="{{_id}}"
+								          class="sm underline {{#if isFirstDirection this}}{{errorClass 'direction'}}{{/if}}"
+								          placeholder="조리법을 입력해 주세요"
+								          autocapitalize="off" autocorrect="off"
+								          maxlength="200"
+								          rows="3"></textarea>
 								{{#if isNotFirstDirection this}}
 								<span class="buttons">
-									<a class="js-add-direction-image btn-sm-add-circle">
-										<i class="fa fa-file-o"></i>
-									</a>
 									<a class="js-remove-direction btn-sm-remove-circle">
 										<i class="fa fa-minus"></i>
 									</a>

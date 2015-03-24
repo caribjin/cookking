@@ -104,6 +104,9 @@
 				<ol class="list-directions">
 					{{#each directions}}
 						<li class="item-direction">
+							{{#if this.imageData}}
+								<div class="direction-image" style="background-image: url('{{this.imageData}}');"></div>
+							{{/if}}
 							<span class="text">{{this.text}}</span>
 						</li>
 					{{/each}}

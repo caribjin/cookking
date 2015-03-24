@@ -120,6 +120,31 @@
 					.margin-top(4px);
 				}
 			}
+
+			.direction-image {
+				min-width: 6rem;
+				min-height: 6rem;
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				overflow: hidden;
+				.transform(translate3d(0,0,0));
+				.margin(6px, 6px);
+				.border-radius(8px);
+				//box-shadow: #25506b 0 0 0 1px inset;
+				border: #25506b 1px solid;
+				text-align: center;
+				vertical-align: middle;
+
+				img {
+					position: absolute;
+					width: 30%;
+					height: 30%;
+					top: 35%;
+					left: 35%;
+
+				}
+			}
 		}
 
 		input[id^="checkbox-3-"] + label,
@@ -198,10 +223,10 @@
 }
 
 .js-add-direction-image {
-	box-shadow: #25506b 0 0 0 2px inset !important;
-	i[class*="fa-"] {
-		background-color: #25506b !important;
-	}
+	//box-shadow: #25506b 0 0 0 2px inset !important;
+	//i[class*="fa-"] {
+	//	background-color: #25506b !important;
+	//}
 }
 
 .js-add-complete-image {

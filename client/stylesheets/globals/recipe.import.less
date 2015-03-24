@@ -180,10 +180,29 @@
 
 	.item-ingredient,
 	.item-direction {
-		.font-s3;
+		.font-size(13px);
 		background: @color-empty;
 		.padding(10px, 0px);
 		.padding-right(15px);
+		clear: both;
+
+		.direction-image {
+			min-width: 6rem;
+			min-height: 6rem;
+			width: 6rem;
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			overflow: hidden;
+			.transform(translate3d(0,0,0));
+			.margin-right(13px);
+			.margin-bottom(7px);
+			.border-radius(8px);
+			border: #25506b 1px solid;
+			text-align: center;
+			vertical-align: middle;
+			float: left;
+		}
 	}
 
 	.item-ingredient {
@@ -212,7 +231,7 @@
 				display: inline-block;
 				float: left;
 				vertical-align: middle;
-				width: 1.5rem;
+				width: 1rem;
 				margin-right: .25rem;
 				.type-bold;
 			}
@@ -220,6 +239,7 @@
 			.text {
 				display: block;
 				overflow: hidden;
+				.margin-top(1px);
 			}
 		}
 	}

@@ -49,10 +49,17 @@
 	}
 
 	.feed-image {
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		overflow: hidden;
+		.transform(translate3d(0,0,0));
+		.border-radius(8px);
 		display: block;
 		width: 100%;
 		overflow: hidden;
 		text-align: center;
+		border: #25506b 1px solid;
 
 		& > img {
 			width: 100%;

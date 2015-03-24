@@ -6,6 +6,7 @@ var ERRORS_KEY = 'recipeWriteErrors';
 var SHARE_IMAGE_KEY = 'shareAttachedImage';
 var SHARE_IMAGE_PURPOSE_KEY = 'shareImagePurpose';
 var RECIPE_IMAGE_KEY = 'recipeCompleteImage';
+var DIRECTION_ID = 'directionId';
 var HEADER_EXPANDED_KEY = 'headerExpanded';
 
 Template.RecipeWrite.setTab = function(tab) {
@@ -54,7 +55,7 @@ Template.RecipeWrite.directionAdd = function() {
 	var currentCount = WriteDirections.find().count();
 
 	if (currentCount < limitCount) {
-		WriteDirections.insert({text: '', image: '', createdAt: new Date()});
+		WriteDirections.insert({text: '', imageData: '', createdAt: new Date()});
 	}
 };
 
@@ -111,7 +112,7 @@ Template.RecipeWrite.validateData = function(e, tmpl) {
 	var ingredientContent = tmpl.find('input[name=ingredients]:first').value;
 
 	// 조리법
-	var directionContent = tmpl.find('input[name=directions]:first').value;
+	var directionContent = tmpl.find('textarea[name=directions]:first').value;
 
 	if (!recipeName) errors.recipeName = true;
 	if (!ingredientContent) errors.mustIngredient = true;
@@ -128,7 +129,7 @@ Template.RecipeWrite.validateData = function(e, tmpl) {
  */
 Template.RecipeWrite.syncDataToCollection = function() {
 	var $ingredientInputs = $('input[type=text][name=ingredients]');    // 재료 입력요소들
-	var $directionInputs = $('input[type=text][name=directions]');      // 조리법 입력요소들
+	var $directionInputs = $('textarea[type=text][name=directions]');      // 조리법 입력요소들
 
 	$ingredientInputs.each(function(index) {
 		var value = $(this).val();
@@ -190,7 +191,7 @@ Template.RecipeWrite.save = function(e, tmpl) {
 				},
 				directions: WriteDirections.find(
 					{text: {$ne: ''}},
-					{fields: {text: 1, image: 1, _id: 0}},
+					{fields: {text: 1, imageData: 1, _id: 0}},
 					{sort: {createdAt: 1}}).fetch(),
 				highlighted: false,
 				bookmarkedCount: 0
@@ -242,6 +243,11 @@ Template.RecipeWrite.onCreated(function() {
 	WriteIngredients = new Meteor.Collection(null);
 	WriteDirections = new Meteor.Collection(null);
 
+	Session.set(SHARE_IMAGE_KEY, null);
+	Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
+	Session.set(RECIPE_IMAGE_KEY, null);
+	Session.set(DIRECTION_ID, null);
+
 	// 최초 재료 입력행에 필수재료 행을 한 개 추가
 	Template.RecipeWrite.ingredientAdd('must', '');
 
@@ -249,11 +255,24 @@ Template.RecipeWrite.onCreated(function() {
 	Template.RecipeWrite.directionAdd();
 
 	Tracker.autorun(function() {
-		if (Session.get(SHARE_IMAGE_KEY)) {
-			if (Session.get(SHARE_IMAGE_PURPOSE_KEY) === 'recipe') {
-				Session.set(RECIPE_IMAGE_KEY, Session.get(SHARE_IMAGE_KEY));
+		var imageData = Session.get(SHARE_IMAGE_KEY);
+		var purpose = Session.get(SHARE_IMAGE_PURPOSE_KEY);
+
+		if (imageData) {
+			if (purpose === 'recipe') {
+				Session.set(RECIPE_IMAGE_KEY, imageData);
+
 				Session.set(SHARE_IMAGE_KEY, null);
 				Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
+			} else if (purpose === 'direction') {
+				var directionId = Session.get(DIRECTION_ID);
+				if (directionId) {
+					WriteDirections.update({_id: directionId}, {$set: {imageData: imageData}});
+
+					Session.set(DIRECTION_ID, null);
+					Session.set(SHARE_IMAGE_KEY, null);
+					Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
+				}
 			}
 		}
 	});
@@ -451,6 +470,7 @@ Template.RecipeWrite.events({
 			purpose: 'direction'
 		};
 
+		Session.set(DIRECTION_ID, this._id);
 		Overlay.open('Share', data);
 	},
 

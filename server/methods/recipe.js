@@ -17,7 +17,7 @@ Meteor.methods({
 			},
 			directions: Match.Optional([{
 				text: String,
-				image: String
+				imageData: String
 			}]),
 			highlighted: Boolean,
 			bookmarkedCount: Number
