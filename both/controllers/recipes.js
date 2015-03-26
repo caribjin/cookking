@@ -15,13 +15,11 @@ RecipesController = RouteController.extend({
 	},
 
 	subscriptions: function() {
-		//console.log('subscriptions called');
 		this.recipesSubscribe = Meteor.subscribe('recipes', this.option());
 	},
 
 	data: function() {
 		var self = this;
-		//console.log('data called');
 		return {
 			recipes: function() {
 				return Recipes.find({}, self.option());
@@ -31,11 +29,9 @@ RecipesController = RouteController.extend({
 	},
 
 	action: function() {
-		this.render('Recipes');
-		//console.log('action called - ready: ' + this.data().ready());
 		if (this.data().ready()) {
 			Session.set(SUBSCRIPTION_COMPLETED, true);
 		}
-		this.next();
+		this.render();
 	}
 });
