@@ -9,11 +9,18 @@ Template.Navigation.helpers({
 });
 
 Template.Navigation.onRendered(function() {
-	new Waypoint({
-		element: $('.content-scrollable').children().first(),
-		handler: function(direction) {
-			$('nav').toggleClass('scrolled', direction === 'down');
-		},
+	//new Waypoint({
+	//	element: $('.content-scrollable').children().first(),
+	//	handler: function(direction) {
+	//		$('nav').toggleClass('scrolled', direction === 'down');
+	//	},
+	//	context: $('.content-scrollable'),
+	//	offset: -100
+	//});
+
+	$('.content-scrollable').waypoint(function(direction) {
+		$('nav').toggleClass('scrolled', direction === 'down');
+	}, {
 		context: $('.content-scrollable'),
 		offset: -100
 	});

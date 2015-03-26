@@ -11,16 +11,25 @@ Template.Recipes.currentReadLimit = function() {
 };
 
 Template.Recipes.initWaypoint = function() {
-	waypoint = new Waypoint({
-		element: $('.btn-more'),
-		context: $('.content-scrollable'),
-		offset: 'bottom-in-view',
-		handler: function (direction) {
-			if (direction === 'down') {
-				console.log('[[[[[ load more ]]]]]');
-				Template.Recipes.incrementReadLimit();
-			}
+	//waypoint = new Waypoint({
+	//	element: $('.btn-more'),
+	//	context: $('.content-scrollable'),
+	//	offset: 'bottom-in-view',
+	//	handler: function (direction) {
+	//		if (direction === 'down') {
+	//			console.log('[[[[[ load more ]]]]]');
+	//			Template.Recipes.incrementReadLimit();
+	//		}
+	//	}
+	//});
+	waypoint = $('.btn-more').waypoint(function(direction) {
+		if (direction === 'down') {
+			console.log('[[[[[ load more ]]]]]');
+			Template.Recipes.incrementReadLimit();
 		}
+	}, {
+		context: $('.content-scrollable'),
+		offset: 'bottom-in-view'
 	});
 	console.log('~~~~~~~~~ waypoint init ~~~~~~~~~');
 };
@@ -51,7 +60,8 @@ Template.Recipes.onCreated(function() {
 			if (waypoint === null) {
 				Template.Recipes.initWaypoint();
 			} else {
-				Waypoint.refreshAll();
+				//Waypoint.refreshAll();
+				$.waypoints('refresh');
 			}
 
 			Session.set(SUBSCRIPTION_COMPLETED, false);

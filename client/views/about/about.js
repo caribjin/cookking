@@ -7,14 +7,14 @@ Template.About.onRendered(function() {
 	//		console.log(direction);
 	//	}
 	//});
-	new Waypoint({
-		element: $('.waypoint'),
-		context: $('.content-scrollable'),
-		offset: 'bottom-in-view',
-		handler: function(direction) {
-			console.log(direction);
-		}
-	});
+	//new Waypoint({
+	//	element: $('.waypoint'),
+	//	context: $('.content-scrollable'),
+	//	offset: 'bottom-in-view',
+	//	handler: function(direction) {
+	//		console.log(direction);
+	//	}
+	//});
 
 
 	//new Waypoint.Infinite({
