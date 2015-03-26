@@ -14,18 +14,31 @@ Images.deny({
 });
 
 Images.allow({
+	//insert: function(userId, doc) {
+	//	//return (userId && doc.metadata.owner === userId);
+	//	return userId;
+	//},
+	//update: function(userId, doc, fieldNames, modifier){
+	//	//return (userId === doc.metadata.owner);
+	//	return userId;
+	//},
+	//remove: function(userId, doc) {
+	//	return false;
+	//},
+	//download: function(userId) {
+	//	return !!userId;
+	//}
 	insert: function(userId, doc) {
-		//return (userId && doc.metadata.owner === userId);
-		return userId;
+		return true;
 	},
 	update: function(userId, doc, fieldNames, modifier){
 		//return (userId === doc.metadata.owner);
-		return userId;
+		return true;
 	},
 	remove: function(userId, doc) {
 		return false;
 	},
 	download: function(userId) {
-		return !!userId;
+		return true;
 	}
 });

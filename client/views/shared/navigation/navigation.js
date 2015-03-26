@@ -9,11 +9,12 @@ Template.Navigation.helpers({
 });
 
 Template.Navigation.onRendered(function() {
-	var $nav = this.$('nav');
-	$nav.siblings('.content-scrollable:not(.static-nav)').children().first().waypoint(function(direction) {
-		$nav.toggleClass('scrolled', direction === 'down');
-	}, {
-		context: '.content-scrollable',
-		offset: -200
+	new Waypoint({
+		element: $('.content-scrollable').children().first(),
+		handler: function(direction) {
+			$('nav').toggleClass('scrolled', direction === 'down');
+		},
+		context: $('.content-scrollable'),
+		offset: -100
 	});
 });

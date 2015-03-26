@@ -29,7 +29,13 @@ App = {
 		},
 
 		// 기본 애니메이션 속도 (ms)
-		defaultAnimationDuration: 200
+		defaultAnimationDuration: 200,
+
+		// 레시피 목록 최초 기본 개수
+		defaultRecipesListLimit: 11,
+
+		// 레시피 목록 더 보기 시 증가 개수
+		recipesLimitIncrementCount: 10
 	},
 
 	helpers: {

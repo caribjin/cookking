@@ -8,7 +8,6 @@ meteor-platform
 iron:router
 accounts-password
 less
-jquery-waypoints
 percolate:velocityjs
 accounts-base
 nemo64:bootstrap
@@ -37,3 +36,5 @@ numeral:numeral
 babrahams:transactions
 mdg:reload-on-resume
 msavin:mongol
+caribjin:jquery-waypoints
+msavin:jetsetter

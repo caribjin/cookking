@@ -23,11 +23,11 @@ HomeController = RouteController.extend({
 
 	waitOn: function() {
 		return [
-			Meteor.subscribe('news', this.option('news')),
-			Meteor.subscribe('feeds', this.option('feeds')),
-			Meteor.subscribe('recipes', this.option('recipes'), function() {
-				dataReadyHold.release();
-			})
+			//Meteor.subscribe('news', this.option('news')),
+			//Meteor.subscribe('feeds', this.option('feeds')),
+			//Meteor.subscribe('recipes', this.option('recipes'), function() {
+			//	dataReadyHold.release();
+			//})
 		];
 	},
 

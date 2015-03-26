@@ -7,6 +7,10 @@ Meteor.publish('recipes', function (options) {
 		limit: Number
 	});
 
+	if (options.limit > Recipes.find().count()) {
+		options.limit = 0;
+	}
+
 	var self = this;
 	var handles = {};
 
