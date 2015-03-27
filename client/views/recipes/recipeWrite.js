@@ -379,7 +379,7 @@ Template.RecipeWrite.helpers({
 		var imageData = Session.get(RECIPE_IMAGE_KEY);
 
 		if (imageData) return imageData;
-		else return '/img/recipes/640x800/summer-apricots-honey-panna-cotta.jpg';
+		else return App.settings.defaultRecipeWriteCompleteImage;
 	}
 });
 

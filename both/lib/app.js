@@ -35,7 +35,10 @@ App = {
 		defaultRecipesListLimit: 11,
 
 		// 레시피 목록 더 보기 시 증가 개수
-		recipesLimitIncrementCount: 10
+		recipesLimitIncrementCount: 10,
+
+		// 레시피 작성 시 기본 완료이미지
+		defaultRecipeWriteCompleteImage: '/img/recipes/640x800/12.jpg'
 	},
 
 	helpers: {

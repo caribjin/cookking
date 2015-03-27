@@ -111,5 +111,25 @@
 		.position(relative, auto, 0, 0, 0, 100%, 3rem);
 		.transform(translate3d(0,0,0));
 		display: block;
+
+		&:before {
+			content: 'MORE';
+		}
+	}
+
+	.btn-more.loading {
+		.position(relative, auto, 0, 0, 0, 100%, 3rem);
+		.transform(translate3d(0,0,0));
+		display: block;
+
+		&:before {
+			content: url(/img/app/loading/loading-spin.svg);
+			position: relative;
+			top: -5px;
+		}
+	}
+
+	.content-scrollable {
+		//background-color: @color-primary !important;
 	}
 }
