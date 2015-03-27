@@ -9,10 +9,10 @@ Template.Navigation.helpers({
 });
 
 Template.Navigation.onRendered(function() {
-	$('.content-scrollable').waypoint(function(direction) {
-		$('nav').toggleClass('scrolled', direction === 'down');
-	}, {
-		context: $('.content-scrollable'),
-		offset: -100
-	});
+	//$('.content-scrollable').waypoint(function(direction) {
+	//	$('nav').toggleClass('scrolled', direction === 'down');
+	//}, {
+	//	context: $('.content-scrollable'),
+	//	offset: -100
+	//});
 });

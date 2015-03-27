@@ -23,7 +23,7 @@
 
 			{{#with image imageId}}
 				{{#if url}}
-					<img src="{{url store="thumbs" uploading="/img/app/loading/progress.gif"}}" class="{{#if isUploaded}}{{else}}loading{{/if}}">
+					<img src="{{url store="thumbs" uploading="/img/app/loading/loading-spin-negative.svg"}}" class="{{#if isUploaded}}{{else}}loading{{/if}}">
 				{{else}}
 					<img src="/img/app/empty-recipe-small.jpg">
 				{{/if}}
