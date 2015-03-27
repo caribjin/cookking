@@ -48,6 +48,7 @@ Template.Recipes.onCreated(function() {
 			} else {
 				$.waypoints('refresh');
 				Template.Recipes.toggleMoreButtonDisplay();
+
 				var recipesAfterCount = Recipes.find().count();
 				if (recipesBeforeCount < recipesAfterCount) recipesBeforeCount = recipesAfterCount;
 				else $('.btn-more').hide();

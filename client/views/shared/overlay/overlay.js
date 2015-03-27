@@ -1,6 +1,5 @@
 var TEMPLATE_KEY = 'overlayTemplate';
 var DATA_KEY = 'overlayData';
-var ANIMATION_DURATION = 200;
 
 Session.setDefault(TEMPLATE_KEY, null);
 
@@ -37,7 +36,7 @@ Template.Overlay.onRendered(function() {
 				.hide()
 				.insertBefore(next)
 				.velocity('slideDown', {
-					duration: ANIMATION_DURATION
+					duration: App.settings.defaultAnimationDuration
 				});
 		},
 		removeElement: function(node, done) {
@@ -45,7 +44,7 @@ Template.Overlay.onRendered(function() {
 
 			$node
 				.velocity("slideUp", {
-					duration: ANIMATION_DURATION,
+					duration: App.settings.defaultAnimationDuration,
 					complete: function() {
 						$node.remove();
 					}

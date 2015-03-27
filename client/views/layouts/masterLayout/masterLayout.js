@@ -1,4 +1,3 @@
-var ANIMATION_DURATION = 300;
 var NOTIFICATION_TIMEOUT = 5000;
 var MENU_KEY = 'menuOpen';
 var IGNORE_CONNECTION_ISSUE_KEY = 'ignoreConnectionIssue';
@@ -43,7 +42,7 @@ Meteor.startup(function () {
 		wipeRight: function () {
 			Session.set(MENU_KEY, true);
 		},
-		min_move_x: 150,
+		min_move_x: App.settings.menuOpenWipeDistance,
 		preventDefaultEvents: false
 	});
 
@@ -123,7 +122,6 @@ Template.MasterLayout.helpers({
 Template.MasterLayout.onRendered(function () {
 	//this.find("#content-container")._uihooks = {
 	//	insertElement: function(node, next) {
-	//		// short-circuit and just do it right away
 	//		if (initiator === 'menu')
 	//			return $(node).insertBefore(next);
 	//
@@ -133,7 +131,7 @@ Template.MasterLayout.onRendered(function () {
 	//		$(node)
 	//			.insertBefore(next)
 	//			.velocity({translateX: [0, start]}, {
-	//				duration: ANIMATION_DURATION,
+	//				duration: App.settings.defaultAnimationDuration,
 	//				easing: 'ease-in-out',
 	//				queue: false
 	//			});
@@ -146,7 +144,7 @@ Template.MasterLayout.onRendered(function () {
 	//
 	//		$(node)
 	//			.velocity({translateX: end}, {
-	//				duration: ANIMATION_DURATION,
+	//				duration: App.settings.defaultAnimationDuration,
 	//				easing: 'ease-in-out',
 	//				queue: false,
 	//				complete: function() {
@@ -155,24 +153,24 @@ Template.MasterLayout.onRendered(function () {
 	//			});
 	//	}
 	//};
-	//
-	//this.find(".Notifications")._uihooks = {
-	//	insertElement: function(node, next) {
-	//		$(node)
-	//			.insertBefore(next)
-	//			.velocity("slideDown", {
-	//				duration: ANIMATION_DURATION,
-	//				easing: [0.175, 0.885, 0.335, 1.05]
-	//			});
-	//	},
-	//	removeElement: function(node) {
-	//		$(node)
-	//			.velocity("fadeOut", {
-	//				duration: ANIMATION_DURATION,
-	//				complete: function() {
-	//					$(node).remove();
-	//				}
-	//			});
-	//	}
-	//};
+
+	this.find(".notifications")._uihooks = {
+		insertElement: function(node, next) {
+			$(node)
+				.insertBefore(next)
+				.velocity("slideDown", {
+					duration: App.settings.defaultAnimationDuration,
+					easing: [0.175, 0.885, 0.335, 1.05]
+				});
+		},
+		removeElement: function(node) {
+			$(node)
+				.velocity("fadeOut", {
+					duration: App.settings.defaultAnimationDuration,
+					complete: function() {
+						$(node).remove();
+					}
+				});
+		}
+	};
 });

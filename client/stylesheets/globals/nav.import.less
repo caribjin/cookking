@@ -4,9 +4,15 @@ nav {
 	.transition(all 300ms ease-out);
 	.height(@nav-height);
 
+	background: rgba(255,255,255,.97);
+	color: @color-full;
+
+	&:after { opacity: 1; }
+	.nav-item { color: @color-full; }
+
 	//background: rgba(255,255,255,.97);
-	background: #E45F14;
-	color: @color-empty;
+	//background: #E45F14;
+	//color: @color-empty;
 	text-align: center;
 	z-index: 10;
 
@@ -56,8 +62,8 @@ nav {
 	}
 	.nav-item {
 		//.font-m1;
-		//color: @color-full;
-		color: @color-empty;
+		color: @color-full;
+		//color: @color-empty;
 		//display: inline-block;
 		display: table-cell;
 		vertical-align: middle;

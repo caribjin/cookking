@@ -1,5 +1,8 @@
 App = {
 	settings: {
+		// 메뉴 열림을 위한 손가락 쓸기 거리
+		menuOpenWipeDistance: 130,
+
 		// 최대 재료 추가가능 개수 (필수재료/선택재료 각각)
 		ingredientsCountLimit: 20,
 		directionsCountLimit: 20,

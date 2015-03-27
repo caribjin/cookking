@@ -13,15 +13,18 @@ Template.RecipeItem.helpers({
 	},
 
 	favoritesCount: function() {
-		return Math.round(Math.random() * 1000);
+		//return Math.round(Math.random() * 1000);
+		return 0;
 	},
 
 	commentsCount: function() {
-		return Math.round(Math.random() * 100);
+		//return Math.round(Math.random() * 100);
+		return 0;
 	},
 
 	sharedCount: function() {
-		return Math.round(Math.random() * 200);
+		//return Math.round(Math.random() * 200);
+		return 0;
 	},
 
 	image: function(id) {
