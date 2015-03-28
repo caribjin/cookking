@@ -269,4 +269,8 @@ Meteor.startup(function() {
 	_.map(CATEGORIES, function(num, key) {
 		Categories.insert({key: key, value: CATEGORIES[key]});
 	});
+
+	if (moment) {
+		moment.locale(App.settings.locale);
+	}
 });

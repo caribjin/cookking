@@ -1,5 +1,5 @@
 var RECIPES_LIMIT = 'recipesLimitCount';
-var SUBSCRIPTION_COMPLETED = 'subscriptionCompleted';
+var RECIPES_SUB_COMPLETED = 'recipesSubCompleted';
 
 RecipesController = RouteController.extend({
 	option: function() {
@@ -30,7 +30,7 @@ RecipesController = RouteController.extend({
 
 	action: function() {
 		if (this.data().ready()) {
-			Session.set(SUBSCRIPTION_COMPLETED, true);
+			Session.set(RECIPES_SUB_COMPLETED, true);
 		}
 		this.render();
 	}

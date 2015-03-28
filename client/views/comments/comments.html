@@ -1,0 +1,34 @@
+<template name="Comments">
+	<div class="overlay share">
+		<div class="title-page">댓글<span class="totalCount">({{totalCount}})</span></div>
+		<a href="#" class="js-close-overlay overlay-dismiss"><span class="icon-cross"></span></a>
+
+		<div id="content-container">
+			<div class="page comments">
+				<div class="content-scrollable">
+					<div class="list-comments">
+						{{#each comments}}
+							<div class="item-comment">
+								<span class="avatar">
+									<img src="{{writer.userAvatar}}">
+								</span>
+								<span class="writer">{{writer.userName}}</span><br/>
+								<span class="createdAt">{{formatDateTime createdAt}}</span><br/>
+								{{text}}
+								{{#if isDeletable}}
+								<a class="js-remove btn-sm-remove-circle">
+									<i class="fa fa-minus"></i>
+								</a>
+								{{/if}}
+							</div>
+						{{/each}}
+					</div>
+				</div>
+				<div class="form-comment inline-box">
+					<input type="text" class="text-comment inline-text" maxlength="100" placeholder="댓글을 달아주세요">
+					<button class="inline-button btn-primary-inline" id="btn-submit">작성</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

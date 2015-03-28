@@ -21,6 +21,7 @@ Router.map(function() {
 	this.route('recipes',       {path: '/recipes'});
 	this.route('recipe.write',  {path: '/recipe/write', controller: 'RecipeWriteController', template: 'RecipeWrite'});
 	this.route('recipe',        {path: '/recipe/:_id'});
+	this.route('comments',      {path: '/recipe/:_id/comments', controller: 'CommentsController', template: 'Comments'});
 	this.route('news',          {path: '/news'});
 	this.route('feeds',         {path: '/feeds'});
 	this.route('bookmarks',     {path: '/bookmarks'});

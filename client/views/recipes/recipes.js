@@ -1,5 +1,5 @@
 var RECIPES_LIMIT = 'recipesLimitCount';
-var SUBSCRIPTION_COMPLETED = 'subscriptionCompleted';
+var RECIPES_SUB_COMPLETED = 'recipesSubCompleted';
 var waypoint = null;
 var recipesBeforeCount;
 
@@ -42,7 +42,7 @@ Template.Recipes.onCreated(function() {
 	waypoint = null;
 
 	this.autorun(function() {
-		if (Session.get(SUBSCRIPTION_COMPLETED)) {
+		if (Session.get(RECIPES_SUB_COMPLETED)) {
 			if (waypoint === null) {
 				Template.Recipes.initWaypoint();
 			} else {
@@ -54,7 +54,7 @@ Template.Recipes.onCreated(function() {
 				else $('.btn-more').hide();
 			}
 
-			Session.set(SUBSCRIPTION_COMPLETED, false);
+			Session.set(RECIPES_SUB_COMPLETED, false);
 		}
 	});
 });

@@ -63,15 +63,15 @@ Template.Recipe.helpers({
 	},
 
 	favoritesCount: function() {
-		return Math.round(Math.random() * 1000);
+		return 0;
 	},
 
 	commentsCount: function() {
-		return Math.round(Math.random() * 100);
+		return this.commentsCount;
 	},
 
 	sharedCount: function() {
-		return Math.round(Math.random() * 200);
+		return 0;
 	},
 
 	deletable: function() {
@@ -134,6 +134,10 @@ Template.Recipe.events({
 					}
 				});
 			});
+	},
+
+	'click .js-comments': function() {
+		Overlay.open('Comments', this);
 	},
 
 	'click .js-share': function() {

@@ -3,6 +3,12 @@ App = {
 		// 메뉴 열림을 위한 손가락 쓸기 거리
 		menuOpenWipeDistance: 130,
 
+		// 날짜 표시를 짧게 (몇 일전)으로 표시할 차이 범위
+		shortDateDisplayDiff: 7,
+
+		// 기본 지역코드
+		locale: 'kr',
+
 		// 최대 재료 추가가능 개수 (필수재료/선택재료 각각)
 		ingredientsCountLimit: 20,
 		directionsCountLimit: 20,
@@ -39,6 +45,12 @@ App = {
 
 		// 레시피 목록 더 보기 시 증가 개수
 		recipesLimitIncrementCount: 10,
+
+		// 댓글 목록 최초 기본 개수
+		defaultCommentsListLimit: 10,
+
+		// 댓글 목록 더 보기 시 증가 개수
+		commentsLimitIncrementCount: 10,
 
 		// 레시피 작성 시 기본 완료이미지
 		defaultRecipeWriteCompleteImage: '/img/recipes/640x800/12.jpg'
@@ -89,23 +101,16 @@ App = {
 
 		formatDateTime: function(datetime) {
 			if (moment && datetime) {
-				if (datetime.getDate() === new Date().getDate()) {
-					return "Today " + moment(datetime).format("hh:mm");
+				var dayDiff = moment().diff(moment(datetime), 'days');
+
+				if (dayDiff > App.settings.shortDateDisplayDiff) {
+					return moment(datetime).format('YYYY/MM/DD hh:mm');
 				} else {
-					return moment(datetime).format("MM/DD/YYYY hh:mm");
+					return moment(datetime).fromNow();
 				}
 			} else {
 				return datetime;
 			}
-		},
-
-		shorten: function(str, len) {
-			if (str && len) {
-				if (str.length > len && Session.get('shorten')) {
-					str = str.substring(0,len) + "...";
-				}
-			}
-			return str;
 		},
 
 		formatFileSize: function(str) {
@@ -116,6 +121,15 @@ App = {
 		formatPhone: function(str) {
 			if (str && str.length > 9) {
 				str = "(" + str.substring(0,3) + ")" + str.substring(3,6) + "-" + str.substring(6,13);
+			}
+			return str;
+		},
+
+		shorten: function(str, len) {
+			if (str && len) {
+				if (str.length > len && Session.get('shorten')) {
+					str = str.substring(0,len) + "...";
+				}
 			}
 			return str;
 		},
@@ -133,6 +147,7 @@ App = {
 		isAdmin: function() {
 			if (Meteor.user() && Meteor.user().profile)
 				var role = Meteor.user().profile.role;
+
 			return role === 'admin';
 		},
 

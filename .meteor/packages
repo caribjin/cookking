@@ -38,3 +38,5 @@ mdg:reload-on-resume
 msavin:mongol
 msavin:jetsetter
 jquery-waypoints
+reactive-var
+momentjs:moment

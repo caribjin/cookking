@@ -1,0 +1,82 @@
+.title-page {
+	.totalCount {
+		color: @color-medium-well;
+		.font-s3;
+	}
+}
+
+.page.comments {
+	background: @color-empty;
+	overflow: hidden;
+	top: @nav-height !important;
+
+	.content-scrollable {
+		.top(0px);
+		.height(91%);
+	}
+
+	.list-comments {
+		.padding(7%);
+		.padding-top(0);
+		background: @color-empty;
+		min-height: 16em;
+		overflow: auto;
+		position: relative;
+	}
+
+	.item-comment {
+		.transform(translate3d(0,0,0));
+		.font-size(13px);
+		background: @color-empty;
+		border-top: 1px solid @color-rare;
+		display: block;
+		float: left;
+		overflow: hidden;
+		padding: .75em;
+		position: relative;
+		width: 100%;
+		margin-bottom: .5rem;
+		border-bottom: #6699cc 1px dashed;
+
+		.avatar {
+			float: left;
+			width: 3rem;
+			height: 3rem;
+			margin-right: .9rem;
+		}
+
+		.writer {
+			.type-bold;
+		}
+
+		.createdAt {
+			.font-s2;
+			color: @color-well;
+		}
+
+		.js-remove {
+			position: absolute;
+			top: 28%;
+			right: 10px;
+		}
+	}
+
+	.form-comment {
+		.position(absolute, auto, 0, 0, 0, 100%, 3.5rem);
+		background-color: @color-medium-rare;
+
+		input.text-comment {
+			.margin(0.7rem);
+			.padding(5px);
+			.font-size(11pt);
+			width: 78%;
+			font-weight: 700;
+			background-color: #ffffff;
+			float: left;
+		}
+
+		button[type=submit] {
+			//float: left;
+		}
+	}
+}

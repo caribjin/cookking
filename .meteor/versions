@@ -84,6 +84,7 @@ meteortoys:toykit@0.2.1
 minifiers@1.1.4
 minimongo@1.0.7
 mobile-status-bar@1.0.3
+momentjs:moment@2.9.0
 mongo@1.1.0
 mongo-livedata@1.0.8
 msavin:jetsetter@1.0.1
