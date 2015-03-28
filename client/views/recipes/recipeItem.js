@@ -8,23 +8,20 @@ Template.RecipeItem.helpers({
 			return 'highlighted';
 	},
 
-	isBookmarked: function() {
-		return this.bookmarkedCount > 0;
-	},
+	//bookmarkedCount: function() {
+	//	return this.bookmarkedCount || 0;
+	//},
 
 	favoritesCount: function() {
-		//return Math.round(Math.random() * 1000);
-		return 0;
+		return this.favoritesCount || 0;
 	},
 
 	commentsCount: function() {
-		//return Math.round(Math.random() * 100);
-		return 0;
+		return this.commentsCount || 0;
 	},
 
 	sharedCount: function() {
-		//return Math.round(Math.random() * 200);
-		return 0;
+		return this.sharedCount || 0;
 	},
 
 	image: function(id) {

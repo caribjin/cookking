@@ -63,15 +63,15 @@ Template.Recipe.helpers({
 	},
 
 	favoritesCount: function() {
-		return 0;
+		return this.favoritesCount || 0;
 	},
 
 	commentsCount: function() {
-		return this.commentsCount;
+		return this.commentsCount || 0;
 	},
 
 	sharedCount: function() {
-		return 0;
+		return this.sharedCount || 0;
 	},
 
 	deletable: function() {

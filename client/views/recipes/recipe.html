@@ -6,15 +6,6 @@
 					<i class="fa fa-trash"></i>
 				</a>
 			{{/if}}
-			{{#if bookmarked}}
-				<a href="#" class="nav-item js-remove-bookmark bookmarked">
-					<i class="fa fa-bookmark"></i>
-				</a>
-			{{else}}
-				<a href="#" class="nav-item js-add-bookmark">
-					<i class="fa fa-bookmark-o"></i>
-				</a>
-			{{/if}}
 			<a href="#" class="nav-item js-share">
 				<i class="fa fa-camera"></i>
 			</a>
@@ -40,6 +31,15 @@
 				<span class="share js-share">
 					<i class="fa fa-share-alt"></i> {{sharedCount}}
 				</span>
+				{{#if bookmarked}}
+					<span class="bookmark js-remove-bookmark">
+						<i class="fa fa-bookmark bookmarked"></i>
+					</span>
+				{{else}}
+					<span class="bookmark js-add-bookmark">
+						<i class="fa fa-bookmark"></i>
+					</span>
+				{{/if}}
 			</span>
 
 			<span class="source">
