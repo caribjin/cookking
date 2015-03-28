@@ -5,6 +5,8 @@ Template.Recipe.onCreated(function() {
 		Template.Recipe.setTab('feeds');
 	else
 		Template.Recipe.setTab('recipe');
+
+	this.favoritesCount = new ReactiveVar(this.data.favoritesCount || 0);
 });
 
 Template.Recipe.onRendered(function () {
@@ -55,7 +57,11 @@ Template.Recipe.helpers({
 	},
 
 	bookmarked: function() {
-		return Meteor.user() && Bookmarks.find({'recipeIds': this._id}).count() > 0;
+		return Meteor.user() && Bookmarks.find({recipeIds: this._id}).count() > 0;
+	},
+
+	favorited: function() {
+		return Meteor.user() && Favorites.find({recipeIds: this._id}).count() > 0;
 	},
 
 	feeds: function() {
@@ -63,7 +69,7 @@ Template.Recipe.helpers({
 	},
 
 	favoritesCount: function() {
-		return this.favoritesCount || 0;
+		return Template.instance().favoritesCount.get();
 	},
 
 	commentsCount: function() {
@@ -88,20 +94,33 @@ Template.Recipe.helpers({
 });
 
 Template.Recipe.events({
-	'click .js-add-bookmark': function(event) {
-		event.preventDefault();
+	'click .js-add-bookmark': function(e) {
+		e.preventDefault();
 
 		Meteor.call('bookmarkRecipe', this._id);
 	},
 
-	'click .js-remove-bookmark': function(event) {
-		event.preventDefault();
+	'click .js-remove-bookmark': function(e) {
+		e.preventDefault();
 
 		Meteor.call('unbookmarkRecipe', this._id);
 	},
 
-	'click .js-delete': function(event) {
-		event.preventDefault();
+	'click .js-favorites': function(e, tmpl) {
+		e.preventDefault();
+
+		var templateInstance = Template.instance();
+
+		Meteor.call('favoriteRecipe', this._id, function(error, result) {
+			if (!error) {
+				templateInstance.favoritesCount.set(result);
+				$('.fa-heart').velocity('pulse');
+			}
+		});
+	},
+
+	'click .js-delete': function(e) {
+		e.preventDefault();
 
 		var self = this;
 
@@ -119,15 +138,6 @@ Template.Recipe.events({
 							App.helpers.addNotification('삭제되었습니다', '실행취소', function() {
 								tx.undo();
 							}, 'infinite');
-
-							//App.helpers.alert(
-							//	'삭제되었습니다!',
-							//	'레시피가 삭제되었습니다',
-							//	'success', true, function() {
-							//		App.helpers.addNotification('삭제했습니다', '실행취소', function() {
-							//			tx.undo();
-							//		});
-							//	});
 						} else {
 							App.helpers.error('일치하는 레시피를 찾을 수 없습니다');
 						}
@@ -147,18 +157,18 @@ Template.Recipe.events({
 		Overlay.open('Share', this);
 	},
 
-	'click .js-show-ingredients': function(event) {
-		event.stopPropagation();
+	'click .js-show-ingredients': function(e) {
+		e.stopPropagation();
 		Template.Recipe.setTab('ingredients');
 	},
 
-	'click .js-show-directions': function(event) {
-		event.stopPropagation();
+	'click .js-show-directions': function(e) {
+		e.stopPropagation();
 		Template.Recipe.setTab('directions')
 	},
 
-	'click .js-show-feeds': function(event) {
-		event.stopPropagation();
+	'click .js-show-feeds': function(e) {
+		e.stopPropagation();
 		Template.Recipe.setTab('feeds')
 	},
 

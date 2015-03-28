@@ -1,0 +1,1 @@
+Favorites = new Mongo.Collection('favorites');

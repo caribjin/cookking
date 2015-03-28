@@ -22,9 +22,15 @@
 
 		<div class="recipe-information js-recipe">
 			<span class="subdata">
-				<span class="favorites js-favorites">
-					<i class="fa fa-heart"></i> {{favoritesCount}}
-				</span>
+				{{#if favorited}}
+					<span class="favorites">
+						<i class="fa fa-heart favorited"></i> {{favoritesCount}}
+					</span>
+				{{else}}
+					<span class="favorites js-favorites">
+						<i class="fa fa-heart"></i> {{favoritesCount}}
+					</span>
+				{{/if}}
 				<span class="comments js-comments">
 					<i class="fa fa-comment"></i> {{commentsCount}}
 				</span>
