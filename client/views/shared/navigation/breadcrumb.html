@@ -1,0 +1,35 @@
+<template name="Breadcrumb">
+	<div class="breadcrumb">
+		<div class="filter">
+			전체 레시피
+		</div>
+		<div class="sort">
+			<span class="created {{#if isActiveSort 'created'}}active{{/if}}">
+				<i class="fa fa-clock-o"></i>
+			</span>
+			<span class="favorited {{#if isActiveSort 'favorited'}}active{{/if}}">
+				<i class="fa fa-gratipay"></i>
+			</span>
+			<span class="bookmarked {{#if isActiveSort 'bookmarked'}}active{{/if}}">
+				<i class="fa fa-bookmark-o"></i>
+			</span>
+		</div>
+	</div>
+	<div class="filters">
+		<div class="category">
+			{{#each categories}}
+				<div class="filter-row">
+					<div class="filter-item js-filter {{#if isActiveFilter this.[0].key}}active{{/if}}" data-key="{{this.[0].key}}">
+						{{this.[0].value}}
+					</div>
+					<div class="filter-item js-filter {{#if isActiveFilter this.[1].key}}active{{/if}}" data-key="{{this.[1].key}}">
+						{{this.[1].value}}
+					</div>
+					<div class="filter-item js-filter {{#if isActiveFilter this.[2].key}}active{{/if}}" data-key="{{this.[2].key}}">
+						{{this.[2].value}}
+					</div>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</template>

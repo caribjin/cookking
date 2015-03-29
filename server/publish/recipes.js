@@ -1,8 +1,11 @@
-Meteor.publish('recipes', function (options) {
+Meteor.publish('recipes', function (filter, options) {
+	check(filter, String);
 	check(options, {
 		sort: {
 			highlighted: Number,
-			createdAt: Number
+			createdAt: Match.Optional(Number),
+			bookmarkedCount: Match.Optional(Number),
+			favoritesCount: Match.Optional(Number)
 		},
 		limit: Number
 	});
@@ -14,7 +17,7 @@ Meteor.publish('recipes', function (options) {
 	var self = this;
 	var handles = {};
 
-	handles['recipes'] = Recipes.find({deleted: {$exists: false}}, options).observe({
+	handles['recipes'] = Recipes.find({filter: filter, deleted: {$exists: false}}, options).observe({
 		added: function(recipe) {
 			self.added('recipes', recipe._id, recipe);
 

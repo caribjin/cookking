@@ -91,6 +91,9 @@ Meteor.startup(function() {
 				],
 				"highlighted" : false,
 				"bookmarkedCount" : 0,
+				"favoritesCount": 0,
+				"commentsCount": 0,
+				"filter": '',
 				"writer" : {
 					"userId" : "",
 					"userName" : "Youngjin Lim",
@@ -105,8 +108,8 @@ Meteor.startup(function() {
 				recipe.title = '황금 요리레시피 ' + i;
 				recipe.serving = _.random(1, 10);
 				recipe.cookTime = _.random(1, 60);
-				recipe.bookmarkedCount = _.random(0, 1000);
 				recipe.createdAt = App.helpers.randomDate();
+				recipe.filter = 'category-' + _.random(0, 9);
 
 				recipe = generateRecipeImage(recipe);
 

@@ -27,12 +27,16 @@ var DIMENSIONS = {
  * 레시피 종류
  */
 var CATEGORIES = {
-	'category-0': '반찬/샐러드',
-	'category-1': '메인요리',
-	'category-2': '국/찌개/탕/전골',
-	'category-3': '면/죽/스프',
-	'category-4': '빵/떡/과자/음료',
-	'category-5': '소스/양념장/육수',
+	'category-0': '반찬',
+	'category-1': '샐러드',
+	'category-2': '메인요리',
+	'category-3': '국/찌개',
+	'category-4': '탕/전골',
+	'category-5': '면',
+	'category-6': '죽/스프',
+	'category-7': '빵/과자',
+	'category-8': '음료',
+	'category-9': '소스/양념장',
 	'category-99': '기타'
 };
 

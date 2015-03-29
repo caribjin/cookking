@@ -1,0 +1,61 @@
+.breadcrumb {
+	.position(absolute,56px,0,0,auto,100%,35px);
+	background-color: rgba(0,0,0,.3);
+	z-index: 3;
+
+	.filter {
+		.font-s3;
+		.type-bold;
+		color: @color-rare;
+		.padding-top(8px);
+		.padding-left(20px);
+		float: left;
+	}
+
+	.sort {
+		float: right;
+		color: @color-rare;
+		.padding-top(6px);
+		.padding-right(20px);
+		.font-size(22px);
+		color: @color-rare;
+
+		.created {
+			.padding-right(7px);
+		}
+
+		.favorited {
+			.padding-right(9px);
+		}
+
+		.active {
+			color: @color-primary;
+		}
+	}
+}
+
+.filters {
+	.position(absolute,90px,0,0,auto,100%,11.1rem);
+	background-color: #ffffff;
+	z-index: 3;
+	.font-s3;
+	.type-bold;
+	color: @color-full;
+	.padding(20px);
+
+	.filter-row {
+		line-height: 2.2rem;
+
+		.filter-item {
+			float: left;
+			width: 33%;
+			.padding-left(10px);
+
+			&.active {
+				background-color: @color-full;
+				color: @color-empty;
+				.border-radius(4px);
+			}
+		}
+	}
+}

@@ -53,7 +53,13 @@ App = {
 		commentsLimitIncrementCount: 10,
 
 		// 레시피 작성 시 기본 완료이미지
-		defaultRecipeWriteCompleteImage: '/img/recipes/640x800/12.jpg'
+		defaultRecipeWriteCompleteImage: '/img/recipes/640x800/12.jpg',
+
+		// 레시피 리스트 기본 정렬 기준 (created, favorited, bookmarked)
+		defaultRecipesSort: 'favorited',
+
+		// 레시피 리스트 기본 필터
+		defaultRecipesListFilter: 'category-all'
 	},
 
 	helpers: {

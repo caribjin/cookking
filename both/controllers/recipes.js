@@ -1,21 +1,40 @@
 var RECIPES_LIMIT = 'recipesLimitCount';
 var RECIPES_SUB_COMPLETED = 'recipesSubCompleted';
+var RECIPES_CURRENT_SORT = 'recipesCurrentSort';
+var RECIPES_CURRENT_FILTER = 'recipesCurrentFilter';
 
 RecipesController = RouteController.extend({
 	option: function() {
 		Session.setDefault(RECIPES_LIMIT, App.settings.defaultRecipesListLimit);
+		Session.setDefault(RECIPES_CURRENT_SORT, App.settings.defaultRecipesSort);
 
-		return {
+		var option = {
 			sort: {
-				highlighted: -1,
-				createdAt: -1
+				highlighted: -1
 			},
 			limit: Session.get(RECIPES_LIMIT)
 		};
+
+		switch(Session.get(RECIPES_CURRENT_SORT)) {
+			case 'created':
+				_.extend(option.sort, {createdAt: -1});
+				break;
+			case 'favorited':
+				_.extend(option.sort, {favoritesCount: -1});
+				break;
+			case 'bookmarkedCount':
+				_.extend(option.sort, {bookmarkedCount: -1});
+				break;
+			default:
+				_.extend(option.sort, {createdAt: -1});
+				break;
+		}
+
+		return option;
 	},
 
 	subscriptions: function() {
-		this.recipesSubscribe = Meteor.subscribe('recipes', this.option());
+		this.recipesSubscribe = Meteor.subscribe('recipes', Session.get(RECIPES_CURRENT_FILTER) || App.settings.defaultRecipesListFilter, this.option());
 	},
 
 	data: function() {
