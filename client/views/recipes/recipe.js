@@ -114,7 +114,7 @@ Template.Recipe.events({
 		Meteor.call('favoriteRecipe', this._id, function(error, result) {
 			if (!error) {
 				templateInstance.favoritesCount.set(result);
-				$('.fa-heart').velocity('pulse');
+				//$('.fa-heart').velocity('pulse');
 			}
 		});
 	},
