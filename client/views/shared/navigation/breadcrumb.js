@@ -78,25 +78,24 @@ Template.Breadcrumb.helpers({
 
 Template.Breadcrumb.events({
 	'click .created': function(e, tmpl) {
-		e.preventDefault();
-		Session.set(RECIPES_CURRENT_SORT, 'created');
-		$(e.target).velocity('pulse');
+		$(e.target).velocity('pulse', function() {
+			Session.set(RECIPES_CURRENT_SORT, 'created');
+		});
 	},
 
 	'click .favorited': function(e, tmpl) {
-		e.preventDefault();
-		Session.set(RECIPES_CURRENT_SORT, 'favorited');
-		$(e.target).velocity('pulse');
+		$(e.target).velocity('pulse', function() {
+			Session.set(RECIPES_CURRENT_SORT, 'favorited');
+		});
 	},
 
 	'click .bookmarked': function(e, tmpl) {
-		e.preventDefault();
-		Session.set(RECIPES_CURRENT_SORT, 'bookmarked');
-		$(e.target).velocity('pulse');
+		$(e.target).velocity('pulse', function() {
+			Session.set(RECIPES_CURRENT_SORT, 'bookmarked');
+		});
 	},
 
 	'click .js-filter': function(e, tmpl) {
-		e.preventDefault();
 		Session.set(RECIPES_CURRENT_FILTER, $(e.target).data('key'));
 		Session.set(RECIPES_LIMIT, App.settings.defaultRecipesListLimit);
 
@@ -104,7 +103,6 @@ Template.Breadcrumb.events({
 	},
 
 	'click .js-open-filters': function(e, tmpl) {
-		e.preventDefault();
 		Template.Breadcrumb.toggleFiltersOpenStatus();
 	}
 });

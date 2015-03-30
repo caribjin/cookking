@@ -16,6 +16,9 @@ var imageThumbStore = new FS.Store.FileSystem('thumbs', {
 				.pipe(writeStream);
 		} else {
 			gm(readStream, file.name)
+				.autoOrient()
+				.gravity('Center')
+				.resize(App.settings.thumbnailImageWidth, App.settings.thumbnailImageHeight, '^')
 				.quality(App.settings.thumbnailImageQuality)
 				.stream()
 				.pipe(writeStream);
