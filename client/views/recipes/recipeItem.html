@@ -21,12 +21,12 @@
 
 			{{#with image imageId}}
 				{{#if url}}
-					<!--<img src="{{url store="thumbs" uploading="/img/app/loading/loading-spin-negative.svg"}}" class="{{#if isUploaded}}{{else}}loading{{/if}}">-->
-					<img src="{{url store="thumbs" uploading="/img/app/loading/loading-spin-negative.svg"}}">
+					<img src="{{url store="thumbs" uploading="/img/app/loading/loading-spin-grey.svg"}}">
+					<!--<img src="{{url store="thumbs" uploading="/img/app/loading/loading-spin-negative.svg"}}">-->
+					<!--<img src="{{url store="thumbs" uploading="/img/app/loading/progress.gif"}}" class="{{#if isUploaded}}{{else}}loading{{/if}}">-->
 					<!--<img src="http://dummyimage.com/200x200">-->
 				{{else}}
-					<!--<img src="/img/app/empty-recipe-small.jpg">-->
-					<img src="/img/app/loading/loading-spin.svg">
+					<img src="/img/app/empty-recipe-small.jpg">
 				{{/if}}
 			{{/with}}
 		{{/with}}

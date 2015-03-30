@@ -7,7 +7,8 @@ Meteor.publish('recipes', function (filter, options) {
 			bookmarkedCount: Match.Optional(Number),
 			favoritesCount: Match.Optional(Number)
 		},
-		limit: Number
+		limit: Number,
+		fields: Object
 	});
 
 	if (options.limit > Recipes.find().count()) {
@@ -17,6 +18,13 @@ Meteor.publish('recipes', function (filter, options) {
 	var self = this;
 	var handles = {};
 	var query = { deleted: {$exists: false} };
+	var imageOptions = {
+		fields: {
+			"uploadedAt": 1,
+			"copies.thumbs.key": 1,
+			"copies.images.key": 1
+		}
+	};
 
 	if (filter !== 'all') {
 		_.extend(query, { filter: filter });
@@ -26,7 +34,7 @@ Meteor.publish('recipes', function (filter, options) {
 		added: function(recipe) {
 			self.added('recipes', recipe._id, recipe);
 
-			handles['images'] = Images.find(recipe.imageId).observe({
+			handles['images'] = Images.find(recipe.imageId, imageOptions).observe({
 				added: function(image) {
 					self.added('recipesImage', image._id, image);
 				},

@@ -13,7 +13,15 @@ RecipesController = RouteController.extend({
 			sort: {
 				highlighted: -1
 			},
-			limit: Session.get(RECIPES_LIMIT)
+			limit: Session.get(RECIPES_LIMIT),
+			fields: {
+				title: 1,
+				imageId: 1,
+				highlighted: 1,
+				favoritesCount: 1,
+				commentsCount: 1,
+				bookmarkedCount: 1
+			}
 		};
 
 		switch(Session.get(RECIPES_CURRENT_SORT)) {
@@ -23,7 +31,7 @@ RecipesController = RouteController.extend({
 			case 'favorited':
 				_.extend(option.sort, {favoritesCount: -1});
 				break;
-			case 'bookmarkedCount':
+			case 'bookmarked':
 				_.extend(option.sort, {bookmarkedCount: -1});
 				break;
 			default:
@@ -34,8 +42,8 @@ RecipesController = RouteController.extend({
 		return option;
 	},
 
-	//subscriptions: function() {
-	waitOn: function() {
+	subscriptions: function() {
+	//waitOn: function() {
 		this.recipesSubscribe = Meteor.subscribe('recipes', Session.get(RECIPES_CURRENT_FILTER) || App.settings.defaultRecipesListFilter, this.option());
 	},
 
@@ -54,11 +62,11 @@ RecipesController = RouteController.extend({
 		if (this.recipesSubscribe.ready()) {
 			Session.set(RECIPES_SUB_COMPLETED, true);
 			Session.set(RECIPES_CURRENT_COUNT, this.data().recipes().count());
-
-			this.render();
-		} else {
-			this.render('Loading');
-			this.next();
 		}
+			this.render();
+		//} else {
+		//	this.render('Loading');
+		//	this.next();
+		//}
 	}
 });
