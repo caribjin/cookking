@@ -10,7 +10,7 @@ Template.Breadcrumb.filtersOpen = function() {
 
 Template.Breadcrumb.filtersClose = function() {
 	$('.filters').velocity('reverse', {duration: 200});
-	$('.filters').velocity({zIndex: 1},{duration: 0});
+	$('.filters').velocity({zIndex: 0},{duration: 0});
 	$('.breadcrumb').velocity('reverse', {duration: 600});
 };
 
@@ -78,21 +78,25 @@ Template.Breadcrumb.helpers({
 
 Template.Breadcrumb.events({
 	'click .created': function(e, tmpl) {
+		e.preventDefault();
 		Session.set(RECIPES_CURRENT_SORT, 'created');
 		$(e.target).velocity('pulse');
 	},
 
 	'click .favorited': function(e, tmpl) {
+		e.preventDefault();
 		Session.set(RECIPES_CURRENT_SORT, 'favorited');
 		$(e.target).velocity('pulse');
 	},
 
 	'click .bookmarked': function(e, tmpl) {
+		e.preventDefault();
 		Session.set(RECIPES_CURRENT_SORT, 'bookmarked');
 		$(e.target).velocity('pulse');
 	},
 
 	'click .js-filter': function(e, tmpl) {
+		e.preventDefault();
 		Session.set(RECIPES_CURRENT_FILTER, $(e.target).data('key'));
 		Session.set(RECIPES_LIMIT, App.settings.defaultRecipesListLimit);
 
@@ -100,6 +104,7 @@ Template.Breadcrumb.events({
 	},
 
 	'click .js-open-filters': function(e, tmpl) {
+		e.preventDefault();
 		Template.Breadcrumb.toggleFiltersOpenStatus();
 	}
 });
