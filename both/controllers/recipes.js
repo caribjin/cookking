@@ -2,6 +2,7 @@ var RECIPES_LIMIT = 'recipesLimitCount';
 var RECIPES_SUB_COMPLETED = 'recipesSubCompleted';
 var RECIPES_CURRENT_SORT = 'recipesCurrentSort';
 var RECIPES_CURRENT_FILTER = 'recipesCurrentFilter';
+var RECIPES_CURRENT_COUNT = 'recipesCurrentCount';
 
 RecipesController = RouteController.extend({
 	option: function() {
@@ -33,7 +34,8 @@ RecipesController = RouteController.extend({
 		return option;
 	},
 
-	subscriptions: function() {
+	//subscriptions: function() {
+	waitOn: function() {
 		this.recipesSubscribe = Meteor.subscribe('recipes', Session.get(RECIPES_CURRENT_FILTER) || App.settings.defaultRecipesListFilter, this.option());
 	},
 
@@ -48,9 +50,15 @@ RecipesController = RouteController.extend({
 	},
 
 	action: function() {
-		if (this.data().ready()) {
+		//if (this.data().ready()) {
+		if (this.recipesSubscribe.ready()) {
 			Session.set(RECIPES_SUB_COMPLETED, true);
+			Session.set(RECIPES_CURRENT_COUNT, this.data().recipes().count());
+
+			this.render();
+		} else {
+			this.render('Loading');
+			this.next();
 		}
-		this.render();
 	}
 });

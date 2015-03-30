@@ -1,24 +1,28 @@
 .breadcrumb {
-	.position(absolute,56px,0,0,auto,100%,35px);
+	.position(absolute,55px,0,0,auto,100%,35px);
 	background-color: rgba(0,0,0,.3);
+	color: @color-rare;
 	z-index: 3;
 
-	.filter {
+	.filter-name {
 		.font-s3;
 		.type-bold;
-		color: @color-rare;
 		.padding-top(8px);
 		.padding-left(20px);
 		float: left;
+		width: 50%;
+
+		.total-count {
+			.font-s2;
+			color: @color-rare;
+		}
 	}
 
 	.sort {
 		float: right;
-		color: @color-rare;
 		.padding-top(6px);
 		.padding-right(20px);
 		.font-size(22px);
-		color: @color-rare;
 
 		.created {
 			.padding-right(7px);
@@ -37,11 +41,12 @@
 .filters {
 	.position(absolute,90px,0,0,auto,100%,11.1rem);
 	background-color: #ffffff;
-	z-index: 3;
+	z-index: 1;
 	.font-s3;
 	.type-bold;
 	color: @color-full;
 	.padding(20px);
+	display: none;
 
 	.filter-row {
 		line-height: 2.2rem;

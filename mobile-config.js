@@ -45,5 +45,5 @@ App.launchScreens({
 App.setPreference('StatusBarOverlaysWebView', 'false');
 App.setPreference('StatusBarBackgroundColor', '#000000');
 
-//App.accessRule('*', {external: true});
+App.accessRule('*', {external: true});
 App.accessRule('https://pbs.twimg.com/profile_images/*', {external: true});

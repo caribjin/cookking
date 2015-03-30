@@ -16,8 +16,13 @@ Meteor.publish('recipes', function (filter, options) {
 
 	var self = this;
 	var handles = {};
+	var query = { deleted: {$exists: false} };
 
-	handles['recipes'] = Recipes.find({filter: filter, deleted: {$exists: false}}, options).observe({
+	if (filter !== 'all') {
+		_.extend(query, { filter: filter });
+	}
+
+	handles['recipes'] = Recipes.find(query, options).observe({
 		added: function(recipe) {
 			self.added('recipes', recipe._id, recipe);
 

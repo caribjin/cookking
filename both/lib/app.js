@@ -39,6 +39,8 @@ App = {
 
 		// 기본 애니메이션 속도 (ms)
 		defaultAnimationDuration: 200,
+		defaultAnimationDurationSlow: 500,
+		defaultAnimationDurationVerySlow: 800,
 
 		// 레시피 목록 최초 기본 개수
 		defaultRecipesListLimit: 11,
@@ -59,7 +61,7 @@ App = {
 		defaultRecipesSort: 'favorited',
 
 		// 레시피 리스트 기본 필터
-		defaultRecipesListFilter: 'category-all'
+		defaultRecipesListFilter: 'all'
 	},
 
 	helpers: {

@@ -4,7 +4,7 @@ var COMMENTS_SUB_COMPLETED = 'commentsSubCompleted';
 Template.Comments.onCreated(function() {
 	Session.setDefault(COMMENTS_LIMIT, App.settings.defaultCommentsListLimit);
 
-	this.data.totalCount = new ReactiveVar();
+	this.totalCount = new ReactiveVar();
 
 	var options = {
 		sort: {
@@ -19,13 +19,13 @@ Template.Comments.onCreated(function() {
 Template.Comments.helpers({
 	comments: function() {
 		var result = Comments.find({recipeId: this._id}, {sort: {createdAt: -1}});
-		this.totalCount.set(result.count());
+		Template.instance().totalCount.set(result.count());
 
 		return result;
 	},
 
 	totalCount: function() {
-		return this.totalCount.get();
+		return Template.instance().totalCount.get();
 	},
 
 	isDeletable: function() {
