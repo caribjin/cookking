@@ -1,11 +1,9 @@
 var RECIPES_LIMIT = 'recipesLimitCount';
 var RECIPES_SUB_COMPLETED = 'recipesSubCompleted';
 var waypoint = null;
-var recipesBeforeCount;
 
 Template.Recipes.incrementReadLimit = function() {
 	Template.Recipes.toggleMoreButtonDisplay();
-	recipesBeforeCount = Recipes.find().count();
 
 	return Session.set(RECIPES_LIMIT, Session.get(RECIPES_LIMIT) + App.settings.recipesLimitIncrementCount);
 };
@@ -46,12 +44,21 @@ Template.Recipes.onCreated(function() {
 			if (waypoint === null) {
 				Template.Recipes.initWaypoint();
 			} else {
+				var totalCount = TotalCount.findOne().count;
+				var currentCount = Recipes.find().count();
+
+				console.log(currentCount + ' / ' + totalCount);
+
+				if (currentCount >= totalCount) {
+					$('.btn-more').hide();
+				} else {
+					$('.btn-more').show();
+				}
+
+				console.log('refresh waypoint');
+
 				$.waypoints('refresh');
 				Template.Recipes.toggleMoreButtonDisplay();
-
-				var recipesAfterCount = Recipes.find().count();
-				if (recipesBeforeCount < recipesAfterCount) recipesBeforeCount = recipesAfterCount;
-				else $('.btn-more').hide();
 			}
 
 			Session.set(RECIPES_SUB_COMPLETED, false);

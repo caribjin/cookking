@@ -43,7 +43,7 @@ App = {
 		defaultAnimationDurationVerySlow: 800,
 
 		// 레시피 목록 최초 기본 개수
-		defaultRecipesListLimit: 11,
+		defaultRecipesListLimit: 10,
 
 		// 레시피 목록 더 보기 시 증가 개수
 		recipesLimitIncrementCount: 10,
@@ -58,7 +58,7 @@ App = {
 		defaultRecipeWriteCompleteImage: '/img/recipes/640x800/12.jpg',
 
 		// 레시피 리스트 기본 정렬 기준 (created, favorited, bookmarked)
-		defaultRecipesSort: 'favorited',
+		defaultRecipesSort: 'created',
 
 		// 레시피 리스트 기본 필터
 		defaultRecipesListFilter: 'all'

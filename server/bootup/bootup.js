@@ -108,7 +108,7 @@ Meteor.startup(function() {
 				recipe.title = '황금 요리레시피 ' + i;
 				recipe.serving = _.random(1, 10);
 				recipe.cookTime = _.random(1, 60);
-				recipe.createdAt = App.helpers.randomDate();
+				recipe.createdAt = moment().subtract(i, 'days').format();
 				recipe.filter = 'category-' + _.random(0, 9);
 
 				recipe = generateRecipeImage(recipe);

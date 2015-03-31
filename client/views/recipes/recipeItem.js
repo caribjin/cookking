@@ -8,9 +8,9 @@ Template.RecipeItem.helpers({
 			return 'highlighted';
 	},
 
-	//bookmarkedCount: function() {
-	//	return this.bookmarkedCount || 0;
-	//},
+	bookmarkedCount: function() {
+		return this.bookmarkedCount || 0;
+	},
 
 	favoritesCount: function() {
 		return this.favoritesCount || 0;
@@ -20,9 +20,9 @@ Template.RecipeItem.helpers({
 		return this.commentsCount || 0;
 	},
 
-	sharedCount: function() {
-		return this.sharedCount || 0;
-	},
+	//sharedCount: function() {
+	//	return this.sharedCount || 0;
+	//},
 
 	image: function(id) {
 		return new FS.File(RecipesImage.findOne(id));

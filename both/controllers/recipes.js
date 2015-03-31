@@ -5,6 +5,10 @@ var RECIPES_CURRENT_FILTER = 'recipesCurrentFilter';
 var RECIPES_CURRENT_COUNT = 'recipesCurrentCount';
 
 RecipesController = RouteController.extend({
+	filter: function() {
+		return Session.get(RECIPES_CURRENT_FILTER) || App.settings.defaultRecipesListFilter;
+	},
+
 	option: function() {
 		Session.setDefault(RECIPES_LIMIT, App.settings.defaultRecipesListLimit);
 		Session.setDefault(RECIPES_CURRENT_SORT, App.settings.defaultRecipesSort);
@@ -13,14 +17,15 @@ RecipesController = RouteController.extend({
 			sort: {
 				highlighted: -1
 			},
-			limit: Session.get(RECIPES_LIMIT),
+			limit: this.filter() === 'all' ? Session.get(RECIPES_LIMIT) + 1 : Session.get(RECIPES_LIMIT),
 			fields: {
 				title: 1,
 				imageId: 1,
 				highlighted: 1,
 				favoritesCount: 1,
 				commentsCount: 1,
-				bookmarkedCount: 1
+				bookmarkedCount: 1,
+				createdAt: 1
 			}
 		};
 
@@ -29,10 +34,10 @@ RecipesController = RouteController.extend({
 				_.extend(option.sort, {createdAt: -1});
 				break;
 			case 'favorited':
-				_.extend(option.sort, {favoritesCount: -1});
+				_.extend(option.sort, {favoritesCount: -1, createdAt: -1});
 				break;
 			case 'bookmarked':
-				_.extend(option.sort, {bookmarkedCount: -1});
+				_.extend(option.sort, {bookmarkedCount: -1, createdAt: -1});
 				break;
 			default:
 				_.extend(option.sort, {createdAt: -1});
@@ -44,7 +49,7 @@ RecipesController = RouteController.extend({
 
 	subscriptions: function() {
 	//waitOn: function() {
-		this.recipesSubscribe = Meteor.subscribe('recipes', Session.get(RECIPES_CURRENT_FILTER) || App.settings.defaultRecipesListFilter, this.option());
+		this.recipesSubscribe = Meteor.subscribe('recipes', this.filter(), this.option());
 	},
 
 	data: function() {

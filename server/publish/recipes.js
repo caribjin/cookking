@@ -53,6 +53,8 @@ Meteor.publish('recipes', function (filter, options) {
 		}
 	});
 
+	self.added('totalCount', (new Mongo.ObjectID)._str, { count: Recipes.find(query, options).count() });
+
 	self.onStop(function() {
 		_.each(handles, function(handle) {
 			handle.stop();

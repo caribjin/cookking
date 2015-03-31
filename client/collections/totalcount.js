@@ -1,0 +1,1 @@
+TotalCount = new Mongo.Collection('totalCount');
