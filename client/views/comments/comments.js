@@ -13,7 +13,14 @@ Template.Comments.onCreated(function() {
 		limit: 1000 //Session.get(COMMENTS_LIMIT)
 	};
 
-	this.subscribe('comments', this.data._id, options);
+	var self = this;
+	setTimeout(function() {
+		self.subscribe('comments', self.data._id, options);
+	}, 400);
+	//this.subscribe('comments', this.data._id, options);
+});
+
+Template.Comments.onRendered(function() {
 });
 
 Template.Comments.helpers({

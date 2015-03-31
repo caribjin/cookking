@@ -3,6 +3,7 @@
 		<div class="title-page">댓글<span class="totalCount">({{totalCount}})</span></div>
 		<a href="#" class="js-close-overlay overlay-dismiss"><span class="icon-cross"></span></a>
 
+		{{#if Template.subscriptionsReady}}
 		<div id="content-container">
 			<div class="page comments">
 				<div class="content-scrollable">
@@ -30,5 +31,8 @@
 				</div>
 			</div>
 		</div>
+		{{else}}
+			{{> Loading}}
+		{{/if}}
 	</div>
 </template>

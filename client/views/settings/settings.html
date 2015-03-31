@@ -1,0 +1,39 @@
+<template name="Settings">
+	<div class="page settings">
+		{{> Navigation title='Settings' transparent=false back=true}}
+
+		<div class="content-settings">
+			<div class="content-scrollable">
+				<div class="list-container">
+					<div class="list-group">
+						<div class="list-item slide-right">
+							프로필
+						</div>
+						<div class="list-item slide-right">
+							계정 관리
+						</div>
+					</div>
+					<div class="list-group">
+						<div class="list-item">
+							공지 사항
+						</div>
+						<div class="list-item slide-right">
+							알림 설정
+						</div>
+					</div>
+					<div class="list-group">
+						<div class="list-item slide-right">
+							버전 정보
+							<div class="version-number">
+								{{versionNumber}}
+							</div>
+						</div>
+						<div class="list-item js-signout">
+							로그 아웃
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

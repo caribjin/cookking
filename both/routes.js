@@ -19,11 +19,12 @@ if (Meteor.isClient) {
 Router.map(function() {
 	this.route('home',          {path: '/', controller: 'RecipesController', template: 'Recipes'});
 	this.route('recipes',       {path: '/recipes'});
-	this.route('recipe.write',  {path: '/recipe/write', controller: 'RecipeWriteController', template: 'RecipeWrite'});
+	this.route('recipe.write',  {path: '/recipe/write', template: 'RecipeWrite'});
 	this.route('recipe',        {path: '/recipe/:_id'});
 	this.route('news',          {path: '/news'});
 	this.route('feeds',         {path: '/feeds'});
 	this.route('bookmarks',     {path: '/bookmarks'});
+	this.route('settings',      {path: '/settings'});
 	this.route('about',         {path: '/about'});
 	this.route('signin',        function() {
 		Router.go('home');

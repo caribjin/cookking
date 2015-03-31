@@ -1,2 +1,0 @@
-RecipeWriteController = RouteController.extend({
-});

@@ -18,3 +18,50 @@
 	margin-top: -1rem;
 	padding-bottom: 1.25rem;
 }
+
+.list-container {
+	.padding(5%, 0);
+	height: 100%;
+	background: @color-rare;
+	overflow: auto;
+	position: relative;
+
+	.list-group {
+		.padding-bottom(16px);
+
+		.list-item {
+			.transform(translate3d(0,0,0));
+			.font-size(13px);
+			.min-height(2.7rem);
+			.padding(1.3rem);
+			background: @color-empty;
+			display: block;
+			overflow: hidden;
+			width: 100%;
+			border-bottom: @color-medium-rare 1px solid;
+
+			&.slide-right:after {
+				content: '\f105';
+				font-family: 'FontAwesome';
+				float: right;
+				.font-size(25px);
+				.position(absolute,1.0rem,0,0,auto);
+				padding-right: 1rem;
+			}
+		}
+
+		& > .list-item:first-child {
+			border-top: @color-medium-rare 1px solid;
+		}
+	}
+
+	&:after {
+		content: 'COOKKING';
+		.font-size(12px);
+		.type-bold;
+		.padding(0, 41%);
+		.position(relative,-9px,0,0,0);
+		color: @color-well;
+	}
+}
+
