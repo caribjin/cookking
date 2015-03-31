@@ -1,14 +1,12 @@
 Meteor.startup(function() {
 	Future = Npm.require('fibers/future');
 
-	//setUsers(Fixtures.users);
-
+	// 샘플 레시피를 100개 생성
 	generateFixtureData(100);
-
-	//Fixtures = {};
 
 	createServiceConfiguration();
 	smtpMailConfiguration();
+	initVersionInfo();
 
 	function setUsers(users) {
 		_.map(users, function(user, key) {
@@ -154,5 +152,16 @@ Meteor.startup(function() {
 		f.return(direction);
 
 		f.wait();
+	}
+
+	/**
+	 * Application의 버전정보 컬렉션을 초기화
+	 */
+	function initVersionInfo() {
+		if (Version.find().count() > 0) {
+			Version.remove();
+		}
+
+		Version.insert(JSON.parse(Assets.getText('version.json')));
 	}
 });

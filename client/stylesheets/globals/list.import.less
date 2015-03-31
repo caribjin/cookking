@@ -40,10 +40,14 @@
 			width: 100%;
 			border-bottom: @color-medium-rare 1px solid;
 
+			.list-item-tag {
+				.position(absolute,1.3rem,0,0,auto);
+				.padding-right(2.7rem);
+			}
+
 			&.slide-right:after {
 				content: '\f105';
 				font-family: 'FontAwesome';
-				float: right;
 				.font-size(25px);
 				.position(absolute,1.0rem,0,0,auto);
 				padding-right: 1rem;

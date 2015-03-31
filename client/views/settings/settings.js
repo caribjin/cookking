@@ -1,6 +1,6 @@
 Template.Settings.helpers({
 	versionNumber: function() {
-		return App.settings.version;
+		return App.helpers.version();
 	}
 });
 

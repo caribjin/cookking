@@ -1,4 +1,5 @@
 .idea/
 .em
 public/components
-
+private/version.json
+node_modules

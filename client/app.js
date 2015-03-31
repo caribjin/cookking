@@ -232,6 +232,12 @@ _.extend(App.helpers, {
 		return _.include(arguments, Router.current().route.name) && 'active';
 	},
 
+	version: function() {
+		var versionInfo = Version.findOne();
+
+		return versionInfo ? versionInfo.branch : 'Unknown';
+	},
+
 	track: function(key, meta) {
 		meta = meta || {};
 
@@ -277,4 +283,7 @@ Meteor.startup(function() {
 	if (moment) {
 		moment.locale(App.settings.locale);
 	}
+
+	// version 정보를 구독
+	Meteor.subscribe('version');
 });
