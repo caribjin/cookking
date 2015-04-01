@@ -1,5 +1,5 @@
 $.Velocity.RegisterEffect('pulse', {
-	defaultDuration: 500,
+	defaultDuration: App.settings.defaultAnimationDurationSlow,
 	calls: [
 		[ { scale: 3 }, 0.1 ],
 		[ { scale: 0.7 }, 0.7 ],

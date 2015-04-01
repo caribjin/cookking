@@ -1,0 +1,32 @@
+.page.profile {
+	overflow: hidden;
+
+	.content-profile {
+		.margin-top(@nav-height);
+
+		.avatar-edit-panel {
+			text-align: center;
+
+			&:after {
+				content: 'EDIT';
+				.type-bold;
+				border: #ccc 5px solid;
+				padding: 4px;
+				font-size: 12px;
+				border-radius: 15px;
+				.position(absolute,auto,auto,4%,50%);
+				.transform(translate3d(-50%,0,0));
+				background-color: #ffffff;
+			}
+		}
+
+		input.nickname,
+		input.introduction {
+			.padding(4px, 20px);
+			//.padding-bottom(0);
+			.margin-top(6px);
+			.font-size(11pt);
+			.type-bold;
+		}
+	}
+}

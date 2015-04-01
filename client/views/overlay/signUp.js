@@ -1,4 +1,4 @@
-var ERRORS_KEY = 'signupErrors';
+var ERRORS_KEY = 'errors';
 
 Template.SignUp.onCreated(function() {
 	this.autorun(function() {

@@ -22,10 +22,10 @@ var Notifications = new Meteor.Collection(null);
 Template.MasterLayout.addNotification = function(notification, duration) {
 	var id = Notifications.insert(notification);
 
-	if (!duration) {
-		duration = NOTIFICATION_TIMEOUT;
-	} else if (duration === 0 || duration === 'infinite') {
+	if (duration === 0 || duration === 'infinite') {
 		duration = 3600 * 1000;
+	} else if (!duration) {
+		duration = NOTIFICATION_TIMEOUT;
 	}
 
 	Meteor.setTimeout(function() {
@@ -121,34 +121,36 @@ Template.MasterLayout.helpers({
 
 Template.MasterLayout.onRendered(function () {
 	//this.find("#content-container")._uihooks = {
-	//	insertElement: function(node, next) {
+	//	insertElement: function(newNode, next) {
 	//		if (initiator === 'menu')
-	//			return $(node).insertBefore(next);
+	//			return $(newNode).insertBefore(next);
 	//
 	//		var start = (initiator === 'back') ? '-100%' : '100%';
 	//
-	//		$.Velocity.hook(node, 'translateX', start);
-	//		$(node)
+	//		$.Velocity.hook(newNode, 'translateX', start);
+	//		$(newNode)
 	//			.insertBefore(next)
 	//			.velocity({translateX: [0, start]}, {
 	//				duration: App.settings.defaultAnimationDuration,
 	//				easing: 'ease-in-out',
-	//				queue: false
+	//				queue: false,
+	//				mobileHA: true
 	//			});
 	//	},
-	//	removeElement: function(node) {
+	//	removeElement: function(oldNode) {
 	//		if (initiator === 'menu')
-	//			return $(node).remove();
+	//			return $(oldNode).remove();
 	//
 	//		var end = (initiator === 'back') ? '100%' : '-100%';
 	//
-	//		$(node)
+	//		$(oldNode)
 	//			.velocity({translateX: end}, {
 	//				duration: App.settings.defaultAnimationDuration,
 	//				easing: 'ease-in-out',
 	//				queue: false,
+	//				mobileHA: true,
 	//				complete: function() {
-	//					$(node).remove();
+	//					$(oldNode).remove();
 	//				}
 	//			});
 	//	}

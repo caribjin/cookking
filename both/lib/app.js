@@ -65,7 +65,12 @@ App = {
 	},
 
 	helpers: {
-		getCurrentUserAvatar: function() {
+		/**
+		 * 현재 사용자의 프로필 이미지 경로를 얻는다.
+		 * @param size          undefined/normal : 작은 이미지, large: 큰 이미지
+		 * @returns {string}    프로필 이미지 경로
+		 */
+		getCurrentUserAvatar: function(size) {
 			var user = Meteor.user();
 			var result = '';
 
@@ -76,6 +81,10 @@ App = {
 					result = service.twitter.profile_image_url_https;
 				} else if (user.services.google) {
 					result = service.google.picture;
+				}
+
+				if (size === 'large') {
+					result = result.replace(/-_normal/gi, '-_400x400');
 				}
 			}
 

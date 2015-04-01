@@ -159,6 +159,8 @@ _.extend(App.helpers, {
 	 * @param callback      콜백 함수
 	 */
 	addNotification: function(title, actionText, callback, duration) {
+		if (!_.isFunction(callback)) callback = new Function();
+
 		Template.MasterLayout.addNotification({
 			action: actionText,
 			title: title,

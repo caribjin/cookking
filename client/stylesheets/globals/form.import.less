@@ -200,21 +200,18 @@ input[type=text].underline {
 	}
 }
 
-.inline-box {
+.inline-container {
 	display: flex;
 }
 
 .inline-text {
-	/* Shrink and grow as needed, but never shrink so small that we can't read the placeholder */
 	flex: 1 0 8em;
 }
 
 .inline-button {
-	/* Never shrink or grow */
 	flex: 0 0 auto;
 }
 
-.inline-box:before {
-	/* Don't shrink or grow and use a default size */
+.inline-container:before {
 	flex: 0 0 2.75em;
 }

@@ -25,6 +25,8 @@ Router.map(function() {
 	this.route('feeds',         {path: '/feeds'});
 	this.route('bookmarks',     {path: '/bookmarks'});
 	this.route('settings',      {path: '/settings'});
+	this.route('profile',       {path: '/profile'});
+	this.route('profile.edit',  {path: '/profile/edit', template: 'ProfileEdit'});
 	this.route('about',         {path: '/about'});
 	this.route('signin',        function() {
 		Router.go('home');

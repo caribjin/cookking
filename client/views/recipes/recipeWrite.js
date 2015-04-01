@@ -2,7 +2,7 @@ var WriteIngredients,
 	WriteDirections = null;
 
 var TAB_KEY = 'recipeWriteShowTab';
-var ERRORS_KEY = 'recipeWriteErrors';
+var ERRORS_KEY = 'errors';
 var SHARE_IMAGE_KEY = 'shareAttachedImage';
 var SHARE_IMAGE_PURPOSE_KEY = 'shareImagePurpose';
 var RECIPE_IMAGE_KEY = 'recipeCompleteImage';

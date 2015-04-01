@@ -200,7 +200,7 @@ Template.Share.events({
 					imageId: file._id
 				}, tweet, Geolocation.currentLocation(), function(error, result) {
 					if (error) {
-						App.helpers.addNotification('ERROR: ' + error.reason, '확인', function() {});
+						App.helpers.addNotification('ERROR: ' + error.reason, '확인');
 					} else {
 						App.helpers.addNotification('사진을 공유했습니다', '보기', function() {
 							Router.go('recipe', {_id: self._id}, {query: {feedId: result}});

@@ -1,0 +1,36 @@
+<template name="ProfileEdit">
+	<div class="page profile">
+		{{# Navigation title='Profile' transparent=false back=true}}
+			<a href="#" class="nav-item js-profile-save">
+				<span id="save">저장</span>
+			</a>
+			<div class="nav-item-last"></div>
+		{{/Navigation}}
+
+		<div class="content-profile">
+			<div class="content-scrollable">
+				{{#with profile}}
+				<div class="list-container">
+					<div class="list-group">
+						<div class="list-item avatar-edit-panel">
+							<span class="avatar js-edit-avatar">
+								<img src="{{userAvatar}}" />
+							</span>
+						</div>
+					</div>
+					<div class="list-group">
+						<div class="list-item">
+							닉네임
+							<input type="text" class="nickname {{errorClass 'nickname'}}" maxlength="20" placeholder="사용할 별명을 입력해 주세요." value="{{name}}">
+						</div>
+						<div class="list-item">
+							간략 소개
+							<input type="text" class="introduction" maxlength="50" placeholder="간단한 본인 소개를 입력해 주세요" value="{{introduction}}">
+						</div>
+					</div>
+				</div>
+				{{/with}}
+			</div>
+		</div>
+	</div>
+</template>

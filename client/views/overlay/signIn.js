@@ -1,4 +1,4 @@
-var ERRORS_KEY = 'signinErrors';
+var ERRORS_KEY = 'errors';
 
 Template.SignIn.onCreated(function() {
 	this.autorun(function() {
