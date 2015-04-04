@@ -28,3 +28,5 @@ Template.RecipeItem.helpers({
 		return new FS.File(RecipesImage.findOne(id));
 	}
 });
+
+

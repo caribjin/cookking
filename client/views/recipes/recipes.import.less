@@ -1,5 +1,6 @@
 .list-recipes {
 	overflow: hidden;
+	.min-height(35px);
 }
 
 .page.recipes .recipe {
@@ -101,7 +102,7 @@
 	}
 
 	img {
-		.position(absolute, auto, auto, auto, 50%, 100%, auto);
+		.position(absolute, auto, auto, auto, 0, 100%, auto);
 		.transform(translate3d(-50%,0,0));
 	}
 }
@@ -128,5 +129,9 @@
 			position: relative;
 			top: -5px;
 		}
+	}
+
+	img.recipeImg {
+		.opacity(0);
 	}
 }

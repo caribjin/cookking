@@ -48,7 +48,6 @@ RecipesController = RouteController.extend({
 	},
 
 	subscriptions: function() {
-	//waitOn: function() {
 		this.recipesSubscribe = Meteor.subscribe('recipes', this.filter(), this.option());
 	},
 
@@ -63,15 +62,11 @@ RecipesController = RouteController.extend({
 	},
 
 	action: function() {
-		//if (this.data().ready()) {
 		if (this.recipesSubscribe.ready()) {
 			Session.set(RECIPES_SUB_COMPLETED, true);
 			Session.set(RECIPES_CURRENT_COUNT, this.data().recipes().count());
 		}
-			this.render();
-		//} else {
-		//	this.render('Loading');
-		//	this.next();
-		//}
+
+		this.render();
 	}
 });

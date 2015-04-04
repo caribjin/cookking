@@ -9,10 +9,10 @@ aldeed:template-extension@3.4.3
 audit-argument-checks@1.0.3
 autoupdate@1.2.1
 babrahams:editable-json@0.3.13
-babrahams:transactions@0.6.17
+babrahams:transactions@0.6.18
 base64@1.0.3
 binary-heap@1.0.3
-blaze@2.1.1
+blaze@2.1.2
 blaze-tools@1.0.3
 boilerplate-generator@1.0.3
 callback-hook@1.0.3
@@ -87,7 +87,6 @@ mobile-status-bar@1.0.3
 momentjs:moment@2.9.0
 mongo@1.1.0
 mongo-livedata@1.0.8
-mrt:jquery-imagesloaded@0.0.2
 msavin:jetsetter@1.0.7
 msavin:mongol@1.0.12
 multiply:iron-router-progress@1.0.1
