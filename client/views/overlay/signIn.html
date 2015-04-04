@@ -11,7 +11,7 @@
 
 			<div class="title">로그인</div>
 			<div class="subtitle">여러분 계정에 로그인하세요</div>
-			<form>
+			<form class="form">
 				{{#if errorMessages}}
 					<div class="list-errors">
 						{{#each errorMessages}}
@@ -23,7 +23,7 @@
 				<div class="form-group">
 					<label for="signin-email" class="control-label">이메일주소</label>
 					<div>
-						<input type="email" id="signin-email" class="form-control {{errorClass 'email'}}" placeholder="이메일 주소를 입력해 주세요" autofocus="autofocus"/>
+						<input type="email" id="signin-email" class="form-control {{errorClass 'email'}}" placeholder="이메일 주소를 입력해 주세요">
 					</div>
 				</div>
 				<div class="form-group">

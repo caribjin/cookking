@@ -7,7 +7,7 @@
 		<div class="container">
 			<div class="title">가입</div>
 			<div class="subtitle">새로운 계정을 생성합니다</div>
-			<form>
+			<form class="form">
 				{{#if errorMessages}}
 					<div class="list-errors">
 						{{#each errorMessages}}
@@ -19,7 +19,7 @@
 				<div class="form-group">
 					<label for="signup-email" class="control-label">이메일주소</label>
 					<div>
-						<input type="email" id="signup-email" class="form-control {{errorClass 'email'}}" placeholder="이메일 주소를 입력해 주세요" autofocus="autofocus"/>
+						<input type="email" id="signup-email" class="form-control {{errorClass 'email'}}" placeholder="이메일 주소를 입력해 주세요"/>
 					</div>
 				</div>
 				<div class="form-group">

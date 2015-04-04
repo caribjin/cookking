@@ -87,6 +87,7 @@ mobile-status-bar@1.0.3
 momentjs:moment@2.9.0
 mongo@1.1.0
 mongo-livedata@1.0.8
+mrt:jquery-imagesloaded@0.0.2
 msavin:jetsetter@1.0.7
 msavin:mongol@1.0.12
 multiply:iron-router-progress@1.0.1

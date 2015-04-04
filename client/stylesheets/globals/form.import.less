@@ -156,9 +156,14 @@ input[type=text].underline {
 }
 
 .form {
-	.padding-left(10px);
-	.padding-right(10px);
 	.width(100%);
+
+	.form-group {
+		[class^="btn-"],
+		[class*=" btn-"] {
+			.margin(0 3px) !important;
+		}
+	}
 
 	.form-row-header {
 		.font-s3;

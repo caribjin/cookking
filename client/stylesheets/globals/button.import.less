@@ -24,7 +24,6 @@
 	&[class*="primary"] {
 		background-color: @color-primary;
 		color: @color-empty;
-		.margin(0 3px);
 
 		&:hover { background-color: darken(@color-primary, 5%); }
 		&:active { box-shadow: rgba(0,0,0,.3) 0 1px 3px 0 inset; }
@@ -33,13 +32,11 @@
 	&[class*="default"] {
 		background-color: @color-empty;
 		color: @color-full;
-		.margin(0 3px);
 	}
 
 	&[class*="secondary"] {
 		background: @color-tertiary;
 		color: rgba(255,255,255,.4);
-		.margin(0 3px);
 
 		&:hover { background-color: darken(@color-tertiary, 5%); }
 		&:active { box-shadow: rgba(0,0,0,.3) 0 1px 3px 0 inset; }
@@ -59,7 +56,6 @@
 	&[class*="tertiary"] {
 		background: @color-raw;
 		color: @color-primary;
-		.margin(0 3px);
 
 		&:hover { background-color: @color-raw; }
 	}

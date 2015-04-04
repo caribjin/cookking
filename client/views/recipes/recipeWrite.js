@@ -295,8 +295,6 @@ Template.RecipeWrite.onRendered(function() {
 	// 최초 선택탭을 기본정보 탭으로 설정
 	Template.RecipeWrite.setTab('basic-info');
 
-	this.$('#recipeName').focus();
-
 	// 요리 종류 중 처음 항목을 기본 선택
 	this.$('input[type=radio][name=category]')[0].checked = true;
 });
