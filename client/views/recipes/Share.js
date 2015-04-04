@@ -202,10 +202,7 @@ Template.Share.events({
 					if (error) {
 						App.helpers.addNotification('ERROR: ' + error.reason, '확인');
 					} else {
-						App.helpers.addNotification('사진을 공유했습니다', '보기', function() {
-							Router.go('recipe', {_id: self._id}, {query: {feedId: result}});
-							Template.Recipe.setTab('feed');
-						});
+						App.helpers.addNotification('사진을 공유했습니다', '확인');
 					}
 				});
 

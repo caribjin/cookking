@@ -10,11 +10,11 @@
 .item-feed {
 	.transform(translate3d(0,0,0));
 	background: @color-empty;
-	border-top: 1px solid @color-rare;
+	border-bottom: 1px dashed #6699cc;
 	display: block;
 	float: left;
 	overflow: hidden;
-	padding: .75em;
+	.padding(1.5em, 1.75em);
 	position: relative;
 	width: 100%;
 
@@ -54,15 +54,17 @@
 		background-size: cover;
 		overflow: hidden;
 		.transform(translate3d(0,0,0));
-		.border-radius(8px);
+		//.border-radius(8px);
 		display: block;
 		width: 100%;
 		overflow: hidden;
 		text-align: center;
-		border: #25506b 1px solid;
+		//border: #25506b 1px solid;
 
 		& > img {
 			width: 100%;
+			border: #25506b 1px solid;
+			.border-radius(4px);
 		}
 
 		& > img.loading {
@@ -72,12 +74,15 @@
 	}
 }
 
-.page.whats-cooking {
-	.content-scrollable { padding-top: 3em; }
+.page.feeds {
+	.content-scrollable {
+		//.padding(0, 20px);
+	}
 
 	.list-feeds {
 		.transition(all 700ms ease-in);
 	}
+
 	.list-feeds.loading {
 		min-height: 100%;
 		.icon-sync {

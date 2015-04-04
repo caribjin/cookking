@@ -5,8 +5,12 @@
 		</a>
 
 		<div class="container">
-			<div class="title">Sign In</div>
-			<div class="subtitle">Sign in your account</div>
+			<!--<video autoplay loop poster="polina.jpg" id="background-video">-->
+				<!--<source src="/video/polina.webm" type="video/webm">-->
+			<!--</video>-->
+
+			<div class="title">로그인</div>
+			<div class="subtitle">여러분 계정에 로그인하세요</div>
 			<form>
 				{{#if errorMessages}}
 					<div class="list-errors">
@@ -17,31 +21,31 @@
 				{{/if}}
 
 				<div class="form-group">
-					<label for="signin-email" class="col-lg-2 control-label">Email</label>
-					<div class="col-lg-10">
-						<input type="email" id="signin-email" class="form-control {{errorClass 'email'}}" placeholder="User Email" autofocus="autofocus"/>
+					<label for="signin-email" class="control-label">이메일주소</label>
+					<div>
+						<input type="email" id="signin-email" class="form-control {{errorClass 'email'}}" placeholder="이메일 주소를 입력해 주세요" autofocus="autofocus"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="signin-password" class="col-lg-2 control-label">Password</label>
-					<div class="col-lg-10">
-						<input type="password" id="signin-password" class="form-control {{errorClass 'password'}}" placeholder="Password"/>
+					<label for="signin-password" class="control-label">비밀번호</label>
+					<div>
+						<input type="password" id="signin-password" class="form-control {{errorClass 'password'}}" placeholder="비밀번호를 입력해 주세요"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-lg-offset-2 col-lg-10">
-						<input value="Sign In" type="submit" class="btn btn-default"/>
-						<a href="{{pathFor 'signup'}}" class="btn btn-tertiary">Sign Up</a>
+					<div>
+						<a href="#" class="btn btn-primary submit pull-right">로그인</a>
+						<a href="{{pathFor 'signup'}}" class="btn btn-default pull-right">가입하기</a>
 					</div>
 				</div>
 			</form>
 		</div>
 
 		<div class="btns-group">
-			<button class="js-signin btn-facebook">Facebook</button>
-			<button class="js-signin btn-github">GitHub</button>
+			<!--<button class="js-signin btn-facebook">Facebook</button>-->
+			<!--<button class="js-signin btn-github">GitHub</button>-->
 			<button class="js-signin btn-twitter">Twitter</button>
-			<button class="js-signin btn-google">Google</button>
+			<!--<button class="js-signin btn-google">Google</button>-->
 		</div>
 	</div>
 </template>

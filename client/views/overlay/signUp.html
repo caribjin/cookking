@@ -5,8 +5,8 @@
 		</a>
 
 		<div class="container">
-			<div class="title">Sign Up</div>
-			<div class="subtitle">Create your personal account</div>
+			<div class="title">가입</div>
+			<div class="subtitle">새로운 계정을 생성합니다</div>
 			<form>
 				{{#if errorMessages}}
 					<div class="list-errors">
@@ -17,27 +17,27 @@
 				{{/if}}
 
 				<div class="form-group">
-					<label for="signup-email" class="col-lg-2 control-label">Email</label>
-					<div class="col-lg-10">
-						<input type="email" id="signup-email" class="form-control {{errorClass 'email'}}" placeholder="Your Email" autofocus="autofocus"/>
+					<label for="signup-email" class="control-label">이메일주소</label>
+					<div>
+						<input type="email" id="signup-email" class="form-control {{errorClass 'email'}}" placeholder="이메일 주소를 입력해 주세요" autofocus="autofocus"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="signup-password" class="col-lg-2 control-label">Password</label>
-					<div class="col-lg-10">
-						<input type="password" id="signup-password" class="form-control {{errorClass 'password'}}" placeholder="Password"/>
+					<label for="signup-password" class="control-label">비밀번호</label>
+					<div>
+						<input type="password" id="signup-password" class="form-control {{errorClass 'password'}}" placeholder="비밀번호를 입력해 주세요"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-2 control-label" for="signup-repassword">Confirm password</label>
+					<label class="control-label" for="signup-repassword">비밀번호 확인</label>
 					<div class="col-lg-10">
-						<input type="password" id="signup-repassword" class="form-control {{errorClass 'repassword'}}" placeholder="Confirm Password"/>
+						<input type="password" id="signup-repassword" class="form-control {{errorClass 'repassword'}}" placeholder="비밀번호를 다시 입력해 주세요"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-lg-offset-2 col-lg-10">
-						<input value="Create account" type="submit" class="btn btn-tertiary"/>
-						<a href="{{pathFor 'signin'}}" class="btn btn-default">Sign In</a>
+					<div>
+						<a href="#" class="btn btn-primary submit pull-right">계정 생성</a>
+						<a href="{{pathFor 'signin'}}" class="btn btn-default pull-right">로그인</a>
 					</div>
 				</div>
 			</form>

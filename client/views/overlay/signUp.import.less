@@ -1,20 +1,50 @@
 .overlay.signup {
+	.container {
+		.position(fixed,auto,0,0,auto);
+		min-width: 100%;
+		min-height: 100%;
+		z-index: -100;
+		background: url('/img/app/signup.jpg') no-repeat;
+		background-size: cover;
+		background-position: 54% center;
+		color: @color-empty;
+		.padding(35px);
+
+		&:before {
+			.position(absolute,0,0,0,0);
+			.blur(6px);
+			background: inherit;
+			display: block;
+			content: '';
+			z-index: -1;
+		}
+
+		input[type=email],
+		input[type=password] {
+			.padding(10px);
+		}
+
+		.form-group {
+			.padding-bottom(15px);
+
+			.control-label {
+				.line-height(1.6rem);
+			}
+		}
+	}
+
 	.title {
 		padding-top: 11%;
+		color: @color-rare;
 	}
 	.subtitle {
 		padding-bottom: 4%;
+		color: @color-empty;
 	}
+}
 
-	.btn-default {
-		color: #000000;
-		float: right;
-		margin-right: 5px;
-	}
-
-	.btn-tertiary {
-		float: right;
-		background-color: rgba(23, 145, 255, 0.84);
-		color: #ffffff;
+.sign {
+	.overlay-dismiss .icon-cross {
+		color: @color-empty !important;
 	}
 }

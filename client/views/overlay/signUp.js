@@ -20,7 +20,7 @@ Template.SignUp.helpers({
 });
 
 Template.SignUp.events({
-	'submit': function(e, tmpl) {
+	'click .submit': function(e, tmpl) {
 		e.preventDefault();
 
 		var email = tmpl.find('#signup-email').value;

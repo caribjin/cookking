@@ -52,7 +52,7 @@ Template.SignIn.events({
 		});
 	},
 
-	'submit': function(e, tmpl) {
+	'click .submit': function(e, tmpl) {
 		e.preventDefault();
 
 		var email = tmpl.find('#signin-email').value;

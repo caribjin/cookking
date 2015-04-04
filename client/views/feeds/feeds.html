@@ -1,6 +1,6 @@
 <template name="Feeds">
-	<div class="page whats-cooking">
-		{{> Navigation title="What's Cooking"}}
+	<div class="page feeds">
+		{{> Navigation title="Feeds"}}
 
 		<div class="content-scrollable">
 			<div class="list-feeds {{#unless ready}}loading{{/unless}}">
@@ -9,8 +9,8 @@
 						{{> Feed}}
 					{{else}}
 						<div class="wrapper-message">
-							<div class="title-message">아직 올라온 요리자랑이 없습니다.</div>
-							<div class="subtitle-message">여러분이 만든 요리를 이 곳에 올려 여러 사람과 공유해 보세요!</div>
+							<div class="title-message">아직 올라온 공유 요리가 없습니다.</div>
+							<div class="subtitle-message">여러분이 만든 요리를 여러 사람에게 공유하고 자랑해 보세요!</div>
 						</div>
 					{{/each}}
 				{{else}}

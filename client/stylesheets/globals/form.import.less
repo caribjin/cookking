@@ -106,11 +106,10 @@ input[type=text].underline {
 }
 
 // Input with an icon
-.form,
-.form-group {
-	& .error {
-		border: @color-negative 1px solid;
-	}
+.error {
+	border: @color-empty 1px solid !important;
+	color: #ffffff !important;
+	background-color: rgba(175, 0, 0, 0.78);
 }
 
 .input-symbol {

@@ -1,25 +1,66 @@
 .overlay.signin {
+	#background-video {
+		.position(fixed,auto,0,0,auto);
+		min-width: 100%;
+		min-height: 100%;
+		z-index: -100;
+		background: url('/img/recipes/640x800/1.jpg') no-repeat;
+		background-size: cover;
+		transition: 1s opacity;
+	}
+
+	.container {
+		.position(fixed,auto,0,0,auto);
+		min-width: 100%;
+		min-height: 100%;
+		z-index: -100;
+		background: url('/img/app/signin.jpg') no-repeat;
+		background-size: cover;
+		background-position: 54% center;
+		color: @color-medium;
+		.padding(35px);
+
+		&:before {
+			.position(absolute,0,0,0,0);
+			.blur(6px);
+			background: inherit;
+			display: block;
+			content: '';
+			z-index: -1;
+		}
+
+		input[type=email],
+		input[type=password] {
+			.padding(10px);
+		}
+
+		.form-group {
+			.padding-bottom(15px);
+
+			.control-label {
+				.line-height(1.6rem);
+			}
+		}
+	}
+
 	.title {
 		padding-top: 20%;
+		color: @color-rare;
 	}
+
 	.subtitle {
 		padding-bottom: 5%;
-	}
-
-	.btn-default {
-		color: #000000;
-		float: right;
-	}
-
-	.btn-tertiary {
-		float: right;
-		background-color: rgba(255, 171, 47, 0.84);
-		color: #ffffff;
-		margin-right: 5px;
+		color: @color-medium-rare;
 	}
 
 	.btn-facebook,
 	.btn-github,
 	.btn-google,
 	.btn-twitter { .position(relative, 0, 0, 0, 0, 100%); border: none; }
+}
+
+.sign {
+	.overlay-dismiss .icon-cross {
+		color: @color-medium !important;
+	}
 }
