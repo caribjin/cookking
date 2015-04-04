@@ -44,7 +44,7 @@ Meteor.publish('recipes', function (filter, options) {
 				removed: function(image) {
 					self.removed('recipesImage', image._id);
 				}
-			})
+			});
 		},
 		removed: function(recipe) {
 			self.removed('recipes', recipe._id);

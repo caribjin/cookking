@@ -1,6 +1,6 @@
 <template name="Bookmarks">
-	<div class="page bookmarks">
-		{{> Navigation title='Your Bookmarks' subtext=recipeCount}}
+	<div class="page recipes">
+		{{> Navigation title='Bookmarks' subtext=recipeCount}}
 
 		<div class="content-scrollable">
 			<div class="list-recipes">
@@ -9,9 +9,12 @@
 				{{else}}
 					<div class="wrapper-message">
 						<div class="title-message">
-							No bookmarks yet
+							아직 북마크한 레시피가 없습니다.
 						</div>
-						<div class="subtitle-message">Tap <span class="icon-bookmark-hollow"></span> to bookmark your favorite recipes. <a href="{{pathFor 'home'}}">Return home</a></div>
+						<div class="subtitle-message">레시피 상세화면에서 <i class="fa fa-bookmark"></i> 버튼을 눌러주세요
+							<br/><br/>
+							<a href="{{pathFor 'home'}}">홈으로 가기</a>
+						</div>
 					</div>
 				{{/each}}
 			</div>
