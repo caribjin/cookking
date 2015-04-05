@@ -28,14 +28,16 @@
 			}
 		}
 
-		.icon-sync {
-			.position(absolute, 33%, auto, auto, 12px);
-			.animation(spin 2s infinite linear);
+		.fa-circle-o-notch,
+		.fa-refresh {
+			.position(absolute, 31%, auto, auto, 12px);
+			//.animation(spin 2s infinite linear);
 			color: @color-empty;
 			font-size: 1.5em;
 		}
 
-		.icon-sync + .title-notification {
+		.fa-circle-o-notch + .title-notification,
+		.fa-refresh + .title-notification {
 			padding-left: 40px;
 		}
 
@@ -44,7 +46,7 @@
 			.type-bold;
 			display: block;
 			line-height: 1rem;
-			padding: 1rem .75rem;
+			padding: 1rem 0.75rem;
 		}
 
 		.btn-primary {

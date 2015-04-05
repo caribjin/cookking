@@ -76,6 +76,6 @@ Template.RecipeItem.onRendered(function() {
 	var img = this.find('.recipeImg');
 
 	//imagesLoaded(img).on('done', function () {
-		$(img).velocity('transition.slideDownIn', {duration: App.settings.defaultAnimationDurationVerySlow});
+		$(img).velocity('transition.slideDownIn', {duration: App.settings.defaultAnimationDurationSlow});
 	//});
 });

@@ -1,31 +1,10 @@
 <template name="Share">
 	<div class="overlay share">
 		{{#unless attachedImage}}
-			<a href="#" class="js-close-overlay overlay-dismiss"><span class="icon-cross"></span></a>
+			<a href="#" class="js-close-overlay overlay-dismiss"><i class="icon-cross"></i></a>
 			<div class="wrapper-heading">
 				<div class="title-overlay">Share</div>
-				<div class="subtitle-overlay">바로 사진을 찍거나 앨범의 사진을 선택해서 올려주세요
-					<!--{{#each uploadedImages}}-->
-						<!--<div>-->
-							<!--name : {{this.name}}<br>-->
-							<!--extension: {{this.extension}}<br>-->
-							<!--size: {{this.size store="thumbs"}}<br>-->
-							<!--size2: {{this.formattedSize store="thumbs"}}<br>-->
-
-							<!--{{#if isImage}}this is image.{{/if}}-->
-							<!--{{#if isVideo}}this is video.{{/if}}-->
-							<!--{{#if isAudio}}this is audio.{{/if}}<br><br>-->
-							<!--{{#if isUploaded}}-->
-								<!--Uploaded-->
-							<!--{{else}}-->
-								<!--Now uploading...-->
-							<!--{{/if}}<br>-->
-							<!--<a href="{{this.url}}" target="_blank">-->
-								<!--<img src="{{this.url store='thumbs' uploading='/img/uploading.gif' storing='/img/storing.gif'}}" class="thumbnail" style="max-width: 300px;">-->
-							<!--</a>-->
-						<!--</div>-->
-					<!--{{/each}}-->
-				</div>
+				<div class="subtitle-overlay">바로 사진을 찍거나 앨범의 사진을 선택해서 올려주세요</div>
 			</div>
 
 			<div class="wrapper">
@@ -42,9 +21,9 @@
 				<input type="file" id="imageFile" class="imageFile" style="visibility: hidden; position: absolute; top: 0; left: -5000px;"/>
 			</div>
 		{{else}}
-			<a href="#" class="js-unattach-image overlay-back"><span class="icon-arrow-left-alt"></span></a>
+			<a href="#" class="js-unattach-image overlay-back"><i class="icon-arrow-left-alt"></i></a>
 			<div class="title-page">Share</div>
-			<a href="#" class="js-close-overlay overlay-dismiss"><span class="icon-cross"></span></a>
+			<a href="#" class="js-close-overlay overlay-dismiss"><i class="icon-cross"></i></a>
 
 			<div class="cropper">
 				<img src="{{attachedImage}}">
