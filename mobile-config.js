@@ -44,6 +44,8 @@ App.launchScreens({
 
 App.setPreference('StatusBarOverlaysWebView', 'false');
 App.setPreference('StatusBarBackgroundColor', '#000000');
+App.setPreference('HideKeyboardFormAccessoryBar', 'true');
+App.setPreference('Orientation', 'portrait');
 
 App.accessRule('*', {external: true});
 App.accessRule('https://pbs.twimg.com/profile_images/*', {external: true});

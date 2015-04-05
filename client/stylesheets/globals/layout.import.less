@@ -1,5 +1,3 @@
-@menu-width: 192px;
-
 body {
 	background: @color-empty;
 }
@@ -11,7 +9,15 @@ body {
 
 #menu {
 	.position(absolute, 0, 0, 0, 0);
-	right: 100% - @menu-width;
+	@media @mobile {
+		right: 100% - @menu-width-mobile;
+	}
+	@media @tablet {
+		right: 100% - @menu-width-tablet;
+	}
+	@media @desktop, @desktop-xl {
+		right: 100% - @menu-width-desktop;
+	}
 }
 
 #content-container {
@@ -19,9 +25,16 @@ body {
 	.transition(all 200ms ease-out);
 	.transform(translate3d(0, 0, 0));
 
-	// Toggle menu on mobile
 	.menu-open & {
-		.transform(translate3d(@menu-width, 0, 0));
+		@media @mobile {
+			.transform(translate3d(@menu-width-mobile, 0, 0));
+		}
+		@media @tablet {
+			.transform(translate3d(@menu-width-tablet, 0, 0));
+		}
+		@media @desktop, @desktop-xl {
+			.transform(translate3d(@menu-width-desktop, 0, 0));
+		}
 	}
 
 	> div.page {
@@ -45,7 +58,16 @@ body {
 	cursor: pointer;
 
 	.menu-open & {
-		.transform(translate3d(@menu-width, 0, 0));
+		@media @mobile {
+			.transform(translate3d(menu-width-mobile, 0, 0));
+		}
+		@media @tablet {
+			.transform(translate3d(@menu-width-tablet, 0, 0));
+		}
+		@media @desktop, @desktop-xl {
+			.transform(translate3d(@menu-width-desktop, 0, 0));
+		}
+
 		z-index: 1;
 	}
 }
