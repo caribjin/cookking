@@ -20,7 +20,7 @@ Meteor.methods({
 		return f.wait();
 	},
 
-	sendWelcomeEmail: function(userData) {
+	sendSignupWelcomeEmail: function(userData) {
 		check(userData, {email: String, name: String});
 
 		SSR.compileTemplate('welcomeEmail', Assets.getText('email/welcome-email.html'));
@@ -28,13 +28,13 @@ Meteor.methods({
 		var emailTemplate = SSR.render('welcomeEmail', {
 			email: userData.email,
 			name: userData.name,
-			url: 'http://localhost:3000'
+			url: 'http://cookking.devcrow.com'
 		});
 
 		Email.send({
 			from: 'Cookking Admin - <caribjin@gmail.com>',
 			to: userData.email,
-			subject: 'Welcome to Cookking!',
+			subject: '쿡킹에 오신것을 환영합니다!',
 			html: emailTemplate
 		});
 	}

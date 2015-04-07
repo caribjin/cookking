@@ -15,7 +15,8 @@ Meteor.methods({
 			$set: {
 				'profile.name': user.profile.name,
 				'profile.introduction': user.profile.introduction,
-				'profile.profileImage': user.profile.profileImage
+				'profile.profileImage': user.profile.profileImage,
+				'profile.role': user.profile.role
 			}
 		}, function(error, result) {
 			if (error)

@@ -61,7 +61,10 @@ App = {
 		defaultRecipesSort: 'created',
 
 		// 레시피 리스트 기본 필터
-		defaultRecipesListFilter: 'all'
+		defaultRecipesListFilter: 'all',
+
+		// 계정 등록 시 환영 메일 발송 여부
+		sendSignupWelcomeEmail: false
 	},
 
 	helpers: {

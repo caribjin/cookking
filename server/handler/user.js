@@ -1,20 +1,27 @@
 Accounts.onCreateUser(function(options, user) {
+	if (!options.profile) {
+		options.profile = { name: '' };
+	}
+
+	// 최초 등록자라면 관리자로 저정
+	options.profile.role = Meteor.users.find().count() === 0 ? 'admin' : 'user';
+
 	var userData = {
 		email: determineEmail(user),
-		name: options.profile && options.profile.name ? options.profile.name : ''
+		name: options.profile.name
 	};
 
 	if (userData.email) {
-		//Meteor.call('sendWelcomeEmail', userData, function(error) {
-		//	if (error) {
-		//		console.log(error);
-		//	}
-		//});
+		if (App.settings.sendSignupWelcomEmail) {
+			Meteor.call('sendSignupWelcomeEmail', userData, function (error) {
+				if (error) {
+					console.log(error);
+				}
+			});
+		}
 	}
 
-	if (options.profile) {
-		user.profile = options.profile;
-	}
+	user.profile = options.profile;
 
 	return user;
 });
