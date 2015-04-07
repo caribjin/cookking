@@ -3,9 +3,9 @@ Meteor.methods({
 		check(comment, {
 			recipeId: String,
 			writer: {
-				userId: String,
-				userName: String,
-				userAvatar: String
+				id: String,
+				name: String,
+				avatar: String
 			},
 			text: String
 		});

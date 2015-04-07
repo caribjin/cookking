@@ -83,10 +83,6 @@ App = {
 				if (size === 'large') {
 					result = result.replace(/-_normal/gi, '-_400x400');
 				}
-
-				if (!result) {
-					result = App.settings.emptyAvatarImage;
-				}
 			} else {
 				throw new Meteor.Error('logged-out', 'User not loged in');
 			}

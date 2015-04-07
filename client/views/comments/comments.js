@@ -31,6 +31,10 @@ Template.Comments.helpers({
 		return result;
 	},
 
+	userAvatar: function() {
+		return this.writer.avatar || App.settings.emptyAvatarImage;
+	},
+
 	totalCount: function() {
 		return Template.instance().totalCount.get();
 	},
@@ -54,9 +58,9 @@ Template.Comments.events({
 			var comment = {
 				recipeId: this._id,
 				writer: {
-					userId: Meteor.userId(),
-					userName: App.helpers.getCurrentUserName(),
-					userAvatar: App.helpers.getCurrentUserAvatar()
+					id: Meteor.userId(),
+					name: App.helpers.getCurrentUserName(),
+					avatar: App.helpers.getCurrentUserAvatar()
 				},
 				text: text
 			};

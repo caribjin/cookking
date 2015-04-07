@@ -93,9 +93,9 @@ Meteor.startup(function() {
 				"commentsCount": 0,
 				"filter": '',
 				"writer" : {
-					"userId" : "",
-					"userName" : "Youngjin Lim",
-					"userAvatar" : "https://pbs.twimg.com/profile_images/572022592865710080/OjhpMRR-_normal.jpeg"
+					"id" : "",
+					"name" : "Youngjin Lim",
+					"avatar" : "https://pbs.twimg.com/profile_images/572022592865710080/OjhpMRR-_normal.jpeg"
 				},
 				"createdAt" : new Date()
 			};

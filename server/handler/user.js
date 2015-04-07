@@ -12,8 +12,6 @@ Accounts.onCreateUser(function(options, user) {
 		avatar = user.services.twitter.profile_image_url_https;
 	} else if (user.services.google) {
 		avatar = user.services.google.picture;
-	} else {
-		avatar = App.settings.emptyAvatarImage;
 	}
 
 	options.profile.avatar = avatar;

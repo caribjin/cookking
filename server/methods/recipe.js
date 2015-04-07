@@ -24,9 +24,9 @@ Meteor.methods({
 		});
 
 		recipe.writer = {
-			userId: Meteor.userId(),
-			userName: App.helpers.getCurrentUserName(),
-			userAvatar: App.helpers.getCurrentUserAvatar()
+			id: Meteor.userId(),
+			name: App.helpers.getCurrentUserName(),
+			avatar: App.helpers.getCurrentUserAvatar()
 		};
 
 		recipe.createdAt = new Date();

@@ -15,14 +15,18 @@ Template.Feed.onRendered(function() {
 
 Template.Feed.helpers({
 	firstName: function() {
-		return this.userName.split(' ')[0];
+		return this.writer.name;
 	},
 
-	recipeTitle: function() {
-		Meteor.subscribe('recipe', this.recipeId);
-		var recipe = Recipes.findOne(this.recipeId);
-		return recipe ? recipe.title : 'unknown title';
+	userAvatar: function() {
+		return this.writer.avatar || App.settings.emptyAvatarImage;
 	},
+
+	//recipeTitle: function() {
+	//	Meteor.subscribe('recipe', this.recipeId);
+	//	var recipe = Recipes.findOne(this.recipeId);
+	//	return recipe ? recipe.title : 'unknown title';
+	//},
 
 	path: function() {
 		return Router.path('recipe', {_id: this.recipeId}, {query: {feedId: this._id}});

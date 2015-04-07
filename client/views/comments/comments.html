@@ -11,9 +11,9 @@
 						{{#each comments}}
 							<div class="item-comment">
 								<span class="avatar">
-									<img src="{{writer.userAvatar}}">
+									<img src="{{userAvatar}}">
 								</span>
-								<span class="writer">{{writer.userName}}</span><br/>
+								<span class="writer">{{writer.name}}</span><br/>
 								<span class="createdAt">{{formatDateTime createdAt}}</span><br/>
 								{{text}}
 								{{#if isDeletable}}

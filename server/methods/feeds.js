@@ -9,10 +9,12 @@ Meteor.methods({
 		check(isTweet, Boolean);
 		check(loc, Match.OneOf(Object, null));
 
-		feed.userId = Meteor.userId();
-		feed.userAvatar = App.helpers.getCurrentUserAvatar();
+		feed.writer = {
+			id: Meteor.userId(),
+			name: App.helpers.getCurrentUserName(),
+			avatar: App.helpers.getCurrentUserAvatar()
+		};
 		feed.createdAt = new Date;
-		feed.userName = App.helpers.getCurrentUserName();
 
 		if (!this.isSimulation && loc)
 			feed.place = getLocationPlace(loc);
