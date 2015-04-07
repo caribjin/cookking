@@ -5,7 +5,7 @@ Meteor.methods({
 			profile: {
 				name: String,
 				introduction: String,
-				profileImage: Match.Optional(String)
+				avatar: Match.Optional(String)
 			}
 		});
 
@@ -14,9 +14,8 @@ Meteor.methods({
 		}, {
 			$set: {
 				'profile.name': user.profile.name,
-				'profile.introduction': user.profile.introduction,
-				'profile.profileImage': user.profile.profileImage,
-				'profile.role': user.profile.role
+				'profile.introduction': user.profile.introduction
+				//'profile.avatar': user.profile.avatar
 			}
 		}, function(error, result) {
 			if (error)

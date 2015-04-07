@@ -1,13 +1,39 @@
 Accounts.onCreateUser(function(options, user) {
-	if (!options.profile) {
-		options.profile = { name: '' };
+	var userEmail = determineEmail(user);
+	var avatar = '';
+
+	if (!options.profile || !options.profile.name) {
+		options.profile = {
+			name: userEmail.substring(0, userEmail.indexOf('@'))
+		};
 	}
 
-	// 최초 등록자라면 관리자로 저정
-	options.profile.role = Meteor.users.find().count() === 0 ? 'admin' : 'user';
+	if (user.services.twitter) {
+		avatar = user.services.twitter.profile_image_url_https;
+	} else if (user.services.google) {
+		avatar = user.services.google.picture;
+	} else {
+		avatar = App.settings.emptyAvatarImage;
+	}
 
+	options.profile.avatar = avatar;
+	options.profile.role = Meteor.users.find().count() === 0 ? 'admin' : 'user';        // 최초 등록자라면 관리자로 저정
+
+	user.profile = options.profile;
+
+	sendSignupWelcomeEmail(userEmail, options);;
+
+	return user;
+});
+
+//Accounts.onLogin(function(result) {
+//	// TODO: 데이터 확인용. 삭제할 것
+//	/console.dir(result);
+//});
+
+var sendSignupWelcomeEmail = function(email, options) {
 	var userData = {
-		email: determineEmail(user),
+		email: email,
 		name: options.profile.name
 	};
 
@@ -20,22 +46,13 @@ Accounts.onCreateUser(function(options, user) {
 			});
 		}
 	}
-
-	user.profile = options.profile;
-
-	return user;
-});
-
-//Accounts.onLogin(function(result) {
-//	// TODO: 데이터 확인용. 삭제할 것
-//	/console.dir(result);
-//});
+}
 
 var determineEmail = function(user) {
 	var email = '';
 
-	if (user.email && user.email.length > 0) {
-		email = user.email[0].address;
+	if (user.emails && user.emails.length > 0) {
+		email = user.emails[0].address;
 	} else if (user.services) {
 		var services = user.services;
 

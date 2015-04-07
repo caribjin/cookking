@@ -78,17 +78,13 @@ App = {
 			var result = '';
 
 			if (user) {
-				var service = user.services;
+				result = user.profile.avatar;
 
-				if (service.twitter) {
-					result = service.twitter.profile_image_url_https;
+				if (size === 'large') {
+					result = result.replace(/-_normal/gi, '-_400x400');
+				}
 
-					if (size === 'large') {
-						result = result.replace(/-_normal/gi, '-_400x400');
-					}
-				} else if (user.services.google) {
-					result = service.google.picture;
-				} else {
+				if (!result) {
 					result = App.settings.emptyAvatarImage;
 				}
 			} else {

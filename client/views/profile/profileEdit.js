@@ -37,7 +37,7 @@ Template.ProfileEdit.events({
 				profile: {
 					name: nickname,
 					introduction: introduction,
-					profileImage: ''
+					avatar: ''
 				}
 			};
 
