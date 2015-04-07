@@ -71,7 +71,7 @@ App = {
 		/**
 		 * 현재 사용자의 프로필 이미지 경로를 얻는다.
 		 * @param size          undefined/normal : 작은 이미지, large: 큰 이미지
-		 * @returns {string}    프로필 이미지 경로
+		 * @returns {string}    프로필 이미지 url
 		 */
 		getCurrentUserAvatar: function(size) {
 			var user = Meteor.user();
@@ -82,13 +82,17 @@ App = {
 
 				if (service.twitter) {
 					result = service.twitter.profile_image_url_https;
+
+					if (size === 'large') {
+						result = result.replace(/-_normal/gi, '-_400x400');
+					}
 				} else if (user.services.google) {
 					result = service.google.picture;
+				} else {
+					result = App.settings.emptyAvatarImage;
 				}
-
-				if (size === 'large') {
-					result = result.replace(/-_normal/gi, '-_400x400');
-				}
+			} else {
+				throw new Meteor.Error('logged-out', 'User not loged in');
 			}
 
 			return result;
@@ -96,7 +100,22 @@ App = {
 
 		getCurrentUserName: function() {
 			var user = Meteor.user();
-			return (user && user.profile && user.profile.name) || '';
+			var result = '';
+
+			if (user) {
+				result = (user.profile && user.profile.name) || '';
+			} else {
+				throw new Meteor.Error('logged-out', 'user not logged in');
+			}
+
+			return result;
+		},
+
+		isAdmin: function() {
+			if (Meteor.user() && Meteor.user().profile)
+				var role = Meteor.user().profile.role;
+
+			return role === 'admin';
 		},
 
 		randomDate: function(start, end) {
@@ -162,13 +181,6 @@ App = {
 			return str.replace(/(?:^|\s)\w/g, function(match) {
 				return match.toUpperCase();
 			});
-		},
-
-		isAdmin: function() {
-			if (Meteor.user() && Meteor.user().profile)
-				var role = Meteor.user().profile.role;
-
-			return role === 'admin';
 		},
 
 		checkRole: function(userId, rolename) {
