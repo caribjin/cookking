@@ -48,12 +48,17 @@
 				{{/if}}
 			</span>
 
-			<span class="source">
+			<span class="category">
 				<i class="fa fa-filter"></i>
 				{{category}}
 			</span>
 			<span class="time">
 				조리시간 {{cookTime}}
+			</span>
+			<span class="private">
+				{{#if isPrivate}}
+					<i class="fa fa-eye-slash"></i>
+				{{/if}}
 			</span>
 			<div class="writer">
 				{{writer.name}}

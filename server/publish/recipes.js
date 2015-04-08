@@ -1,5 +1,9 @@
-Meteor.publish('recipes', function (filter, options) {
-	check(filter, String);
+Meteor.publish('recipes', function (condition, options) {
+	check(condition, {
+		filter: String,
+		admin: Boolean
+	});
+
 	check(options, {
 		sort: {
 			highlighted: Number,
@@ -26,8 +30,13 @@ Meteor.publish('recipes', function (filter, options) {
 		}
 	};
 
-	if (filter !== 'all') {
+	if (condition.filter !== 'all') {
 		_.extend(query, { filter: filter });
+	}
+
+	// 관리자가 아니라면 공개인 레시피만 볼 수 있다.
+	if (!condition.admin) {
+		_.extend(query, { public: true });
 	}
 
 	handles['recipes'] = Recipes.find(query, options).observe({
@@ -102,13 +111,27 @@ Meteor.publish('recipesByIds', function(ids) {
 	self.ready();
 });
 
-Meteor.publish('recipe', function(id) {
-	check(id, String);
+Meteor.publish('recipe', function(condition) {
+	check(condition, {
+		id: String,
+		admin: Boolean
+	});
 
 	var self = this;
 	var handles = {};
+	var query = {
+		_id: condition.id,
+		deleted: {$exists: false}
+	};
 
-	handles['recipes'] = Recipes.find({_id: id, deleted: {$exists: false}}).observe({
+	// 관리자가 아니라면 비공개 레시피는 볼 수 없다.
+	if (!condition.admin) {
+		_.extend(query, {
+			public: true
+		});
+	}
+
+	handles['recipes'] = Recipes.find(query).observe({
 		added: function(recipe) {
 			self.added('recipes', recipe._id, recipe);
 

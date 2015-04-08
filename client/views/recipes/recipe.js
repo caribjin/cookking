@@ -52,6 +52,10 @@ Template.Recipe.helpers({
 		return Session.equals(TAB_KEY, name);
 	},
 
+	isPrivate: function() {
+		return !this.public;
+	},
+
 	activeTabClass: function() {
 		return Session.get(TAB_KEY);
 	},

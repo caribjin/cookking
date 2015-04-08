@@ -123,8 +123,9 @@
 			}
 		}
 
-		.source,
-		.time {
+		.category,
+		.time,
+		.private {
 			.font-s1;
 			color: @color-medium;
 			display: inline-block;
@@ -133,7 +134,7 @@
 			.margin-top(43px);
 		}
 
-		.source {
+		.category {
 			.type-secondary;
 			.type-bold;
 			.title-caps;
@@ -144,6 +145,13 @@
 			[class*=" fa-"] {
 				color: @color-primary;
 			}
+		}
+
+		.private {
+			.font-s3;
+			color: @color-primary;
+			.margin-left(8px);
+			.margin-top(40px);
 		}
 
 		.time {

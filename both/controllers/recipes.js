@@ -5,8 +5,11 @@ var RECIPES_CURRENT_FILTER = 'recipesCurrentFilter';
 var RECIPES_CURRENT_COUNT = 'recipesCurrentCount';
 
 RecipesController = RouteController.extend({
-	filter: function() {
-		return Session.get(RECIPES_CURRENT_FILTER) || App.settings.defaultRecipesListFilter;
+	condition: function() {
+		return {
+			filter: Session.get(RECIPES_CURRENT_FILTER) || App.settings.defaultRecipesListFilter,
+			admin: App.helpers.isAdmin()
+		}
 	},
 
 	option: function() {
@@ -17,7 +20,7 @@ RecipesController = RouteController.extend({
 			sort: {
 				highlighted: -1
 			},
-			limit: this.filter() === 'all' ? Session.get(RECIPES_LIMIT) + 1 : Session.get(RECIPES_LIMIT),
+			limit: this.condition().filter === 'all' ? Session.get(RECIPES_LIMIT) + 1 : Session.get(RECIPES_LIMIT),
 			fields: {
 				title: 1,
 				imageId: 1,
@@ -48,7 +51,7 @@ RecipesController = RouteController.extend({
 	},
 
 	subscriptions: function() {
-		this.recipesSubscribe = Meteor.subscribe('recipes', this.filter(), this.option());
+		this.recipesSubscribe = Meteor.subscribe('recipes', this.condition(), this.option());
 	},
 
 	data: function() {
