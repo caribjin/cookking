@@ -175,6 +175,7 @@ Template.RecipeWrite.save = function(e, tmpl) {
 					name: 'source.name',
 					url: 'source.url'
 				},
+				filter: App.helpers.getCheckedValue('category'),
 				ingredients: {
 					must: _.map(WriteIngredients.find(
 						{type: 'must', text: {$ne: ''}},

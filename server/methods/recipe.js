@@ -11,6 +11,7 @@ Meteor.methods({
 				name: String,
 				url: String
 			},
+			filter: String,
 			ingredients: {
 				must: Match.Optional([String]),
 				option: Match.Optional([String])

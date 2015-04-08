@@ -80,6 +80,10 @@ Template.Recipe.helpers({
 		return this.sharedCount || 0;
 	},
 
+	category: function() {
+		return Categories.getCategoryName(this.filter);
+	},
+
 	deletable: function() {
 		if (App.helpers.isAdmin() || this.writer.id === Meteor.userId()) return true;
 		else return false;

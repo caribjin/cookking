@@ -46,7 +46,7 @@ App = {
 		defaultRecipesListLimit: 10,
 
 		// 레시피 목록 더 보기 시 증가 개수
-		recipesLimitIncrementCount: 10,
+		recipesLimitIncrementCount: 20,
 
 		// 댓글 목록 최초 기본 개수
 		defaultCommentsListLimit: 10,

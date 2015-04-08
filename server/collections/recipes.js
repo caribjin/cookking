@@ -1,9 +1,3 @@
-/*
- * Add query methods like this:
- *  Recipes.findPublic = function () {
- *    return Recipes.find({is_public: true});
- *  }
- */
 Recipes.allow({
   insert: function (userId, doc) {
     return true;
