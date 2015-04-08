@@ -81,7 +81,8 @@ Template.Recipe.helpers({
 	},
 
 	deletable: function() {
-		return true;
+		if (App.helpers.isAdmin() || this.writer.id === Meteor.userId()) return true;
+		else return false;
 	},
 
 	avatarImage: function() {

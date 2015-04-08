@@ -226,7 +226,6 @@ Template.RecipeWrite.save = function(e, tmpl) {
 	}
 };
 
-
 Template.RecipeWrite.callCreateRecipe = function(recipe) {
 	Meteor.call('createRecipe', recipe, function(error, result) {
 		if (error) {

@@ -51,17 +51,15 @@ Template.Share.helpers({
 		if (Session.get(SHARE_IMAGE_KEY) && !Template.Share.skipEditImage(this.purpose)) {
 			setTimeout(function () {
 				var option = {
-					crop: function(data) {
-						var str = 'x: ' + Math.round(data.x) +
-							' / y: ' + Math.round(data.y) +
-							' / w: ' + Math.round(data.width) +
-							' / h: ' + Math.round(data.height) +
-							' / rot: ' + Math.round(data.rotate);
-
-						$('.wrapper-checkbox > .checkbox > span').text(str);
-
-						//if (Math.round(data.y) <= 0) e.defaultPrevent();
-					},
+					//crop: function(data) {
+					//	var str = 'x: ' + Math.round(data.x) +
+					//		' / y: ' + Math.round(data.y) +
+					//		' / w: ' + Math.round(data.width) +
+					//		' / h: ' + Math.round(data.height) +
+					//		' / rot: ' + Math.round(data.rotate);
+					//
+					//	$('.wrapper-checkbox > .checkbox > span').text(str);
+					//},
 					built: function() {
 						$('div.cropper-container > .cropper-canvas > .cropper-container').remove();
 						$('div.cropper-container > .cropper-canvas > img').attr('class', '');

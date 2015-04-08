@@ -6,7 +6,7 @@ Template.ProfileEdit.onCreated(function() {
 
 Template.ProfileEdit.helpers({
 	userAvatar: function() {
-		return App.helpers.getCurrentUserAvatar('large');
+		return App.helpers.getCurrentUserAvatar('large') || App.settings.emptyAvatarImage;
 	},
 
 	errorClass: function(key) {
