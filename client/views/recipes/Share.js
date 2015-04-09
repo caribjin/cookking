@@ -1,4 +1,4 @@
-var TWEETING_KEY = 'shareOverlayTweeting';
+//var TWEETING_KEY = 'shareOverlayTweeting';
 var SHARE_IMAGE_KEY = 'shareAttachedImage';
 var SHARE_IMAGE_PURPOSE_KEY = 'shareImagePurpose';
 
@@ -41,7 +41,7 @@ Template.Share.skipEditImage = function(purpose) {
 };
 
 Template.Share.onCreated(function() {
-	Session.set(TWEETING_KEY, true);
+	//Session.set(TWEETING_KEY, true);
 	Session.set(SHARE_IMAGE_KEY, null);
 	Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
 });
@@ -99,9 +99,13 @@ Template.Share.helpers({
 		return App.helpers.getCurrentUserAvatar() || App.settings.emptyAvatarImage;
 	},
 
-	tweeting: function() {
-		return Session.get(TWEETING_KEY);
-	}
+	isTwitterLogin: function() {
+		return App.helpers.getLoginServiceType();
+	},
+
+	//tweeting: function() {
+	//	return Session.get(TWEETING_KEY);
+	//}
 });
 
 Template.Share.events({
@@ -136,9 +140,9 @@ Template.Share.events({
 		Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
 	},
 
-	'change [name=tweeting]': function(event) {
-		Session.set(TWEETING_KEY, $(event.target).is(':checked'));
-	},
+	//'change [name=tweeting]': function(event) {
+	//	Session.set(TWEETING_KEY, $(event.target).is(':checked'));
+	//},
 
 	'change .imageFile': function(e, tmpl) {
 		var files = event.target.files;
@@ -174,7 +178,8 @@ Template.Share.events({
 
 		App.helpers.confirm('글 등록', '작성한 글을 올리시겠습니까?', 'info', true, function() {
 			var text = $(e.target).find('[name=text]').val();
-			var tweet = Session.get(TWEETING_KEY);
+			//var tweet = Session.get(TWEETING_KEY);
+			var tweet = App.helpers.getLoginServiceType() === 'twitter' ? $('#tweeting').is(':checked') : false;
 			var cropData = $('.cropper > img').cropper('getData');
 			var file = Template.Share.generateFileInfo('feed', Session.get(SHARE_IMAGE_KEY), cropData);
 
@@ -198,7 +203,7 @@ Template.Share.events({
 					imageId: file._id
 				}, tweet, Geolocation.currentLocation(), function(error, result) {
 					if (error) {
-						App.helpers.addNotification('ERROR: ' + error.reason, '확인');
+						App.helpers.addNotification('ERROR: ' + error.reason, '확인', function() {}, 10000);
 					} else {
 						App.helpers.addNotification('사진을 공유했습니다', '확인');
 					}

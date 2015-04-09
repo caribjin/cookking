@@ -52,8 +52,6 @@
 			.display(flex);
 			.flex-wrap(wrap);
 
-			margin-bottom: 3rem;
-
 			.avatar,
 			.message-share {
 				.flex(1);
@@ -76,6 +74,10 @@
 				.margin(15px);
 				resize: none;
 			}
+
+			&.bottom-margin {
+				margin-bottom: 3rem;
+			}
 		}
 
 		.wrapper-checkbox {
@@ -92,7 +94,6 @@
 	.cropper {
 		width: 100%;
 		height: 78%;
-		//min-height: 500px;
 		background-color: black;
 
 		.cropper-crop-box {

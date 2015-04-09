@@ -109,7 +109,7 @@ Meteor.startup(function() {
 				recipe.createdAt = moment().subtract(i, 'days').format();
 				recipe.filter = 'category-' + _.random(0, 9);
 
-				recipe = generateRecipeImage(recipe);
+				recipe = generateRecipeImage2(recipe);
 
 				_.map(recipe.directions, function(direction, index) {
 					generateDirectionImage(direction);
@@ -140,6 +140,21 @@ Meteor.startup(function() {
 		return f.wait();
 	}
 
+	function generateRecipeImage2(recipe) {
+		var res;
+
+		var imagePath = '/home/caribjin/meteor/cookking/public/img/recipes/640x800/' + _.random(1, 28) + '.jpg'
+
+		res = Async.runSync(function(done) {
+			Images.insert(imagePath, function(error, file) {
+				recipe.imageId = file._id;
+				return done(error, recipe);
+			});
+		});
+		
+		return res.result;
+	}
+
 	function generateDirectionImage(direction) {
 		var f = new Future();
 
@@ -151,7 +166,7 @@ Meteor.startup(function() {
 		direction.imageData = 'data:image/jpeg;base64,' + content.toString('base64');
 		f.return(direction);
 
-		f.wait();
+		return f.wait();
 	}
 
 	/**

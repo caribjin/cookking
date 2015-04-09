@@ -97,7 +97,7 @@ App = {
 			if (user) {
 				result = (user.profile && user.profile.name) || '';
 			} else {
-				throw new Meteor.Error('logged-out', 'user not logged in');
+				throw new Meteor.Error('logged-out', 'User not loged in');
 			}
 
 			return result;
@@ -108,6 +108,29 @@ App = {
 				var role = Meteor.user().profile.role;
 
 			return role === 'admin';
+		},
+
+		getLoginServiceType: function() {
+			var user = Meteor.user();
+			var result = '';
+
+			if (user) {
+				var services = user.services;
+
+				if (services.twitter) {
+					result = 'twitter';
+				} else if (services.password) {
+					result = 'password';
+				} else if (services.facebook) {
+					result = 'facebook';
+				} else if (services.google) {
+					result = 'google';
+				}
+			} else {
+				throw new Meteor.Error('logged-out', 'User not loged in');
+			}
+
+			return result;
 		},
 
 		randomDate: function(start, end) {

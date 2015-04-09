@@ -30,7 +30,7 @@
 			</div>
 
 			<form class="form-share">
-				<div class="form-group">
+				<div class="form-group {{#if isTwitterLogin}}bottom-margin{{/if}}">
 					<div class="avatar">
 						<img src="{{avatarImage}}" class="image-avatar">
 					</div>
@@ -43,12 +43,14 @@
                         placeholder="쓰고 싶은 내용을 적어주세요..."></textarea>
 				</div>
 
+				{{#if isTwitterLogin}}
 				<div class="wrapper-checkbox">
 					<label for="tweeting" class="checkbox">
 						<input type="checkbox" name="tweeting" id="tweeting" checked>
 						<span>트위터에도 등록</span>
 					</label>
 				</div>
+				{{/if}}
 
 				<button class="btn-primary" type='submit'>
 					올리기

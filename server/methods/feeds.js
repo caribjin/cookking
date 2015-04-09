@@ -21,12 +21,34 @@ Meteor.methods({
 
 		var id = Feeds.insert(feed);
 
-		//if (!this.isSimulation && isTweet)
-		//	tweetFeed(feed);
+		if (!this.isSimulation && isTweet) {
+			tweetFeed(feed);
+		}
 
 		return id;
 	}
 });
+
+// Uses the Npm request module directly as provided by the request local pkg
+var callTwitter = function(options) {
+	var result = null;
+	var userTwitterConfig = Meteor.user().services.twitter;
+
+	if (userTwitterConfig) {
+		var twitterConfig = Meteor.settings.authServices.twitter;
+
+		options.oauth = {
+			consumer_key: twitterConfig.consumerKey,
+			consumer_secret: twitterConfig.secret,
+			token: userTwitterConfig.accessToken,
+			token_secret: userTwitterConfig.accessTokenSecret
+		};
+
+		result = Request(options);
+	}
+
+	return result;
+};
 
 var getLocationPlace = function(loc) {
 	var url = 'https://api.twitter.com/1.1/geo/reverse_geocode.json?' +
@@ -53,73 +75,54 @@ var getLocationPlace = function(loc) {
 	}
 };
 
-// Uses the Npm request module directly as provided by the request local pkg
-var callTwitter = function(options) {
-	var result = null;
-	var userTwitterConfig = Meteor.user().services.twitter;
+var getFeedImageData = function(feedImageId) {
+	var res;
 
-	if (userTwitterConfig) {
-		var twitterConfig = Meteor.settings.authServices.twitter;
+	res = Async.runSync(function(done) {
+		var img = '';
 
-		options.oauth = {
-			consumer_key: twitterConfig.consumerKey,
-			consumer_secret: twitterConfig.secret,
-			token: userTwitterConfig.accessToken,
-			token_secret: userTwitterConfig.accessTokenSecret
-		};
+		return Images.findOne(feedImageId).createReadStream().on('data', function(data) {
+			return img += data.toString('base64');
+		}).on('end', function() {
+			return done(null, img);
+		});
+	});
 
-		result = Request(options);
-	}
-
-	return result;
+	return res.result;
 };
 
-//var tweetFeed = function(feed) {
-//	// creates the tweet text, optionally truncating to fit the appended text
-//	function appendTweet(text, append) {
-//		var MAX = 117; // Max size of tweet with image attached
-//
-//		if ((text + append).length > MAX)
-//			return text.substring(0, (MAX - append.length - 3)) + '...' + append;
-//		else
-//			return text + append;
-//	}
-//
-//	// we need to strip the "data:image/jpeg;base64," bit off the data url
-//	var image = feed.image.replace(/^data.*base64,/, '');
-//
-//	var response = callTwitter({
-//		method: 'post',
-//		url: 'https://upload.twitter.com/1.1/media/upload.json',
-//		form: { media: image }
-//	});
-//
-//	if (response.statusCode !== 200)
-//		throw new Meteor.Error(500, 'Unable to post image to twitter');
-//
-//	var attachment = JSON.parse(response.body);
-//
-//	var response = callTwitter({
-//		method: 'post',
-//		url: 'https://api.twitter.com/1.1/statuses/update.json',
-//		form: {
-//			status: appendTweet(feed.text, ' #localmarket'),
-//			media_ids: attachment.media_id_string
-//		}
-//	});
-//
-//	if (response.statusCode !== 200)
-//		throw new Meteor.Error(500, 'Unable to create tweet');
-//};
+var tweetFeed = function(feed) {
+	function appendTweet(text, append) {
+		var MAX = 117; // 이미지 첨부시의 트윗 최대 글자 제한 수
 
-//var getCurrentUserAvatar = function(userId) {
-//	var result = '';
-//
-//	if (Meteor.user()) {
-//		if (Meteor.user().services.twitter) {
-//			result = Meteor.user().services.twitter.profile_image_url_https;
-//		}
-//	}
-//
-//	return result;
-//};
+		if ((text + append).length > MAX)
+			return text.substring(0, (MAX - append.length - 3)) + '...' + append;
+		else
+			return text + append;
+	}
+
+	var image = getFeedImageData(feed.imageId);
+
+	var response = callTwitter({
+		method: 'post',
+		url: 'https://upload.twitter.com/1.1/media/upload.json',
+		form: { media: image }
+	});
+
+	if (response.statusCode !== 200)
+		throw new Meteor.Error(500, 'Unable to post image to twitter');
+
+	var attachment = JSON.parse(response.body);
+
+	var response = callTwitter({
+		method: 'post',
+		url: 'https://api.twitter.com/1.1/statuses/update.json',
+		form: {
+			status: appendTweet(feed.text, ' #localmarket'),
+			media_ids: attachment.media_id_string
+		}
+	});
+
+	if (response.statusCode !== 200)
+		throw new Meteor.Error(500, 'Unable to create tweet');
+};
