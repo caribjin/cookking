@@ -29,7 +29,6 @@ Meteor.methods({
 	}
 });
 
-// Uses the Npm request module directly as provided by the request local pkg
 var callTwitter = function(options) {
 	var result = null;
 	var userTwitterConfig = Meteor.user().services.twitter;
@@ -118,7 +117,7 @@ var tweetFeed = function(feed) {
 		method: 'post',
 		url: 'https://api.twitter.com/1.1/statuses/update.json',
 		form: {
-			status: appendTweet(feed.text, ' #localmarket'),
+			status: appendTweet(feed.text, ' #cookking'),
 			media_ids: attachment.media_id_string
 		}
 	});
