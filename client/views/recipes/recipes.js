@@ -1,5 +1,3 @@
-var RECIPES_LIMIT = 'recipesLimitCount';
-var RECIPES_SUB_COMPLETED = 'recipesSubCompleted';
 var waypoint = null;
 
 Template.Recipes.incrementReadLimit = function() {

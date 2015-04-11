@@ -1,9 +1,3 @@
-var RECIPES_LIMIT = 'recipesLimitCount';
-var RECIPES_SUB_COMPLETED = 'recipesSubCompleted';
-var RECIPES_CURRENT_SORT = 'recipesCurrentSort';
-var RECIPES_CURRENT_FILTER = 'recipesCurrentFilter';
-var RECIPES_CURRENT_COUNT = 'recipesCurrentCount';
-
 RecipesController = RouteController.extend({
 	condition: function() {
 		return {

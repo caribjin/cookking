@@ -1,5 +1,3 @@
-var TAB_KEY = 'recipeShowTab';
-
 Template.Recipe.onCreated(function() {
 	if (Router.current().params.feedId)
 		Template.Recipe.setTab('feeds');

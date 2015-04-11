@@ -1,29 +1,26 @@
-var TEMPLATE_KEY = 'overlayTemplate';
-var DATA_KEY = 'overlayData';
-
-Session.setDefault(TEMPLATE_KEY, null);
+Session.setDefault(OVERLAY_TEMPLATE_KEY, null);
 
 Overlay = {
 	open: function(template, data) {
-		Session.set(TEMPLATE_KEY, template);
-		Session.set(DATA_KEY, data);
+		Session.set(OVERLAY_TEMPLATE_KEY, template);
+		Session.set(OVERLAY_DATA_KEY, data);
 	},
 
 	close: function() {
-		Session.set(TEMPLATE_KEY, null);
-		Session.set(DATA_KEY, null);
+		Session.set(OVERLAY_TEMPLATE_KEY, null);
+		Session.set(OVERLAY_DATA_KEY, null);
 	},
 
 	isOpen: function() {
-		return !Session.equals(TEMPLATE_KEY, null);
+		return !Session.equals(OVERLAY_TEMPLATE_KEY, null);
 	},
 
 	template: function () {
-		return Session.get(TEMPLATE_KEY);
+		return Session.get(OVERLAY_TEMPLATE_KEY);
 	},
 
 	data: function () {
-		return Session.get(DATA_KEY);
+		return Session.get(OVERLAY_DATA_KEY);
 	}
 };
 

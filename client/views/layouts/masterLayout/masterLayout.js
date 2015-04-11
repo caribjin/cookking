@@ -1,8 +1,3 @@
-var NOTIFICATION_TIMEOUT = 5000;
-var MENU_KEY = 'menuOpen';
-var IGNORE_CONNECTION_ISSUE_KEY = 'ignoreConnectionIssue';
-var CONNECTION_ISSUE_TIMEOUT = 5000;
-
 Session.setDefault(IGNORE_CONNECTION_ISSUE_KEY, true);
 Session.setDefault(MENU_KEY, false);
 
@@ -32,28 +27,6 @@ Template.MasterLayout.addNotification = function(notification, duration) {
 		Notifications.remove(id);
 	}, duration);
 };
-
-Meteor.startup(function () {
-	// 왼쪽/오른쪽 스와이프 동작에 대한 핸들러를 설정
-	$(document.body).touchwipe({
-		wipeLeft: function () {
-			Session.set(MENU_KEY, false);
-		},
-		wipeRight: function () {
-			Session.set(MENU_KEY, true);
-		},
-		min_move_x: App.settings.menuOpenWipeDistance,
-		preventDefaultEvents: false
-	});
-
-	// 앱이 시작한 뒤 5초 이후부터만 connection error 메시지를 출력
-	setTimeout(function () {
-		// Launch screen handle created in both/router.js
-		dataReadyHold.release();
-
-		Session.set(IGNORE_CONNECTION_ISSUE_KEY, false);
-	}, CONNECTION_ISSUE_TIMEOUT);
-});
 
 Template.MasterLayout.events({
 	'click .js-menu': function(event) {

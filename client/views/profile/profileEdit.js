@@ -1,5 +1,3 @@
-var ERRORS_KEY = 'errors';
-
 Template.ProfileEdit.onCreated(function() {
 	Session.set(ERRORS_KEY, {});
 });

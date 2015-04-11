@@ -1,16 +1,8 @@
 var WriteIngredients,
 	WriteDirections = null;
 
-var TAB_KEY = 'recipeWriteShowTab';
-var ERRORS_KEY = 'errors';
-var SHARE_IMAGE_KEY = 'shareAttachedImage';
-var SHARE_IMAGE_PURPOSE_KEY = 'shareImagePurpose';
-var RECIPE_IMAGE_KEY = 'recipeCompleteImage';
-var DIRECTION_ID = 'directionId';
-var HEADER_EXPANDED_KEY = 'headerExpanded';
-
 Template.RecipeWrite.setTab = function(tab) {
-	Session.set(TAB_KEY, tab);
+	Session.set(WRITE_TAB_KEY, tab);
 
 	var matrix = {
 		'basic-info':   [0, '100%', '200%'],
@@ -306,7 +298,7 @@ Template.RecipeWrite.helpers({
 	 * @returns {boolean}   활성화된 상태라면 true, 아니라면 false
 	 */
 	isActiveTab: function(name) {
-		return Session.equals(TAB_KEY, name);
+		return Session.equals(WRITE_TAB_KEY, name);
 	},
 
 	/**
@@ -314,7 +306,7 @@ Template.RecipeWrite.helpers({
 	 * @returns {string}   현재 활성화된 탭 이름
 	 */
 	activeTabClass: function() {
-		return Session.get(TAB_KEY);
+		return Session.get(WRITE_TAB_KEY);
 	},
 
 	/**

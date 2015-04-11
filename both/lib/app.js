@@ -1,3 +1,22 @@
+DIRECTION_ID = 'directionId';
+ERRORS_KEY = 'errors';
+HEADER_EXPANDED_KEY = 'headerExpanded';
+IGNORE_CONNECTION_ISSUE_KEY = 'ignoreConnectionIssue';
+NOTIFICATION_TIMEOUT = 5000;
+MENU_KEY = 'menuOpen';
+OVERLAY_DATA_KEY = 'overlayData';
+OVERLAY_TEMPLATE_KEY = 'overlayTemplate';
+RECIPE_IMAGE_KEY = 'recipeCompleteImage';
+RECIPES_LIMIT = 'recipesLimitCount';
+RECIPES_SUB_COMPLETED = 'recipesSubCompleted';
+RECIPES_CURRENT_SORT = 'recipesCurrentSort';
+RECIPES_CURRENT_FILTER = 'recipesCurrentFilter';
+RECIPES_CURRENT_COUNT = 'recipesCurrentCount';
+SHARE_IMAGE_KEY = 'shareAttachedImage';
+SHARE_IMAGE_PURPOSE_KEY = 'shareImagePurpose';
+TAB_KEY = 'recipeShowTab';
+WRITE_TAB_KEY = 'recipeWriteShowTab';
+
 App = {
 	settings: {
 		// 메뉴 열림을 위한 손가락 쓸기 거리
@@ -47,12 +66,6 @@ App = {
 
 		// 레시피 목록 더 보기 시 증가 개수
 		recipesLimitIncrementCount: 20,
-
-		// 댓글 목록 최초 기본 개수
-		defaultCommentsListLimit: 10,
-
-		// 댓글 목록 더 보기 시 증가 개수
-		commentsLimitIncrementCount: 10,
 
 		// 레시피 작성 시 기본 완료이미지
 		defaultRecipeWriteCompleteImage: '/img/recipes/640x800/12.jpg',

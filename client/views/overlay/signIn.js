@@ -1,5 +1,3 @@
-var ERRORS_KEY = 'errors';
-
 Template.SignIn.onCreated(function() {
 	this.autorun(function() {
 		if (Meteor.userId() && Overlay.template() === 'SignIn')

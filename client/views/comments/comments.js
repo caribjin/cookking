@@ -1,16 +1,11 @@
-var COMMENTS_LIMIT = 'commentsLimitCount';
-var COMMENTS_SUB_COMPLETED = 'commentsSubCompleted';
-
 Template.Comments.onCreated(function() {
-	Session.setDefault(COMMENTS_LIMIT, App.settings.defaultCommentsListLimit);
-
 	this.totalCount = new ReactiveVar();
 
 	var options = {
 		sort: {
 			createdAt: -1
 		},
-		limit: 1000 //Session.get(COMMENTS_LIMIT)
+		limit: 1000
 	};
 
 	var self = this;

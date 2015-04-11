@@ -1,7 +1,3 @@
-var RECIPES_LIMIT = 'recipesLimitCount';
-var RECIPES_CURRENT_SORT = 'recipesCurrentSort';
-var RECIPES_CURRENT_FILTER = 'recipesCurrentFilter';
-
 Template.Breadcrumb.filtersOpen = function() {
 	$('.breadcrumb').velocity({backgroundColor: '#ffffff', backgroundColorAlpha: 1, color: '#555555'}, {duration: App.settings.defaultAnimationDuration})
 	$('.filters').velocity({zIndex: 3},{duration: App.settings.defaultAnimationDuration});

@@ -1,7 +1,3 @@
-//var TWEETING_KEY = 'shareOverlayTweeting';
-var SHARE_IMAGE_KEY = 'shareAttachedImage';
-var SHARE_IMAGE_PURPOSE_KEY = 'shareImagePurpose';
-
 Template.Share.generateFileInfo = function(type, imageData, cropData) {
 	var file = new FS.File();
 
