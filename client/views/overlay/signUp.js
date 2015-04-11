@@ -4,16 +4,16 @@ Template.SignUp.onCreated(function() {
 			Overlay.close();
 	});
 
-	Session.set(ERRORS_KEY, {});
+	this.errors = new ReactiveVar({});
 });
 
 Template.SignUp.helpers({
 	errorMessages: function() {
-		return _.values(Session.get(ERRORS_KEY));
+		return _.values(Template.instance().errors.get());
 	},
 
 	errorClass: function(key) {
-		return Session.get(ERRORS_KEY)[key] && 'error';
+		return Template.instance().errors.get()[key] && 'error';
 	}
 });
 
@@ -40,7 +40,8 @@ Template.SignUp.events({
 			}
 		}
 
-		Session.set(ERRORS_KEY, errors);
+		Template.instance().errors.set(errors);
+
 		if (_.keys(errors).length) return;
 
 		Meteor.call('validateEmailAddress', email, function(error, response) {
@@ -62,7 +63,8 @@ Template.SignUp.events({
 				errors.etc = 'Unknown Error';
 			}
 
-			Session.set(ERRORS_KEY, errors);
+			tmpl.errors.set(errors);
+
 			if (_.keys(errors).length) return;
 
 			var user = {
@@ -72,7 +74,7 @@ Template.SignUp.events({
 
 			Accounts.createUser(user, function(error) {
 				if (error) {
-					return Session.set(ERRORS_KEY, {'none': error.reason});
+					return tmpl.errors.set({etc: error.reason});
 				}
 
 				Overlay.close();

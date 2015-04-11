@@ -1,26 +1,26 @@
-Session.setDefault(OVERLAY_TEMPLATE_KEY, null);
+Session.setDefault(App.sessions.overlayTemplateName, null);
 
 Overlay = {
 	open: function(template, data) {
-		Session.set(OVERLAY_TEMPLATE_KEY, template);
-		Session.set(OVERLAY_DATA_KEY, data);
+		Session.set(App.sessions.overlayTemplateName, template);
+		Session.set(App.sessions.overlayTemplateData, data);
 	},
 
 	close: function() {
-		Session.set(OVERLAY_TEMPLATE_KEY, null);
-		Session.set(OVERLAY_DATA_KEY, null);
+		Session.set(App.sessions.overlayTemplateName, null);
+		Session.set(App.sessions.overlayTemplateData, null);
 	},
 
 	isOpen: function() {
-		return !Session.equals(OVERLAY_TEMPLATE_KEY, null);
+		return !Session.equals(App.sessions.overlayTemplateName, null);
 	},
 
 	template: function () {
-		return Session.get(OVERLAY_TEMPLATE_KEY);
+		return Session.get(App.sessions.overlayTemplateName);
 	},
 
 	data: function () {
-		return Session.get(OVERLAY_DATA_KEY);
+		return Session.get(App.sessions.overlayTemplateData);
 	}
 };
 

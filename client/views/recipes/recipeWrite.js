@@ -2,7 +2,7 @@ var WriteIngredients,
 	WriteDirections = null;
 
 Template.RecipeWrite.setTab = function(tab) {
-	Session.set(WRITE_TAB_KEY, tab);
+	Template.instance().currentTab = tab;
 
 	var matrix = {
 		'basic-info':   [0, '100%', '200%'],
@@ -110,7 +110,7 @@ Template.RecipeWrite.validateData = function(e, tmpl) {
 	if (!ingredientContent) errors.mustIngredient = true;
 	if (!directionContent) errors.direction = true;
 
-	Session.set(ERRORS_KEY, errors);
+	Template.instance().errors.set(errors);
 	return _.keys(errors).length;
 };
 
@@ -190,7 +190,7 @@ Template.RecipeWrite.save = function(e, tmpl) {
 				bookmarkedCount: 0
 			};
 
-			var imageData = Session.get(RECIPE_IMAGE_KEY);
+			var imageData = tmpl.recipeImage.get();
 
 			if (imageData) {
 				var file = Template.Share.generateFileInfo('recipe', imageData);
@@ -201,7 +201,7 @@ Template.RecipeWrite.save = function(e, tmpl) {
 				}
 
 				Images.insert(file, function(error, file) {
-					Session.set(RECIPE_IMAGE_KEY, null);
+					tmpl.recipeImage.set(null);
 
 					if (error) {
 						console.log(error.reason);
@@ -235,10 +235,13 @@ Template.RecipeWrite.onCreated(function() {
 	WriteIngredients = new Meteor.Collection(null);
 	WriteDirections = new Meteor.Collection(null);
 
-	Session.set(SHARE_IMAGE_KEY, null);
-	Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
-	Session.set(RECIPE_IMAGE_KEY, null);
-	Session.set(DIRECTION_ID, null);
+	Session.set(App.sessions.shareImageData, null);
+	Session.set(App.sessions.shareImagePurpose, null);
+
+	this.recipeImage = new ReactiveVar(null);
+	this.directionId = new ReactiveVar(null);
+
+	this.currentTab = 'basic-info';
 
 	// 최초 재료 입력행에 필수재료 행을 한 개 추가
 	Template.RecipeWrite.ingredientAdd('must', '');
@@ -246,31 +249,32 @@ Template.RecipeWrite.onCreated(function() {
 	// 최초 조리법 입력행에 행을 한 개 추가
 	Template.RecipeWrite.directionAdd();
 
+	var self = this;
 	Tracker.autorun(function() {
-		var imageData = Session.get(SHARE_IMAGE_KEY);
-		var purpose = Session.get(SHARE_IMAGE_PURPOSE_KEY);
+		var imageData = Session.get(App.sessions.shareImageData);
+		var purpose = Session.get(App.sessions.shareImagePurpose);
 
 		if (imageData) {
 			if (purpose === 'recipe') {
-				Session.set(RECIPE_IMAGE_KEY, imageData);
+				self.recipeImage.set(imageData);
 
-				Session.set(SHARE_IMAGE_KEY, null);
-				Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
+				Session.set(App.sessions.shareImageData, null);
+				Session.set(App.sessions.shareImagePurpose, null);
 			} else if (purpose === 'direction') {
-				var directionId = Session.get(DIRECTION_ID);
+				var directionId = self.directionId.get();
 				if (directionId) {
 					WriteDirections.update({_id: directionId}, {$set: {imageData: imageData}});
 
-					Session.set(DIRECTION_ID, null);
-					Session.set(SHARE_IMAGE_KEY, null);
-					Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
+					self.directionId.set(null);
+					Session.set(App.sessions.shareImageData, null);
+					Session.set(App.sessions.shareImagePurpose, null);
 				}
 			}
 		}
 	});
 
-	// 에러 세션 개체를 초기화
-	Session.set(ERRORS_KEY, {});
+	// 에러 개체를 초기화
+	this.errors = new ReactiveVar({});
 });
 
 Template.RecipeWrite.onRendered(function() {
@@ -298,7 +302,7 @@ Template.RecipeWrite.helpers({
 	 * @returns {boolean}   활성화된 상태라면 true, 아니라면 false
 	 */
 	isActiveTab: function(name) {
-		return Session.equals(WRITE_TAB_KEY, name);
+		return Template.instance().currentTab === name;
 	},
 
 	/**
@@ -306,7 +310,7 @@ Template.RecipeWrite.helpers({
 	 * @returns {string}   현재 활성화된 탭 이름
 	 */
 	activeTabClass: function() {
-		return Session.get(WRITE_TAB_KEY);
+		return Template.instance().currentTab;
 	},
 
 	/**
@@ -362,11 +366,11 @@ Template.RecipeWrite.helpers({
 	},
 
 	errorClass: function(key) {
-		return Session.get(ERRORS_KEY)[key] && 'error';
+		return Template.instance().errors.get()[key] && 'error';
 	},
 
 	completeImage: function() {
-		var imageData = Session.get(RECIPE_IMAGE_KEY);
+		var imageData = Template.instance().recipeImage.get();
 
 		if (imageData) return imageData;
 		else return App.settings.defaultRecipeWriteCompleteImage;
@@ -460,7 +464,7 @@ Template.RecipeWrite.events({
 			purpose: 'direction'
 		};
 
-		Session.set(DIRECTION_ID, this._id);
+		tmpl.directionId.set(this._id);
 		Overlay.open('Share', data);
 	},
 
@@ -469,13 +473,13 @@ Template.RecipeWrite.events({
 	},
 
 	'click .header': function(e, tmpl) {
-		var status = Session.get(HEADER_EXPANDED_KEY);
+		var status = tmpl.isHeaderExpanded;
 
 		if (!status) {
 			$('.content-scrollable').velocity({top: '100%'}, {
 				duration: App.settings.defaultAnimationDuration,
 				complete: function (e) {
-					Session.set(HEADER_EXPANDED_KEY, true);
+					tmpl.isHeaderExpanded = true;
 				}
 			});
 			$('.header').velocity({height: '100%'}, {
@@ -492,7 +496,7 @@ Template.RecipeWrite.events({
 			$('.content-scrollable').velocity({top: '31%'}, {
 				duration: App.settings.defaultAnimationDuration,
 				complete: function(e) {
-					Session.set(HEADER_EXPANDED_KEY, false);
+					tmpl.isHeaderExpanded = false;
 				}
 			});
 			$('.header').velocity({height: '31%'}, {
@@ -518,7 +522,6 @@ Template.RecipeWrite.onDestroyed(function() {
 	WriteIngredients = null;
 	WriteDirections = null;
 
-	Session.set(SHARE_IMAGE_KEY, null);
-	Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
-	Session.set(RECIPE_IMAGE_KEY, null);
+	Session.set(App.sessions.shareImageData, null);
+	Session.set(App.sessions.shareImagePurpose, null);
 });

@@ -292,10 +292,10 @@ Meteor.startup(function() {
 	// 왼쪽/오른쪽 스와이프 동작에 대한 핸들러를 설정
 	$(document.body).touchwipe({
 		wipeLeft: function () {
-			Session.set(MENU_KEY, false);
+			Session.set(App.sessions.menuOpen, false);
 		},
 		wipeRight: function () {
-			Session.set(MENU_KEY, true);
+			Session.set(App.sessions.menuOpen, true);
 		},
 		min_move_x: App.settings.menuOpenWipeDistance,
 		preventDefaultEvents: false
@@ -303,9 +303,8 @@ Meteor.startup(function() {
 
 	// 앱이 시작한 뒤 5초 이후부터만 connection error 메시지를 출력
 	setTimeout(function () {
-		// Launch screen handle created in both/router.js
 		dataReadyHold.release();
 
-		Session.set(IGNORE_CONNECTION_ISSUE_KEY, false);
+		Session.set(App.sessions.ignoreConnectionIssue, false);
 	}, 5000);
 });

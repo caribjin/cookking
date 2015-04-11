@@ -1,20 +1,20 @@
 RecipesController = RouteController.extend({
 	condition: function() {
 		return {
-			filter: Session.get(RECIPES_CURRENT_FILTER) || App.settings.defaultRecipesListFilter,
+			filter: Session.get(App.sessions.recipesCurrentFilter) || App.settings.defaultRecipesListFilter,
 			admin: App.helpers.isAdmin()
 		}
 	},
 
 	option: function() {
-		Session.setDefault(RECIPES_LIMIT, App.settings.defaultRecipesListLimit);
-		Session.setDefault(RECIPES_CURRENT_SORT, App.settings.defaultRecipesSort);
+		Session.setDefault(App.sessions.recipesLimit, App.settings.defaultRecipesListLimit);
+		Session.setDefault(App.sessions.recipesCurrentSort, App.settings.defaultRecipesSort);
 
 		var option = {
 			sort: {
 				highlighted: -1
 			},
-			limit: this.condition().filter === 'all' ? Session.get(RECIPES_LIMIT) + 1 : Session.get(RECIPES_LIMIT),
+			limit: this.condition().filter === 'all' ? Session.get(App.sessions.recipesLimit) + 1 : Session.get(App.sessions.recipesLimit),
 			fields: {
 				title: 1,
 				imageId: 1,
@@ -26,7 +26,7 @@ RecipesController = RouteController.extend({
 			}
 		};
 
-		switch(Session.get(RECIPES_CURRENT_SORT)) {
+		switch(Session.get(App.sessions.recipesCurrentSort)) {
 			case 'created':
 				_.extend(option.sort, {createdAt: -1});
 				break;
@@ -60,8 +60,7 @@ RecipesController = RouteController.extend({
 
 	action: function() {
 		if (this.recipesSubscribe.ready()) {
-			Session.set(RECIPES_SUB_COMPLETED, true);
-			Session.set(RECIPES_CURRENT_COUNT, this.data().recipes().count());
+			Session.set(App.sessions.recipesSubscribeComplate, true);
 		}
 
 		this.render();

@@ -1,23 +1,31 @@
-DIRECTION_ID = 'directionId';
-ERRORS_KEY = 'errors';
-HEADER_EXPANDED_KEY = 'headerExpanded';
-IGNORE_CONNECTION_ISSUE_KEY = 'ignoreConnectionIssue';
-NOTIFICATION_TIMEOUT = 5000;
-MENU_KEY = 'menuOpen';
-OVERLAY_DATA_KEY = 'overlayData';
-OVERLAY_TEMPLATE_KEY = 'overlayTemplate';
-RECIPE_IMAGE_KEY = 'recipeCompleteImage';
-RECIPES_LIMIT = 'recipesLimitCount';
-RECIPES_SUB_COMPLETED = 'recipesSubCompleted';
-RECIPES_CURRENT_SORT = 'recipesCurrentSort';
-RECIPES_CURRENT_FILTER = 'recipesCurrentFilter';
-RECIPES_CURRENT_COUNT = 'recipesCurrentCount';
-SHARE_IMAGE_KEY = 'shareAttachedImage';
-SHARE_IMAGE_PURPOSE_KEY = 'shareImagePurpose';
-TAB_KEY = 'recipeShowTab';
-WRITE_TAB_KEY = 'recipeWriteShowTab';
+//IGNORE_CONNECTION_ISSUE_KEY = 'ignoreConnectionIssue';
+//
+//MENU_KEY = 'menuOpen';
+//
+//OVERLAY_DATA_KEY = 'overlayData';
+//OVERLAY_TEMPLATE_KEY = 'overlayTemplate';
+//
+//RECIPES_LIMIT = 'recipesLimitCount';
+//RECIPES_SUB_COMPLETED = 'recipesSubCompleted';
+//RECIPES_CURRENT_SORT = 'recipesCurrentSort';
+//RECIPES_CURRENT_FILTER = 'recipesCurrentFilter';
+//
+//SHARE_IMAGE_KEY = 'shareAttachedImage';
+//SHARE_IMAGE_PURPOSE_KEY = 'shareImagePurpose';
 
 App = {
+	sessions: {
+		ignoreConnectionIssue:      'ignoreConnectionIssue',        // 연결문제 무시 시간
+		menuOpen:                   'menuOpen',                     // 메뉴 열림 상태
+		overlayTemplateName:        'overlayTemplateName',          // 현재의 오버레이 템플릿명
+		overlayTemplateData:        'overlayTemplateData',          // 현재의 오버레이 템플릿 데이터
+		recipesLimit:               'recipesLimit',                 // 레시피목록 현재 가져오는 개수
+		recipesSubscribeComplate:   'recipesSubscribeComplate',     // 레시피목록 구독 완료상태
+		recipesCurrentSort:         'recipesCurrentSort',           // 레시피목록 현재 정렬키
+		recipesCurrentFilter:       'recipesCurrentFilter',         // 레시피목록 현재 필터키
+		shareImageData:             'shareImageData',               // 공유 이미지 데이터
+		shareImagePurpose:          'shareImagePurpose'             // 공유 이미지 사용목적 (share/recipe/direction)
+	},
 	settings: {
 		// 메뉴 열림을 위한 손가락 쓸기 거리
 		menuOpenWipeDistance: 130,
@@ -60,6 +68,9 @@ App = {
 		defaultAnimationDuration: 200,
 		defaultAnimationDurationSlow: 500,
 		defaultAnimationDurationVerySlow: 800,
+
+		// 기본 알림메시지 출력 시간,
+		defaultNotificationTime: 5000,
 
 		// 레시피 목록 최초 기본 개수
 		defaultRecipesListLimit: 10,

@@ -1,23 +1,24 @@
 Template.Recipe.onCreated(function() {
+	this.currentTab = new ReactiveVar();
+	this.favoritesCount = new ReactiveVar(this.data.favoritesCount || 0);
+
 	if (Router.current().params.feedId)
 		Template.Recipe.setTab('feeds');
 	else
 		Template.Recipe.setTab('recipe');
-
-	this.favoritesCount = new ReactiveVar(this.data.favoritesCount || 0);
 });
 
 Template.Recipe.onRendered(function () {
 	this.$('.recipe').touchwipe({
 		wipeDown: function () {
-			if (Session.equals(TAB_KEY, 'recipe'))
+			if (this.currentTab.get() === 'recipe')
 				Template.Recipe.setTab('ingredients')
 		},
 		preventDefaultEvents: false
 	});
 	this.$('.recipe-information').touchwipe({
 		wipeUp: function () {
-			if (!Session.equals(TAB_KEY, 'recipe'))
+			if (this.currentTab.get() !== 'recipe')
 				Template.Recipe.setTab('recipe')
 		},
 		preventDefaultEvents: false
@@ -25,8 +26,8 @@ Template.Recipe.onRendered(function () {
 });
 
 Template.Recipe.setTab = function(tab) {
-	var lastTab = Session.get(TAB_KEY);
-	Session.set(TAB_KEY, tab);
+	var lastTab = Template.instance().currentTab.get();
+	Template.instance().currentTab.set(tab);
 
 	var $ingredient = $('.ingredient-scrollable');
 	var $direction = $('.direction-scrollable');
@@ -47,7 +48,7 @@ Template.Recipe.setTab = function(tab) {
 
 Template.Recipe.helpers({
 	isActiveTab: function(name) {
-		return Session.equals(TAB_KEY, name);
+		return Template.instance().currentTab.get() === name;
 	},
 
 	isPrivate: function() {
@@ -55,7 +56,7 @@ Template.Recipe.helpers({
 	},
 
 	activeTabClass: function() {
-		return Session.get(TAB_KEY);
+		return Template.instance().currentTab.get();
 	},
 
 	bookmarked: function() {

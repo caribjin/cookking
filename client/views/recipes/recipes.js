@@ -3,11 +3,11 @@ var waypoint = null;
 Template.Recipes.incrementReadLimit = function() {
 	Template.Recipes.toggleMoreButtonDisplay();
 
-	return Session.set(RECIPES_LIMIT, Session.get(RECIPES_LIMIT) + App.settings.recipesLimitIncrementCount);
+	return Session.set(App.sessions.recipesLimit, Session.get(App.sessions.recipesLimit) + App.settings.recipesLimitIncrementCount);
 };
 
 Template.Recipes.currentReadLimit = function() {
-	return Session.get(RECIPES_LIMIT);
+	return Session.get(App.sessions.recipesLimit);
 };
 
 Template.Recipes.toggleMoreButtonDisplay = function() {
@@ -32,13 +32,13 @@ Template.Recipes.initWaypoint = function() {
 };
 
 Template.Recipes.onCreated(function() {
-	Session.set(RECIPES_LIMIT, App.settings.defaultRecipesListLimit);
+	Session.set(App.sessions.recipesLimit, App.settings.defaultRecipesListLimit);
 
 	var self = this;
 	waypoint = null;
 
 	this.autorun(function() {
-		if (Session.get(RECIPES_SUB_COMPLETED)) {
+		if (Session.get(App.sessions.recipesSubscribeComplate)) {
 			if (waypoint === null) {
 				Template.Recipes.initWaypoint();
 			} else {
@@ -59,7 +59,7 @@ Template.Recipes.onCreated(function() {
 				Template.Recipes.toggleMoreButtonDisplay();
 			}
 
-			Session.set(RECIPES_SUB_COMPLETED, false);
+			Session.set(App.sessions.recipesSubscribeComplate, false);
 		}
 	});
 });

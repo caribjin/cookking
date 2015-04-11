@@ -1,5 +1,5 @@
-Session.setDefault(IGNORE_CONNECTION_ISSUE_KEY, true);
-Session.setDefault(MENU_KEY, false);
+Session.setDefault(App.sessions.ignoreConnectionIssue, true);
+Session.setDefault(App.sessions.menuOpen, false);
 
 // XXX: this work around until IR properly supports this
 // IR refactor will include Location.back, which will ensure
@@ -32,7 +32,7 @@ Template.MasterLayout.events({
 	'click .js-menu': function(event) {
 		event.stopImmediatePropagation();
 		event.preventDefault();
-		Session.set(MENU_KEY, ! Session.get(MENU_KEY));
+		Session.set(App.sessions.menuOpen, ! Session.get(App.sessions.menuOpen));
 	},
 
 	'click .js-back': function(event) {
@@ -53,13 +53,13 @@ Template.MasterLayout.events({
 	},
 
 	'click .content-overlay': function(event) {
-		Session.set(MENU_KEY, false);
+		Session.set(App.sessions.menuOpen, false);
 		event.preventDefault();
 	},
 
 	'click #menu a': function(event) {
 		nextInitiator = 'menu';
-		Session.set(MENU_KEY, false);
+		Session.set(App.sessions.menuOpen, false);
 	},
 
 	'click .js-notification-action': function() {
@@ -76,7 +76,7 @@ Template.MasterLayout.events({
 
 Template.MasterLayout.helpers({
 	menuOpen: function() {
-		return Session.get(MENU_KEY) && 'menu-open';
+		return Session.get(App.sessions.menuOpen) && 'menu-open';
 	},
 
 	overlayOpen: function() {
@@ -84,7 +84,7 @@ Template.MasterLayout.helpers({
 	},
 
 	connected: function() {
-		return Session.get(IGNORE_CONNECTION_ISSUE_KEY) || Meteor.status().connected;
+		return Session.get(App.sessions.ignoreConnectionIssue) || Meteor.status().connected;
 	},
 
 	notifications: function() {

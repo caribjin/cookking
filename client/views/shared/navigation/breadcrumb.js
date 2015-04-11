@@ -20,8 +20,8 @@ Template.Breadcrumb.toggleFiltersOpenStatus = function() {
 };
 
 Template.Breadcrumb.onCreated(function() {
-	Session.setDefault(RECIPES_CURRENT_SORT, App.settings.defaultRecipesSort);
-	Session.setDefault(RECIPES_CURRENT_FILTER, 'all');
+	Session.setDefault(App.sessions.recipesCurrentSort, App.settings.defaultRecipesSort);
+	Session.setDefault(App.sessions.recipesCurrentFilter, 'all');
 
 	this.filtersOpenStatus = new ReactiveVar(false);
 
@@ -37,11 +37,11 @@ Template.Breadcrumb.onCreated(function() {
 
 Template.Breadcrumb.helpers({
 	isActiveSort: function(name) {
-		return Session.equals(RECIPES_CURRENT_SORT, name);
+		return Session.equals(App.sessions.recipesCurrentSort, name);
 	},
 
 	isActiveFilter: function(name) {
-		return Session.equals(RECIPES_CURRENT_FILTER, name);
+		return Session.equals(App.sessions.recipesCurrentFilter, name);
 	},
 
 	categories: function() {
@@ -58,7 +58,7 @@ Template.Breadcrumb.helpers({
 	},
 
 	currentFilterName: function() {
-		var key = Session.get(RECIPES_CURRENT_FILTER);
+		var key = Session.get(App.sessions.recipesCurrentFilter);
 		var result = '';
 
 		if (key === 'all') result = '전체 레시피';
@@ -75,25 +75,25 @@ Template.Breadcrumb.helpers({
 Template.Breadcrumb.events({
 	'click .created': function(e, tmpl) {
 		$(e.target).velocity('pulse', function() {
-			Session.set(RECIPES_CURRENT_SORT, 'created');
+			Session.set(App.sessions.recipesCurrentSort, 'created');
 		});
 	},
 
 	'click .favorited': function(e, tmpl) {
 		$(e.target).velocity('pulse', function() {
-			Session.set(RECIPES_CURRENT_SORT, 'favorited');
+			Session.set(App.sessions.recipesCurrentSort, 'favorited');
 		});
 	},
 
 	'click .bookmarked': function(e, tmpl) {
 		$(e.target).velocity('pulse', function() {
-			Session.set(RECIPES_CURRENT_SORT, 'bookmarked');
+			Session.set(App.sessions.recipesCurrentSort, 'bookmarked');
 		});
 	},
 
 	'click .js-filter': function(e, tmpl) {
-		Session.set(RECIPES_CURRENT_FILTER, $(e.target).data('key'));
-		Session.set(RECIPES_LIMIT, App.settings.defaultRecipesListLimit);
+		Session.set(App.sessions.recipesCurrentFilter, $(e.target).data('key'));
+		Session.set(App.sessions.recipesLimit, App.settings.defaultRecipesListLimit);
 
 		Template.Breadcrumb.setFiltersOpenStatus(false);
 	},

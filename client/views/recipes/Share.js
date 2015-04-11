@@ -37,14 +37,13 @@ Template.Share.skipEditImage = function(purpose) {
 };
 
 Template.Share.onCreated(function() {
-	//Session.set(TWEETING_KEY, true);
-	Session.set(SHARE_IMAGE_KEY, null);
-	Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
+	Session.set(App.sessions.shareImageData, null);
+	Session.set(App.sessions.shareImagePurpose, null);
 });
 
 Template.Share.helpers({
 	attachedImage: function() {
-		if (Session.get(SHARE_IMAGE_KEY) && !Template.Share.skipEditImage(this.purpose)) {
+		if (Session.get(App.sessions.shareImageData) && !Template.Share.skipEditImage(this.purpose)) {
 			setTimeout(function () {
 				var option = {
 					//crop: function(data) {
@@ -88,7 +87,7 @@ Template.Share.helpers({
 			}, 0);
 		}
 
-		return !Template.Share.skipEditImage(this.purpose) ? Session.get(SHARE_IMAGE_KEY) : null;
+		return !Template.Share.skipEditImage(this.purpose) ? Session.get(App.sessions.shareImageData) : null;
 	},
 
 	avatarImage: function() {
@@ -110,8 +109,8 @@ Template.Share.events({
 		if (Meteor.isCordova) {
 			App.helpers.getPicture('album', function (error, data) {
 				if (!error) {
-					Session.set(SHARE_IMAGE_PURPOSE_KEY, purpose);
-					Session.set(SHARE_IMAGE_KEY, data);
+					Session.set(App.sessions.shareImagePurpose, purpose);
+					Session.set(App.sessions.shareImageData, data);
 					if (Template.Share.skipEditImage(purpose)) Overlay.close();
 				}
 			});
@@ -124,16 +123,16 @@ Template.Share.events({
 		var purpose = this.purpose;
 		App.helpers.getPicture('camera', function(error, data) {
 			if (!error) {
-				Session.set(SHARE_IMAGE_PURPOSE_KEY, purpose);
-				Session.set(SHARE_IMAGE_KEY, data);
+				Session.set(App.sessions.shareImagePurpose, purpose);
+				Session.set(App.sessions.shareImageData, data);
 				if (Template.Share.skipEditImage(purpose)) Overlay.close();
 			}
 		})
 	},
 
 	'click .js-unattach-image': function() {
-		Session.set(SHARE_IMAGE_KEY, null);
-		Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
+		Session.set(App.sessions.shareImageData, null);
+		Session.set(App.sessions.shareImagePurpose, null);
 	},
 
 	//'change [name=tweeting]': function(event) {
@@ -152,8 +151,8 @@ Template.Share.events({
 		fileReader.onload = function(e) {
 			var dataUrl = this.result;
 
-			Session.set(SHARE_IMAGE_PURPOSE_KEY, self.purpose);
-			Session.set(SHARE_IMAGE_KEY, dataUrl);
+			Session.set(App.sessions.shareImagePurpose, self.purpose);
+			Session.set(App.sessions.shareImageData, dataUrl);
 			if (Template.Share.skipEditImage(self.purpose)) Overlay.close();
 		};
 		fileReader.readAsDataURL(file);
@@ -177,7 +176,7 @@ Template.Share.events({
 			//var tweet = Session.get(TWEETING_KEY);
 			var tweet = App.helpers.getLoginServiceType() === 'twitter' ? $('#tweeting').is(':checked') : false;
 			var cropData = $('.cropper > img').cropper('getData');
-			var file = Template.Share.generateFileInfo('feed', Session.get(SHARE_IMAGE_KEY), cropData);
+			var file = Template.Share.generateFileInfo('feed', Session.get(App.sessions.shareImageData), cropData);
 
 			if (!file) {
 				App.helpers.error('인식할 수 없는 유형의 파일입니다');
@@ -185,8 +184,8 @@ Template.Share.events({
 			}
 
 			Images.insert(file, function(error, file) {
-				Session.set(SHARE_IMAGE_KEY, null);
-				Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
+				Session.set(App.sessions.shareImageData, null);
+				Session.set(App.sessions.shareImagePurpose, null);
 
 				if (error) {
 					console.log(error.reason);
@@ -215,7 +214,7 @@ Template.Share.events({
 Template.Share.onDestroyed(function() {
 	// 레시피 완료사진 촬영일 경우는 촬영화면 종료시 이미지정보를 파기하지 않고, 호출화면에서 정보를 사용한 뒤 파기시킨다.
 	if (!Template.Share.skipEditImage(this.data.purpose)) {
-		Session.set(SHARE_IMAGE_KEY, null);
-		Session.set(SHARE_IMAGE_PURPOSE_KEY, null);
+		Session.set(App.sessions.shareImageData, null);
+		Session.set(App.sessions.shareImagePurpose, null);
 	}
 });

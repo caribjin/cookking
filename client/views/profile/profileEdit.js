@@ -1,5 +1,5 @@
 Template.ProfileEdit.onCreated(function() {
-	Session.set(ERRORS_KEY, {});
+	this.errors = new ReactiveVar({});
 });
 
 Template.ProfileEdit.helpers({
@@ -8,7 +8,7 @@ Template.ProfileEdit.helpers({
 	},
 
 	errorClass: function(key) {
-		return Session.get(ERRORS_KEY)[key] && 'error'
+		return Template.instance().errors.get()[key] && 'error';
 	},
 
 	profile: function() {
@@ -25,7 +25,7 @@ Template.ProfileEdit.events({
 
 		if (!nickname) errors.nickname = true;
 
-		Session.set(ERRORS_KEY, errors);
+		Template.instance().errors.set(errors);
 
 		var errorCount = _.keys(errors);
 
