@@ -2,7 +2,7 @@ var WriteIngredients,
 	WriteDirections = null;
 
 Template.RecipeWrite.setTab = function(tab) {
-	Template.instance().currentTab = tab;
+	Template.instance().currentTab.set(tab);
 
 	var matrix = {
 		'basic-info':   [0, '100%', '200%'],
@@ -241,7 +241,7 @@ Template.RecipeWrite.onCreated(function() {
 	this.recipeImage = new ReactiveVar(null);
 	this.directionId = new ReactiveVar(null);
 
-	this.currentTab = 'basic-info';
+	this.currentTab = new ReactiveVar('basic-info');
 
 	// 최초 재료 입력행에 필수재료 행을 한 개 추가
 	Template.RecipeWrite.ingredientAdd('must', '');
@@ -302,7 +302,7 @@ Template.RecipeWrite.helpers({
 	 * @returns {boolean}   활성화된 상태라면 true, 아니라면 false
 	 */
 	isActiveTab: function(name) {
-		return Template.instance().currentTab === name;
+		return Template.instance().currentTab.get() === name;
 	},
 
 	/**
@@ -310,7 +310,7 @@ Template.RecipeWrite.helpers({
 	 * @returns {string}   현재 활성화된 탭 이름
 	 */
 	activeTabClass: function() {
-		return Template.instance().currentTab;
+		return Template.instance().currentTab.get();
 	},
 
 	/**

@@ -38,14 +38,13 @@ Template.MasterLayout.events({
 	'click .js-back': function(event) {
 		nextInitiator = 'back';
 
-		// XXX: set the back transition via Location.back() when IR 1.0 hits
 		history.back();
 		event.stopImmediatePropagation();
 		event.preventDefault();
 	},
 
 	'click a.js-open': function(event) {
-		// On Cordova, open links in the system browser rather than In-App
+		// Cordova 환경 내에서, 링크를 앱 내장 브라우저보다 좀 더 나은 시스템 브라우저로 연다.
 		if (Meteor.isCordova) {
 			event.preventDefault();
 			window.open(event.target.href, '_system');

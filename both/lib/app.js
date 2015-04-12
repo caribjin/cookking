@@ -14,18 +14,6 @@
 //SHARE_IMAGE_PURPOSE_KEY = 'shareImagePurpose';
 
 App = {
-	sessions: {
-		ignoreConnectionIssue:      'ignoreConnectionIssue',        // 연결문제 무시 시간
-		menuOpen:                   'menuOpen',                     // 메뉴 열림 상태
-		overlayTemplateName:        'overlayTemplateName',          // 현재의 오버레이 템플릿명
-		overlayTemplateData:        'overlayTemplateData',          // 현재의 오버레이 템플릿 데이터
-		recipesLimit:               'recipesLimit',                 // 레시피목록 현재 가져오는 개수
-		recipesSubscribeComplate:   'recipesSubscribeComplate',     // 레시피목록 구독 완료상태
-		recipesCurrentSort:         'recipesCurrentSort',           // 레시피목록 현재 정렬키
-		recipesCurrentFilter:       'recipesCurrentFilter',         // 레시피목록 현재 필터키
-		shareImageData:             'shareImageData',               // 공유 이미지 데이터
-		shareImagePurpose:          'shareImagePurpose'             // 공유 이미지 사용목적 (share/recipe/direction)
-	},
 	settings: {
 		// 메뉴 열림을 위한 손가락 쓸기 거리
 		menuOpenWipeDistance: 130,
@@ -90,6 +78,20 @@ App = {
 		// 계정 등록 시 환영 메일 발송 여부
 		sendSignupWelcomeEmail: false
 	},
+
+	sessions: {
+		ignoreConnectionIssue:      'ignoreConnectionIssue',        // 연결문제 무시 시간
+		menuOpen:                   'menuOpen',                     // 메뉴 열림 상태
+		overlayTemplateName:        'overlayTemplateName',          // 현재의 오버레이 템플릿명
+		overlayTemplateData:        'overlayTemplateData',          // 현재의 오버레이 템플릿 데이터
+		recipesLimit:               'recipesLimit',                 // 레시피목록 현재 가져오는 개수
+		recipesSubscribeComplate:   'recipesSubscribeComplate',     // 레시피목록 구독 완료상태
+		recipesCurrentSort:         'recipesCurrentSort',           // 레시피목록 현재 정렬키
+		recipesCurrentFilter:       'recipesCurrentFilter',         // 레시피목록 현재 필터키
+		shareImageData:             'shareImageData',               // 공유 이미지 데이터
+		shareImagePurpose:          'shareImagePurpose'             // 공유 이미지 사용목적 (share/recipe/direction)
+	},
+
 
 	helpers: {
 		/**

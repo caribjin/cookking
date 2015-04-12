@@ -230,8 +230,7 @@ _.extend(App.helpers, {
 	},
 
 	activePage: function() {
-		// includes Spacebars.kw but that's OK because the route name ain't that.
-		return _.include(arguments, Router.current().route.name) && 'active';
+		return _.include(arguments, Router.current().route.getName()) && 'active';
 	},
 
 	version: function() {
@@ -307,4 +306,40 @@ Meteor.startup(function() {
 
 		Session.set(App.sessions.ignoreConnectionIssue, false);
 	}, 5000);
+
+	// 모바일 환경에서의 버튼 대응
+	if (Meteor.isCordova) {
+		document.addEventListener('deviceready', function() {
+			// 뒤로버튼
+			document.addEventListener('backbutton', function(e) {
+				e.preventDefault();
+
+				var currentRoute = Router.current().route.getName();
+				console.log(currentRoute);
+
+				// 초기화면 : 종료확인 후 종료
+				// 기타화면 : 오버레이 활성화중이면 오버레이창 종료. 그 이외엔 뒤로.
+				switch(currentRoute) {
+					case 'home':
+						App.helpers.confirm('종료하시겠습니까?', '어플리케이션을 종료합니다.', '', true, function() {
+							navigator.app.exitApp();
+						});
+						break;
+					default:
+						if (Overlay.isOpen()) {
+							Overlay.close();
+						} else {
+							history.back();
+						}
+						break;
+				}
+			}, false);
+
+			// 메뉴버튼
+			document.addEventListener('menubutton', function(e) {
+				e.preventDefault();
+				Session.set(App.sessions.menuOpen, !Session.get(App.sessions.menuOpen));
+			}, false);
+		}, false);
+	}
 });

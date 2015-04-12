@@ -1,5 +1,5 @@
 Template.Recipe.onCreated(function() {
-	this.currentTab = new ReactiveVar();
+	this.currentTab = new ReactiveVar('');
 	this.favoritesCount = new ReactiveVar(this.data.favoritesCount || 0);
 
 	if (Router.current().params.feedId)
@@ -8,26 +8,30 @@ Template.Recipe.onCreated(function() {
 		Template.Recipe.setTab('recipe');
 });
 
-Template.Recipe.onRendered(function () {
+Template.Recipe.onRendered(function() {
+	var self = this;
+
 	this.$('.recipe').touchwipe({
-		wipeDown: function () {
-			if (this.currentTab.get() === 'recipe')
-				Template.Recipe.setTab('ingredients')
+		wipeDown: function() {
+			if (self.currentTab.get() === 'recipe')
+				Template.Recipe.setTab('ingredients', self)
 		},
 		preventDefaultEvents: false
 	});
 	this.$('.recipe-information').touchwipe({
-		wipeUp: function () {
-			if (this.currentTab.get() !== 'recipe')
-				Template.Recipe.setTab('recipe')
+		wipeUp: function() {
+			if (self.currentTab.get() !== 'recipe')
+				Template.Recipe.setTab('recipe', self)
 		},
 		preventDefaultEvents: false
 	});
 });
 
-Template.Recipe.setTab = function(tab) {
-	var lastTab = Template.instance().currentTab.get();
-	Template.instance().currentTab.set(tab);
+Template.Recipe.setTab = function(tab, templateInstance) {
+	if (!templateInstance) templateInstance = Template.instance();
+
+	var lastTab = templateInstance.currentTab.get();
+	templateInstance.currentTab.set(tab);
 
 	var $ingredient = $('.ingredient-scrollable');
 	var $direction = $('.direction-scrollable');

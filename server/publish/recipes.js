@@ -31,7 +31,7 @@ Meteor.publish('recipes', function (condition, options) {
 	};
 
 	if (condition.filter !== 'all') {
-		_.extend(query, { filter: filter });
+		_.extend(query, { filter: condition.filter });
 	}
 
 	// 관리자가 아니라면 공개인 레시피만 볼 수 있다.
