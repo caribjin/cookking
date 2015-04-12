@@ -36,8 +36,8 @@ numeral:numeral
 babrahams:transactions
 mdg:reload-on-resume
 msavin:mongol
-msavin:jetsetter
 jquery-waypoints
 reactive-var
 momentjs:moment
 meteorhacks:async
+meteorhacks:subs-manager

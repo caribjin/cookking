@@ -1,13 +1,4 @@
 Template.Settings.onRendered(function() {
-	this.find('.content-settings')._uihooks = {
-		insertElement: function(node, next) {
-			console.log('insertElement');
-		},
-
-		removeElement: function(node) {
-			console.log('removeElement');
-		}
-	}
 });
 
 Template.Settings.helpers({

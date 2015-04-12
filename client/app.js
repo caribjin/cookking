@@ -315,7 +315,6 @@ Meteor.startup(function() {
 				e.preventDefault();
 
 				var currentRoute = Router.current().route.getName();
-				console.log(currentRoute);
 
 				// 초기화면 : 종료확인 후 종료
 				// 기타화면 : 오버레이 활성화중이면 오버레이창 종료. 그 이외엔 뒤로.
