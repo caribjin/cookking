@@ -61,6 +61,22 @@ Meteor.publish('recipes', function (condition, options) {
 			});
 		},
 
+		changed: function(recipe, oldRecipe) {
+			self.changed('recipes', recipe._id, recipe);
+
+			handles['images'] = Images.find(recipe.imageId, imageOptions).observe({
+				added: function(image) {
+					self.added('recipesImage', image._id, image);
+				},
+				changed: function(image, oldImage) {
+					self.changed('recipesImage', image._id, image);
+				},
+				removed: function(image) {
+					self.removed('recipesImage', image._id);
+				}
+			});
+		},
+
 		removed: function(recipe) {
 			self.removed('recipes', recipe._id);
 
@@ -110,6 +126,7 @@ Meteor.publish('recipesByIds', function(ids) {
 				}
 			})
 		},
+
 		removed: function(recipe) {
 			self.removed('recipes', recipe._id);
 
@@ -162,6 +179,23 @@ Meteor.publish('recipe', function(condition) {
 				}
 			})
 		},
+
+		changed: function(recipe, oldRecipe) {
+			self.changed('recipes', recipe._id, recipe);
+
+			handles['images'] = Images.find(recipe.imageId, imageOptions).observe({
+				added: function(image) {
+					self.added('recipesImage', image._id, image);
+				},
+				changed: function(image, oldImage) {
+					self.changed('recipesImage', image._id, image);
+				},
+				removed: function(image) {
+					self.removed('recipesImage', image._id);
+				}
+			});
+		},
+
 		removed: function(recipe) {
 			self.removed('recipes', recipe._id);
 
