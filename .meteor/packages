@@ -41,3 +41,4 @@ reactive-var
 momentjs:moment
 meteorhacks:async
 meteorhacks:subs-manager
+tmeasday:publish-counts

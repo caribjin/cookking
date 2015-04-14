@@ -1,17 +1,4 @@
-//IGNORE_CONNECTION_ISSUE_KEY = 'ignoreConnectionIssue';
-//
-//MENU_KEY = 'menuOpen';
-//
-//OVERLAY_DATA_KEY = 'overlayData';
-//OVERLAY_TEMPLATE_KEY = 'overlayTemplate';
-//
-//RECIPES_LIMIT = 'recipesLimitCount';
-//RECIPES_SUB_COMPLETED = 'recipesSubCompleted';
-//RECIPES_CURRENT_SORT = 'recipesCurrentSort';
-//RECIPES_CURRENT_FILTER = 'recipesCurrentFilter';
-//
-//SHARE_IMAGE_KEY = 'shareAttachedImage';
-//SHARE_IMAGE_PURPOSE_KEY = 'shareImagePurpose';
+sm = new SubsManager();
 
 App = {
 	settings: {
@@ -85,13 +72,11 @@ App = {
 		overlayTemplateName:        'overlayTemplateName',          // 현재의 오버레이 템플릿명
 		overlayTemplateData:        'overlayTemplateData',          // 현재의 오버레이 템플릿 데이터
 		recipesLimit:               'recipesLimit',                 // 레시피목록 현재 가져오는 개수
-		recipesSubscribeComplate:   'recipesSubscribeComplate',     // 레시피목록 구독 완료상태
 		recipesCurrentSort:         'recipesCurrentSort',           // 레시피목록 현재 정렬키
 		recipesCurrentFilter:       'recipesCurrentFilter',         // 레시피목록 현재 필터키
 		shareImageData:             'shareImageData',               // 공유 이미지 데이터
 		shareImagePurpose:          'shareImagePurpose'             // 공유 이미지 사용목적 (share/recipe/direction)
 	},
-
 
 	helpers: {
 		/**
@@ -130,8 +115,10 @@ App = {
 		},
 
 		isAdmin: function() {
-			if (Meteor.user() && Meteor.user().profile)
-				var role = Meteor.user().profile.role;
+			var role = '';
+			if (Meteor.user() && Meteor.user().profile) {
+				role = Meteor.user().profile.role;
+			}
 
 			return role === 'admin';
 		},

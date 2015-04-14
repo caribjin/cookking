@@ -20,9 +20,6 @@ Template.Breadcrumb.toggleFiltersOpenStatus = function() {
 };
 
 Template.Breadcrumb.onCreated(function() {
-	Session.setDefault(App.sessions.recipesCurrentSort, App.settings.defaultRecipesSort);
-	Session.setDefault(App.sessions.recipesCurrentFilter, 'all');
-
 	this.filtersOpenStatus = new ReactiveVar(false);
 
 	var self = this;
@@ -68,7 +65,11 @@ Template.Breadcrumb.helpers({
 	},
 
 	totalCount: function() {
-		return Recipes.find().count();
+		return Template.Recipes.totalCount();
+	},
+
+	currentCount: function() {
+		return Template.Recipes.currentCount();
 	}
 });
 

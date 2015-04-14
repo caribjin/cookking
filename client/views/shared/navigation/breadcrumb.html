@@ -1,7 +1,7 @@
 <template name="Breadcrumb">
 	<div class="breadcrumb">
 		<div class="filter-name js-open-filters">
-			{{currentFilterName}} <span class="total-count">({{totalCount}})</span>
+			{{currentFilterName}} <span class="total-count">({{currentCount}} / {{totalCount}})</span>
 		</div>
 		<div class="sort">
 			<span class="created {{#if isActiveSort 'created'}}active{{/if}}">

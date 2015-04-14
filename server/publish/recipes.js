@@ -1,7 +1,7 @@
-Meteor.publish('recipes', function (condition, options) {
+var checkParameters = function(condition, options) {
 	check(condition, {
-		filter: String,
-		admin: Boolean
+		filter: Match.Optional(String),
+		public: Match.Optional(Boolean)
 	});
 
 	check(options, {
@@ -14,10 +14,14 @@ Meteor.publish('recipes', function (condition, options) {
 		limit: Number,
 		fields: Object
 	});
+};
 
-	if (options.limit > Recipes.find().count()) {
-		options.limit = 0;
-	}
+Meteor.publish('recipes', function (condition, options) {
+	checkParameters(condition, options);
+
+	//if (options.limit > Recipes.find().count()) {
+	//	options.limit = 0;
+	//}
 
 	var self = this;
 	var handles = {};
@@ -30,14 +34,15 @@ Meteor.publish('recipes', function (condition, options) {
 		}
 	};
 
-	if (condition.filter !== 'all') {
-		_.extend(query, { filter: condition.filter });
-	}
+	//if (condition.filter !== 'all') {
+	//	_.extend(query, { filter: condition.filter });
+	//}
+	//
+	//if (condition.public) {
+	//	_.extend(query, { public: condition.public });
+	//}
 
-	// 관리자가 아니라면 공개인 레시피만 볼 수 있다.
-	if (!condition.admin) {
-		_.extend(query, { public: true });
-	}
+	_.extend(query, condition);
 
 	handles['recipes'] = Recipes.find(query, options).observe({
 		added: function(recipe) {
@@ -55,6 +60,7 @@ Meteor.publish('recipes', function (condition, options) {
 				}
 			});
 		},
+
 		removed: function(recipe) {
 			self.removed('recipes', recipe._id);
 
@@ -62,15 +68,24 @@ Meteor.publish('recipes', function (condition, options) {
 		}
 	});
 
-	self.added('totalCount', (new Mongo.ObjectID)._str, { count: Recipes.find(query, options).count() });
-
-	self.onStop(function() {
+	this.onStop(function() {
 		_.each(handles, function(handle) {
 			handle.stop();
 		});
 	});
 
 	self.ready();
+});
+
+Meteor.publish('recipesCount', function (condition, options) {
+	checkParameters(condition, options);
+
+	var query = { deleted: {$exists: false} };
+	_.extend(query, condition);
+
+	Counts.publish(this, 'recipesTotalCount', Recipes.find(query), {noReady: true, nonReactive: false});
+
+	this.ready();
 });
 
 Meteor.publish('recipesByIds', function(ids) {
@@ -102,13 +117,13 @@ Meteor.publish('recipesByIds', function(ids) {
 		}
 	});
 
-	self.onStop(function() {
+	this.onStop(function() {
 		_.each(handles, function(handle) {
 			handle.stop();
 		});
 	});
 
-	self.ready();
+	this.ready();
 });
 
 Meteor.publish('recipe', function(condition) {
@@ -154,12 +169,12 @@ Meteor.publish('recipe', function(condition) {
 		}
 	});
 
-	self.onStop(function() {
+	this.onStop(function() {
 		_.each(handles, function(handle) {
 			handle.stop();
 		});
 	});
 
-	self.ready();
+	this.ready();
 });
 

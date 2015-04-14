@@ -1,23 +1,25 @@
 RecipesController = RouteController.extend({
 	condition: function() {
-		return {
-			filter: Session.get(App.sessions.recipesCurrentFilter) || App.settings.defaultRecipesListFilter,
-			admin: App.helpers.isAdmin()
-		}
+		var result = {};
+		var filter = Session.get(App.sessions.recipesCurrentFilter);    // || App.settings.defaultRecipesListFilter;
+
+		if (filter !== 'all') result.filter = filter;
+		if (!App.helpers.isAdmin()) result.public = true;
+
+		return result;
 	},
 
 	option: function() {
-		Session.setDefault(App.sessions.recipesLimit, App.settings.defaultRecipesListLimit);
-		Session.setDefault(App.sessions.recipesCurrentSort, App.settings.defaultRecipesSort);
-
 		var option = {
 			sort: {
 				highlighted: -1
 			},
-			limit: this.condition().filter === 'all' ? Session.get(App.sessions.recipesLimit) + 1 : Session.get(App.sessions.recipesLimit),
+			limit: !this.condition().filter ? Session.get(App.sessions.recipesLimit) + 1 : Session.get(App.sessions.recipesLimit),
 			fields: {
 				title: 1,
 				imageId: 1,
+				filter: 1,
+				public: 1,
 				highlighted: 1,
 				favoritesCount: 1,
 				commentsCount: 1,
@@ -44,25 +46,29 @@ RecipesController = RouteController.extend({
 		return option;
 	},
 
-	subscriptions: function() {
-		this.recipesSubscribe = Meteor.subscribe('recipes', this.condition(), this.option());
+	waitOn: function() {
+		Session.setDefault(App.sessions.recipesLimit, App.settings.defaultRecipesListLimit);
+		Session.setDefault(App.sessions.recipesCurrentSort, App.settings.defaultRecipesSort);
+		Session.setDefault(App.sessions.recipesCurrentFilter, App.settings.defaultRecipesListFilter);
+
+		// 데이터 구독과 총 개수 정보를 별도로 구독하는 것에 주의. 데이터 구독시에 개수도 함께 가져올 수 있지만,
+		// SubsManager의 캐쉬관련 동작의 특성 상, 항상 같은 총 개수를 리턴하는 오작동으로 인해, 데이터와 개수를
+		// 별도의 구독으로 분리했다.
+		this.recipesSubscribe = sm.subscribe('recipes', this.condition(), this.option());
+		Meteor.subscribe('recipesCount', this.condition(), this.option());
 	},
 
 	data: function() {
 		var self = this;
+
+		console.log('limit: ' + self.option().limit);
 		return {
-			recipes: function() {
-				return Recipes.find({}, self.option());
+			recipes: function () {
+				return Recipes.find(self.condition(), self.option());
 			},
+			condition: self.condition,
+			option: self.option,
 			ready: this.recipesSubscribe.ready
 		}
-	},
-
-	action: function() {
-		if (this.recipesSubscribe.ready()) {
-			Session.set(App.sessions.recipesSubscribeComplate, true);
-		}
-
-		this.render();
 	}
 });
