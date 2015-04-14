@@ -1,9 +1,6 @@
 Session.setDefault(App.sessions.ignoreConnectionIssue, true);
 Session.setDefault(App.sessions.menuOpen, false);
 
-// XXX: this work around until IR properly supports this
-// IR refactor will include Location.back, which will ensure
-// that initator is set
 var nextInitiator = null, initiator = null;
 Tracker.autorun(function() {
 	Router.current();

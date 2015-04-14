@@ -1,7 +1,7 @@
 RecipesController = RouteController.extend({
 	condition: function() {
 		var result = {};
-		var filter = Session.get(App.sessions.recipesCurrentFilter);    // || App.settings.defaultRecipesListFilter;
+		var filter = Session.get(App.sessions.recipesCurrentFilter);
 
 		if (filter !== 'all') result.filter = filter;
 		if (!App.helpers.isAdmin()) result.public = true;
@@ -61,7 +61,6 @@ RecipesController = RouteController.extend({
 	data: function() {
 		var self = this;
 
-		console.log('limit: ' + self.option().limit);
 		return {
 			recipes: function () {
 				return Recipes.find(self.condition(), self.option());

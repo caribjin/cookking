@@ -12,7 +12,6 @@ Template.Comments.onCreated(function() {
 	setTimeout(function() {
 		self.subscribe('comments', self.data._id, options);
 	}, 400);
-	//this.subscribe('comments', this.data._id, options);
 });
 
 Template.Comments.onRendered(function() {

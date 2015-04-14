@@ -96,11 +96,7 @@ Template.Share.helpers({
 
 	isTwitterLogin: function() {
 		return App.helpers.getLoginServiceType();
-	},
-
-	//tweeting: function() {
-	//	return Session.get(TWEETING_KEY);
-	//}
+	}
 });
 
 Template.Share.events({
@@ -134,10 +130,6 @@ Template.Share.events({
 		Session.set(App.sessions.shareImageData, null);
 		Session.set(App.sessions.shareImagePurpose, null);
 	},
-
-	//'change [name=tweeting]': function(event) {
-	//	Session.set(TWEETING_KEY, $(event.target).is(':checked'));
-	//},
 
 	'change .imageFile': function(e, tmpl) {
 		var files = event.target.files;
