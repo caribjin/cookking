@@ -20,11 +20,14 @@ Meteor.publish('bookmarkedRecipes', function(userId, options) {
 		}
 	};
 
+	sm.reset();
+
 	handles['bookmark'] = Bookmarks.find({userId: userId}).observe({
 		added: function(bookmark) {
-			handles['recipes'] = Recipes.find({_id: {$in: bookmark.recipeIds}, deleted: {$exists: false}}, options).observe({
+			handles['bookmarkedRecipes'] = Recipes.find({_id: {$in: bookmark.recipeIds}, deleted: {$exists: false}}, options).observe({
 				added: function(recipe) {
-					self.added('recipes', recipe._id, recipe);
+					self.added('bookmarkedRecipes', recipe._id, recipe);
+
 					handles['images'] = Images.find(recipe.imageId, imageOptions).observe({
 						added: function(image) {
 							self.added('recipesImage', image._id, image);
@@ -38,7 +41,8 @@ Meteor.publish('bookmarkedRecipes', function(userId, options) {
 					});
 				},
 				changed: function(recipe, oldRecipe) {
-					self.changed('recipes', recipe._id, recipe);
+					self.changed('bookmarkedRecipes', recipe._id, recipe);
+
 					handles['images'] = Images.find(recipe.imageId, imageOptions).observe({
 						added: function(image) {
 							self.added('recipesImage', image._id, image);
@@ -52,14 +56,14 @@ Meteor.publish('bookmarkedRecipes', function(userId, options) {
 					});
 				},
 				removed: function(recipe) {
-					self.remove('recipes', recipe);
+					self.remove('bookmarkedRecipes', recipe);
 
 					handles['images'] && handles['images'].stop();
 				}
 			});
 		},
 		removed: function(bookmark) {
-			handles['recipes'] && handles['recipes'].stop();
+			handles['bookmarkedRecipes'] && handles['bookmarkedRecipes'].stop();
 		}
 	});
 

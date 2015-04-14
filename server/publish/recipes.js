@@ -183,7 +183,7 @@ Meteor.publish('recipe', function(condition) {
 		changed: function(recipe, oldRecipe) {
 			self.changed('recipes', recipe._id, recipe);
 
-			handles['images'] = Images.find(recipe.imageId, imageOptions).observe({
+			handles['images'] = Images.find(recipe.imageId).observe({
 				added: function(image) {
 					self.added('recipesImage', image._id, image);
 				},

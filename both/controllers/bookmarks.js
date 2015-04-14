@@ -23,7 +23,9 @@ BookmarksController = RouteController.extend({
 
 	data: function() {
 		if (Meteor.user() && this.ready()) {
-			return Recipes.find();
+			return BookmarkedRecipes.find();
 		}
-	}
+	},
+
+	fastRender: true
 });

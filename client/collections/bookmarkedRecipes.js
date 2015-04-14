@@ -1,0 +1,1 @@
+BookmarkedRecipes = new Mongo.Collection('bookmarkedRecipes');

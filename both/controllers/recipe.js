@@ -22,5 +22,7 @@ RecipeController = RouteController.extend({
 
 	data: function() {
 		return Recipes.findOne(this.params._id);
-	}
+	},
+
+	fastRender: true
 });

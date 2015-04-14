@@ -19,5 +19,7 @@ FeedsController = RouteController.extend({
 			},
 			ready: this.feedsSubscribe.ready
 		}
-	}
+	},
+
+	fastRender: true
 });
