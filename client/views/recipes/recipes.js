@@ -71,7 +71,7 @@ Template.Recipes.onCreated(function() {
 					$('.btn-more').show();
 				}
 
-				console.log('refresh waypoint');
+				//console.log('refresh waypoint');
 
 				//$.waypoints('refresh');
 				Template.Recipes.setMoreButtonDisplay('done');
