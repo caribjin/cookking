@@ -47,11 +47,9 @@ RecipesController = RouteController.extend({
 	},
 
 	waitOn: function() {
-		if (Meteor.isClient) {
-			Session.setDefault(App.sessions.recipesLimit, App.settings.defaultRecipesListLimit);
-			Session.setDefault(App.sessions.recipesCurrentSort, App.settings.defaultRecipesSort);
-			Session.setDefault(App.sessions.recipesCurrentFilter, App.settings.defaultRecipesListFilter);
-		}
+		Session.setDefault(App.sessions.recipesLimit, App.settings.defaultRecipesListLimit);
+		Session.setDefault(App.sessions.recipesCurrentSort, App.settings.defaultRecipesSort);
+		Session.setDefault(App.sessions.recipesCurrentFilter, App.settings.defaultRecipesListFilter);
 
 		// 데이터 구독과 총 개수 정보를 별도로 구독하는 것에 주의. 데이터 구독시에 개수도 함께 가져올 수 있지만,
 		// SubsManager의 캐쉬관련 동작의 특성 상, 항상 같은 총 개수를 리턴하는 오작동으로 인해, 데이터와 개수를
@@ -71,7 +69,5 @@ RecipesController = RouteController.extend({
 			option: self.option,
 			ready: this.recipesSubscribe.ready
 		}
-	},
-
-	fastRender: true
+	}
 });
