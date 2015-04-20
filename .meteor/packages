@@ -10,19 +10,14 @@ accounts-password
 less
 percolate:velocityjs
 accounts-base
-nemo64:bootstrap
 mdg:camera
 mdg:geolocation
 fastclick
-accounts-facebook
 accounts-github
-accounts-google
 accounts-twitter
 service-configuration
-http
 email
 meteorhacks:ssr
-request
 multiply:iron-router-progress
 wizonesolutions:underscore-string
 audit-argument-checks
@@ -34,7 +29,6 @@ cfs:graphicsmagick
 numeral:numeral
 babrahams:transactions
 mdg:reload-on-resume
-msavin:mongol
 jquery-waypoints
 reactive-var
 momentjs:moment
@@ -42,3 +36,4 @@ meteorhacks:async
 meteorhacks:subs-manager
 tmeasday:publish-counts
 meteorhacks:fast-render
+http

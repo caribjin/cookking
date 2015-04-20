@@ -2,7 +2,7 @@ Meteor.startup(function() {
 	Future = Npm.require('fibers/future');
 
 	// 샘플 레시피를 100개 생성
-	generateFixtureData(100);
+	//generateFixtureData(100);
 
 	initVersionInfo();
 	createServiceConfiguration();
