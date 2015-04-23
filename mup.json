@@ -2,7 +2,7 @@
   // Server authentication info
   "servers": [
     {
-      "host": "ec2-52-68-26-141.ap-northeast-1.compute.amazonaws.com",
+      "host": "52.68.128.176",
       "username": "ubuntu",
       //"password": "password"
       // or pem file (ssh based authentication)
@@ -11,10 +11,10 @@
   ],
 
   // Install MongoDB in the server, does not destroy local MongoDB on future setup
-  "setupMongo": true,
+  "setupMongo": false,
 
   // WARNING: Node.js is required! Only skip if you already have Node.js installed on server.
-  "setupNode": true,
+  "setupNode": false,
 
   // WARNING: If nodeVersion omitted will setup 0.10.36 by default. Do not use v, only version number.
   "nodeVersion": "0.12.2",
@@ -30,7 +30,7 @@
 
   // Configure environment
   "env": {
-    "ROOT_URL": "http://ec2-52-68-26-141.ap-northeast-1.compute.amazonaws.com",
+    "ROOT_URL": "http://cookking.devcrow.com",
     "PORT": 80,
     "MONGO_URL": "mongodb://localhost:27017/cookking"
   },

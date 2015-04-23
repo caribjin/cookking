@@ -17,7 +17,7 @@ Template.MasterLayout.addNotification = function(notification, duration) {
 	if (duration === 0 || duration === 'infinite') {
 		duration = 3600 * 1000;
 	} else if (!duration) {
-		duration = NOTIFICATION_TIMEOUT;
+		duration = App.settings.defaultNotificationTime;
 	}
 
 	Meteor.setTimeout(function() {

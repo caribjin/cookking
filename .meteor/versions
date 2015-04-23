@@ -5,7 +5,7 @@ accounts-password@1.1.1
 accounts-twitter@1.0.4
 audit-argument-checks@1.0.3
 autoupdate@1.2.1
-babrahams:transactions@0.6.19
+babrahams:transactions@0.6.20
 base64@1.0.3
 binary-heap@1.0.3
 blaze@2.1.2
@@ -53,7 +53,7 @@ iron:location@1.0.7
 iron:middleware-stack@1.0.7
 iron:router@1.0.7
 iron:url@1.0.7
-jonblum:jquery-cropper@0.9.1
+jonblum:jquery-cropper@0.9.2
 jquery@1.11.3_2
 jquery-waypoints@1.0.3
 json@1.0.3
@@ -104,7 +104,7 @@ spacebars@1.0.6
 spacebars-compiler@1.0.6
 srp@1.0.3
 templating@1.1.1
-tmeasday:publish-counts@0.3.7
+tmeasday:publish-counts@0.3.9
 tracker@1.0.7
 twitter@1.1.4
 ui@1.0.6
