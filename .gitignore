@@ -1,4 +1,7 @@
 .idea/
-.em
-public/components
-node_modules
+app/.meteor/local/
+app/.hooks/node_modules/
+app/public/components/
+app/node_modules/
+build/
+config/production/
