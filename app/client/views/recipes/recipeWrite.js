@@ -250,7 +250,7 @@ Template.RecipeWrite.onCreated(function() {
 	Template.RecipeWrite.directionAdd();
 
 	var self = this;
-	Tracker.autorun(function() {
+	this.autorun(function() {
 		var imageData = Session.get(App.sessions.shareImageData);
 		var purpose = Session.get(App.sessions.shareImagePurpose);
 
