@@ -1,4 +1,5 @@
 #!/bin/bash
 
-export ROOT_URL="http://localhost"
+export ROOT_URL="http://localhost:3000"
 export PORT="4000"
+export MONGO_URL="mongodb://localhost:27017/cookking-dev"

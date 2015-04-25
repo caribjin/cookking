@@ -2,7 +2,7 @@ Meteor.startup(function() {
 	Future = Npm.require('fibers/future');
 
 	// 샘플 레시피를 100개 생성
-	//generateFixtureData(100);
+	generateFixtureData(100);
 
 	initVersionInfo();
 	createServiceConfiguration();
@@ -39,6 +39,8 @@ Meteor.startup(function() {
 	}
 
 	function generateFixtureData(count) {
+		if (!Meteor.settings.app.generateFixtureData) return;
+
 		var recipe = {}, seed = {};
 
 		if (Recipes.find().count() <= 0) {
@@ -126,7 +128,7 @@ Meteor.startup(function() {
 	function generateRecipeImage(recipe) {
 		var f = new Future();
 
-		var imagePath = '/home/caribjin/meteor/cookking/public/img/recipes/640x800/' + _.random(1, 28) + '.jpg'
+		var imagePath = '/home/caribjin/meteor/cookking/app/public/img/recipes/640x800/' + _.random(1, 28) + '.jpg'
 
 		Images.insert(imagePath, function(error, file) {
 			if (error) {
@@ -143,7 +145,7 @@ Meteor.startup(function() {
 	function generateRecipeImage2(recipe) {
 		var res;
 
-		var imagePath = '/home/caribjin/meteor/cookking/public/img/recipes/640x800/' + _.random(1, 28) + '.jpg'
+		var imagePath = '/home/caribjin/meteor/cookking/app/public/img/recipes/640x800/' + _.random(1, 28) + '.jpg'
 
 		res = Async.runSync(function(done) {
 			Images.insert(imagePath, function(error, file) {
@@ -158,7 +160,7 @@ Meteor.startup(function() {
 	function generateDirectionImage(direction) {
 		var f = new Future();
 
-		var imagePath = '/home/caribjin/meteor/cookking/public/img/recipes/320x350/' + _.random(1, 28) + '.jpg'
+		var imagePath = '/home/caribjin/meteor/cookking/app/public/img/recipes/320x350/' + _.random(1, 28) + '.jpg'
 
 		var fs = Npm.require('fs');
 		var content = fs.readFileSync(imagePath);

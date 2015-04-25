@@ -15,7 +15,7 @@ Template.Share.generateFileInfo = function(type, imageData, cropData) {
 	} else {
 		return null;
 	}
-	file.category = type;
+	file.mimeType = type;
 
 	return file;
 };
@@ -165,7 +165,6 @@ Template.Share.events({
 
 		App.helpers.confirm('글 등록', '작성한 글을 올리시겠습니까?', 'info', true, function() {
 			var text = $(e.target).find('[name=text]').val();
-			//var tweet = Session.get(TWEETING_KEY);
 			var tweet = App.helpers.getLoginServiceType() === 'twitter' ? $('#tweeting').is(':checked') : false;
 			var cropData = $('.cropper > img').cropper('getData');
 			var file = Template.Share.generateFileInfo('feed', Session.get(App.sessions.shareImageData), cropData);
@@ -176,18 +175,29 @@ Template.Share.events({
 			}
 
 			Images.insert(file, function(error, file) {
-				Session.set(App.sessions.shareImageData, null);
-				Session.set(App.sessions.shareImagePurpose, null);
-
 				if (error) {
 					console.log(error.reason);
 					return;
 				}
 
-				Meteor.call('createFeed', {
+				//Meteor.call('createFeed', {
+				//	recipeId: self._id,
+				//	text: text,
+				//	imageId: file._id
+				//}, tweet, Geolocation.currentLocation(), function(error, result) {
+				//	if (error) {
+				//		App.helpers.addNotification('ERROR: ' + error.reason, '확인', function() {}, 10000);
+				//	} else {
+				//		App.helpers.addNotification('사진을 공유했습니다', '확인');
+				//	}
+				//});
+
+				Meteor.call('createFeedExt', {
 					recipeId: self._id,
 					text: text,
-					imageId: file._id
+					imageId: file._id,
+					image: Session.get(App.sessions.shareImageData),
+					mimeType: file.mimeType
 				}, tweet, Geolocation.currentLocation(), function(error, result) {
 					if (error) {
 						App.helpers.addNotification('ERROR: ' + error.reason, '확인', function() {}, 10000);
@@ -195,6 +205,9 @@ Template.Share.events({
 						App.helpers.addNotification('사진을 공유했습니다', '확인');
 					}
 				});
+
+				Session.set(App.sessions.shareImageData, null);
+				Session.set(App.sessions.shareImagePurpose, null);
 
 				Overlay.close();
 			});

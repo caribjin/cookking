@@ -4,7 +4,13 @@ RecipesController = RouteController.extend({
 		var filter = Session.get(App.sessions.recipesCurrentFilter);
 
 		if (filter !== 'all') result.filter = filter;
-		if (!App.helpers.isAdmin()) result.public = true;
+		if (!App.helpers.isAdmin()) {
+			result.$or = [{
+				public: true
+			}, {
+				'writer.id': Meteor.userId()
+			}];
+		}
 
 		return result;
 	},
@@ -20,6 +26,7 @@ RecipesController = RouteController.extend({
 				imageId: 1,
 				filter: 1,
 				public: 1,
+				'writer.id': 1,
 				highlighted: 1,
 				favoritesCount: 1,
 				commentsCount: 1,

@@ -1,7 +1,8 @@
 var checkParameters = function(condition, options) {
+	//console.log(JSON.stringify(condition) + ' , ' + JSON.stringify(options));
 	check(condition, {
 		filter: Match.Optional(String),
-		public: Match.Optional(Boolean)
+		$or: Match.Optional(Array)
 	});
 
 	check(options, {

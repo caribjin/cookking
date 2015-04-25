@@ -37,7 +37,8 @@
 	},
 
 	"app": {
-		"sendSignupWelcomeEmail": false
+		"sendSignupWelcomeEmail": false,
+		"generateFixtureData": true
 	},
 
 	"mixpanel": {

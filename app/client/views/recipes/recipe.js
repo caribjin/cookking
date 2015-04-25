@@ -107,19 +107,19 @@ Template.Recipe.helpers({
 
 Template.Recipe.events({
 	'click .js-add-bookmark': function(e) {
-		e.preventDefault();
+		e.stopPropagation();
 
 		Meteor.call('bookmarkRecipe', this._id);
 	},
 
 	'click .js-remove-bookmark': function(e) {
-		e.preventDefault();
+		e.stopPropagation();
 
 		Meteor.call('unbookmarkRecipe', this._id);
 	},
 
 	'click .js-favorites': function(e, tmpl) {
-		e.preventDefault();
+		e.stopPropagation();
 
 		var templateInstance = Template.instance();
 
@@ -158,14 +158,16 @@ Template.Recipe.events({
 			});
 	},
 
-	'click .js-comments': function() {
+	'click .js-comments': function(e) {
+		e.stopPropagation();
 		Overlay.open('Comments', this);
 	},
 
-	'click .js-share': function() {
+	'click .js-share': function(e) {
 		_.extend(this, {
 			purpose: 'feed'
 		});
+		e.stopPropagation();
 		Overlay.open('Share', this);
 	},
 
