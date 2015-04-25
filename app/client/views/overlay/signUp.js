@@ -27,7 +27,13 @@ Template.SignUp.events({
 
 		var errors = {};
 
-		if (!email) errors.email = 'Email required';
+		if (!email) {
+			errors.email = 'Email required';
+		} else {
+			if (!App.helpers.validateFormatEmail(email)) {
+				errors.email = 'Invalid email format';
+			}
+		}
 		if (!password) {
 			errors.password = 'Password required';
 		} else {
