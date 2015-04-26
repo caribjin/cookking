@@ -36,6 +36,7 @@ Template.Recipe.setTab = function(tab, templateInstance) {
 	var $ingredient = $('.ingredient-scrollable');
 	var $direction = $('.direction-scrollable');
 	var $feed = $('.feed-scrollable');
+	var $share = $('.js-share');
 
 	// 패널이 위로 올라갈 때
 	var fromRecipe = (lastTab === 'recipe') && (tab !== 'recipe');
@@ -48,6 +49,12 @@ Template.Recipe.setTab = function(tab, templateInstance) {
 	$ingredient.toggleClass('delayed', toRecipe);
 	$direction.toggleClass('delayed', toRecipe);
 	$feed.toggleClass('delayed', toRecipe);
+
+	if (tab === 'feeds') {
+		$share.velocity('transition.slideUpIn', {duration: Meteor.settings.public.defaultAnimationDuration});
+	} else {
+		$share.velocity('transition.slideDownOut', {duration: Meteor.settings.public.defaultAnimationDurationFast});
+	}
 };
 
 Template.Recipe.helpers({
@@ -137,9 +144,9 @@ Template.Recipe.events({
 		var self = this;
 
 		App.helpers.confirm(
-			'레시피를 삭제하시겠습니까?',
-			'이 레시피를 영구적으로 삭제합니다.',
-			'warning', true, function() {
+			'레시피 삭제',
+			'이 레시피를 영구적으로 삭제하시겠습니까?',
+			'', true, function() {
 				Meteor.call('deleteRecipe', self._id, function (error, result) {
 					if (error) {
 						App.helpers.error(error.reason);

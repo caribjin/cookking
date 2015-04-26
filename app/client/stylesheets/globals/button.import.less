@@ -46,10 +46,10 @@
 
 		&.active,
 		&.no-state:first-child {
-			background: @color-secondary;
+			background: @color-primary;
 			color: @color-empty;
 
-			&:hover{ background-color: darken(@color-secondary, 5%); }
+			&:hover{ background-color: darken(@color-primary, 5%); }
 			&:active{ box-shadow: rgba(0,0,0,.3) 0 1px 3px 0 inset; }
 		}
 
@@ -99,8 +99,8 @@
 	&[class*="remove-circle"],
 	&[class*="album"],
 	&[class*="camera"] {
-		border-radius: 10em;
-		box-shadow: @color-primary 0 0 0 2px inset;
+		//border-radius: 10em;
+		//box-shadow: @color-primary 0 0 0 2px inset;
 		font-size: 20px; //reset
 		height: 4rem;
 		letter-spacing: 0; //reset
@@ -147,8 +147,8 @@
 	&[class*="md-camera"] {
 		.size(48px);
 		i[class*="fa-"] {
-			.size(40px);
-			.line-height(40px);
+			.size(45px);
+			.line-height(46px);
 		}
 	}
 
@@ -157,6 +157,7 @@
 	&[class*="sm-album"],
 	&[class*="sm-camera"] {
 		.size(24px);
+		border-radius: 10em;
 		box-shadow: #a0a39e 0 0 0 2px inset;
 
 		i[class*="fa-"] {

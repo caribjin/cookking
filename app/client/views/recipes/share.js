@@ -163,7 +163,7 @@ Template.Share.events({
 
 		var self = this;
 
-		App.helpers.confirm('글 등록', '작성한 글을 올리시겠습니까?', 'info', true, function() {
+		App.helpers.confirm('글 등록', '작성한 글을 올리시겠습니까?', '', true, function() {
 			var text = $(e.target).find('[name=text]').val();
 			var tweet = App.helpers.getLoginServiceType() === 'twitter' ? $('#tweeting').is(':checked') : false;
 			var cropData = $('.cropper > img').cropper('getData');

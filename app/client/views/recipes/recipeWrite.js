@@ -152,7 +152,7 @@ Template.RecipeWrite.save = function(e, tmpl) {
 	var errors = {};
 
 	if (errorCount <= 0) {
-		App.helpers.confirm('저장하시겠습니까?', '레시피를 저장합니다', 'info', true, function() {
+		App.helpers.confirm('레시피 저장', '레시피를 저장하시겠습니까?', '', true, function() {
 			// 모든 동적입력값들을 컬렉션에 업데이트한다.
 			Template.RecipeWrite.syncDataToCollection();
 
@@ -469,7 +469,7 @@ Template.RecipeWrite.events({
 	},
 
 	'click #recipeName': function(e) {
-		e.stopPropagation();
+		//e.stopPropagation();
 	},
 
 	'click .header': function(e, tmpl) {

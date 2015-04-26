@@ -77,7 +77,7 @@ Template.Comments.events({
 		var self = this;
 
 		App.helpers.confirm(
-			'이 댓글을 삭제하시겠습니까?', '', 'warning', true, function() {
+			'댓글 삭제', '댓글을 삭제하시겠습니까?', '', true, function() {
 				Meteor.call('deleteComment', self._id, self.recipeId, function(error, result) {
 					if (error) {
 						App.helpers.addNotification('오류가 발생했습니다', '확인', null, 0);
