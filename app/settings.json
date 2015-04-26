@@ -21,6 +21,7 @@
       "images": ["jpg", "jpeg", "png", "gif"]
     },
 
+    "defaultAnimationDurationFast": 100,
     "defaultAnimationDuration": 200,
     "defaultAnimationDurationSlow": 500,
     "defaultAnimationDurationVerySlow": 800,
@@ -37,7 +38,8 @@
   },
 
   "app": {
-    "sendSignupWelcomeEmail": false
+    "sendSignupWelcomeEmail": false,
+    "generateFixtureData": false
   },
 
   "mixpanel": {

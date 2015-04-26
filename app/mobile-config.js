@@ -4,7 +4,7 @@ App.info({
 	author: 'devcrow',
 	email: 'caribjin@devcrow.com',
 	website: 'http://cookking.devcrow.com',
-	version: '0.7.0'
+	version: '1.0.0'
 });
 
 App.icons({
