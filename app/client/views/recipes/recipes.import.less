@@ -113,7 +113,6 @@
 .page.recipes {
 	.btn-more {
 		.position(relative, auto, 0, 0, 0, 100%, 3rem);
-		.transform(translate3d(0, 0, 0));
 		.margin-bottom(3px);
 		display: block;
 
@@ -124,13 +123,10 @@
 
 	.btn-more.loading {
 		.position(relative, auto, 0, 0, 0, 100%, 3rem);
-		.transform(translate3d(0, 0, 0));
 		display: block;
 
 		&:before {
 			content: url(/img/app/loading/loading-spin.svg);
-			//content: "\f1ce";
-			//font-family: 'fontAwesome';
 			position: relative;
 			top: -5px;
 		}

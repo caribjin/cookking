@@ -491,7 +491,7 @@ Template.RecipeWrite.events({
 			$('#recipeName').velocity({top: '90%', color: '#ffffff', fontSize: '2rem', backgroundColorAlpha: 0}, {
 				duration: Meteor.settings.public.defaultAnimationDuration * 2
 			});
-			$('.header').addClass('noblur');
+			//$('.header').addClass('noblur');
 		} else {
 			$('.content-scrollable').velocity({top: '31%'}, {
 				duration: Meteor.settings.public.defaultAnimationDuration,
@@ -509,7 +509,7 @@ Template.RecipeWrite.events({
 			$('#recipeName').velocity({top: '39%', color: '#000000', fontSize: '1rem', backgroundColorAlpha: 100}, {
 				duration: Meteor.settings.public.defaultAnimationDuration
 			});
-			$('.header').removeClass('noblur');
+			//$('.header').removeClass('noblur');
 		}
 	}
 });

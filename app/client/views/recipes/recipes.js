@@ -21,9 +21,6 @@ Template.Recipes.setMoreButtonDisplay = function(status) {
 	} else if (status == 'loading') {
 		$moreButton.addClass('loading');
 	}
-
-	//if ($moreButton.hasClass('loading')) $moreButton.removeClass('loading');
-	//else $moreButton.addClass('loading');
 };
 
 Template.Recipes.initWaypoint = function() {
