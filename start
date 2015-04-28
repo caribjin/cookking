@@ -12,18 +12,22 @@ fi
 help() {
 	cat <<-EOF
 
-	Utility for running Meteor applications.
+	Meteor start - Utility for running Meteor applications.
 	    Usage: start [options]
 
 	Options:
-	    build <server url>          Build your application
+	    // running ----------------------------------------------------------------
 	    dev | devel | development   Set the environment development
 	    prod | production           Set the environment production
 	    mobile <mobile server>      Run on a connected Android device
+
+	    // deploy -----------------------------------------------------------------
+	    build <server url>          Build your application
+	    genkey <app-name>           (Optional) Generate private key for publish android apk
+	    apk <app-name>              Make android apk package
 	    mup <option>                Run meteor upload(mup) command.
 	                                <option : setup | deploy | reconfig | logs etc>
-	    genkey <app-name>           Generate private key for publish android apk
-	    apk <app-name>              Make android apk package
+
 	    --checkout                  Use a Meteor git checkout
 	    --help                      Display help
 
@@ -58,7 +62,7 @@ main() {
 	fi
 
 	if [ "$NODE_ENV" == "production" ]; then
-		if [ -e "BUNDLE_DIR" ]; then
+		if [ -e "$BUNDLE_DIR" ]; then
 			cd "$BUNDLE_DIR"
 			echo "Installing server npm packages..."
 			(cd programs/server && npm install)
@@ -117,9 +121,10 @@ build() {
 	exit 0
 }
 
-mup() {
+upload() {
 	cd "$CONFIG_DIR/production"
 	local CMD="mup $MUP_OPTION"
+
 	eval $CMD
 
 	exit 0
@@ -156,6 +161,8 @@ make_android_production() {
 		echo ""
 		echo "[[[ Creating apk file.. ]]]"
 		eval "~/.meteor/android_bundle/android-sdk/build-tools/20.0.0/zipalign -f 4 unaligned.apk production.apk"
+
+		echo "Done."
 	else
 		echo "Not exist application build output directory for android - $ANDROID_DIR"
 		echo "First run './start build'"
@@ -170,10 +177,10 @@ else
 	while [ $# -ne 0 ]; do
 		case $1 in
 			build)                  SERVER="$2";build ;;
-			prod|production)        export NODE_ENV="production"; shift ;;
-			dev|devel|development)  export NODE_ENV="development"; shift ;;
-			mobile)                 export NODE_ENV="android-device";MOBILE_SERVER="$2"; shift ;;
-			mup)                    MUP_OPTION="$2";mup ;;
+			prod|production)        export NODE_ENV="production" ;;
+			dev|devel|development)  export NODE_ENV="development" ;;
+			mobile)                 export NODE_ENV="android-device";MOBILE_SERVER="$2" ;;
+			mup)                    MUP_OPTION="$2";upload ;;
 			genkey)                 APP_NAME="$2";genkey ;;
 			apk)                    APP_NAME="$2";make_android_production ;;
 			--checkout)             CHECKOUT=true ;;
