@@ -4,4 +4,5 @@ app/.hooks/node_modules/
 app/public/components/
 app/node_modules/
 build/
+assets/
 config/production/

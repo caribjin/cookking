@@ -14,7 +14,7 @@ if (Meteor.isClient) {
 } else if (Meteor.isServer) {
 	var transformWrite = function (file, readStream, writeStream) {
 		if (file.cropData) {
-			gm(readStxream, file.name)
+			gm(readStream, file.name)
 				//autoOrient().
 				//gravity('Center')
 				//resize(Meteor.settings.public.thumbnailImageWidth, Meteor.settings.public.thumbnailImageHeight, '^')
