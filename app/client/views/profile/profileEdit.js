@@ -51,6 +51,6 @@ Template.ProfileEdit.events({
 	},
 
 	'click .js-edit-avatar': function(e, tmpl) {
-		App.helpers.alert('미지원 기능.', '프로필 이미지 편집은 아직 지원하지 않는 기능입니다', '', true);
+		App.helpers.alert('미지원 기능', '프로필 이미지 편집은 아직 지원하지 않는 기능입니다', '', true);
 	}
 });

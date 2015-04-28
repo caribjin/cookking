@@ -34,12 +34,14 @@
 		"defaultRecipesSort": "created",
 		"defaultRecipesListFilter": "all",
 
-		"defaultFileStoragePath": "/home/caribjin/app-files/"
+		"defaultStoreType": "s3"
 	},
 
 	"app": {
+		"applicationRootDirectory": "/home/caribjin/meteor/cookking/app/",
 		"sendSignupWelcomeEmail": false,
-		"generateFixtureData": true
+		"generateFixtureData": true,
+		"defaultFileStoragePath": "/home/caribjin/app-files/"
 	},
 
 	"mixpanel": {
@@ -76,5 +78,10 @@
 			"clientId": "107078223596-o154g6ur25lr6kc5gmjdghjsp48ooe7u.apps.googleusercontent.com",
 			"secret": "eW_iLDBzYbAw903543wNZISk"
 		}
+	},
+
+	"s3": {
+		"accessKeyId": "AKIAJQRY3BIBOSL3SMTQ",
+		"secretAccessKey": "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"
 	}
 }

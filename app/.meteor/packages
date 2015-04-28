@@ -38,3 +38,4 @@ tmeasday:publish-counts
 meteorhacks:fast-render
 http
 request
+cfs:s3

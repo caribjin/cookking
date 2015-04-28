@@ -1,12 +1,20 @@
-var imageStore = new FS.Store.FileSystem('images', {
-	path: Meteor.settings.public.defaultFileStoragePath
-});
+var imageStore = null;
+var imageThumbStore = null;
 
-var imageThumbStore = new FS.Store.FileSystem('thumbs', {
-	path: Meteor.settings.public.defaultFileStoragePath + 'thumbs/',
-	transformWrite: function(file, readStream, writeStream) {
+var storeType = Meteor.settings.public.defaultStoreType;
+
+if (Meteor.isClient) {
+	if (storeType === 'filesystem') {
+		imageStore = new FS.Store.FileSystem('images');
+		imageThumbStore = new FS.Store.FileSystem('thumbs');
+	} else if (storeType === 's3') {
+		imageStore = new FS.Store.S3('images');
+		imageThumbStore = new FS.Store.S3('thumbs');
+	}
+} else if (Meteor.isServer) {
+	var transformWrite = function (file, readStream, writeStream) {
 		if (file.cropData) {
-			gm(readStream, file.name)
+			gm(readStxream, file.name)
 				//autoOrient().
 				//gravity('Center')
 				//resize(Meteor.settings.public.thumbnailImageWidth, Meteor.settings.public.thumbnailImageHeight, '^')
@@ -23,8 +31,35 @@ var imageThumbStore = new FS.Store.FileSystem('thumbs', {
 				.stream()
 				.pipe(writeStream);
 		}
+	};
+
+	if (storeType === 'filesystem') {
+		imageStore = new FS.Store.FileSystem('images', {
+			path: Meteor.settings.app.defaultFileStoragePath
+		});
+
+		imageThumbStore = new FS.Store.FileSystem('thumbs', {
+			path: Meteor.settings.app.defaultFileStoragePath + 'thumbs/',
+			transformWrite: transformWrite
+		});
+	} else if (storeType === 's3') {
+		imageStore = new FS.Store.S3('images', {
+			bucket: 'cookking',
+			accessKeyId: Meteor.settings.s3.accessKeyId,
+			secretAccessKey: Meteor.settings.s3.secretAccessKey,
+			maxTries: 2
+		});
+
+		imageThumbStore = new FS.Store.S3('thumbs', {
+			bucket: 'cookking',
+			accessKeyId: Meteor.settings.s3.accessKeyId,
+			secretAccessKey: Meteor.settings.s3.secretAccessKey,
+			folder: '/thumbs',
+			maxTries: 2,
+			transformWrite: transformWrite
+		});
 	}
-});
+}
 
 Images = new FS.Collection('images', {
 	stores: [
