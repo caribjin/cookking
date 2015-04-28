@@ -1,5 +1,3 @@
-dataReadyHold = null;
-
 Router.configure({
 	layoutTemplate: 'MasterLayout',
 	loadingTemplate: 'Loading',
@@ -11,10 +9,6 @@ Router.configure({
 		];
 	}
 });
-
-if (Meteor.isClient) {
-	dataReadyHold = LaunchScreen.hold();
-}
 
 Router.map(function() {
 	this.route('home',          {path: '/', controller: 'RecipesController', template: 'Recipes'});

@@ -30,7 +30,7 @@
 		"defaultRecipesListLimit": 10,
 		"recipesLimitIncrementCount": 20,
 
-		"defaultRecipeWriteCompleteImage": "/img/recipes/640x800/12.jpg",
+		"defaultRecipeWriteCompleteImage": "/img/app/bg-recipe-write.jpg",
 		"defaultRecipesSort": "created",
 		"defaultRecipesListFilter": "all",
 

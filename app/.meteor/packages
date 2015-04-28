@@ -35,7 +35,7 @@ momentjs:moment
 meteorhacks:async
 meteorhacks:subs-manager
 tmeasday:publish-counts
-meteorhacks:fast-render
 http
 request
 cfs:s3
+meteorhacks:fast-render

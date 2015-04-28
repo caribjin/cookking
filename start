@@ -35,70 +35,6 @@ help() {
 	exit 0
 }
 
-main() {
-	if [ -z "$NODE_ENV" ]; then
-		NODE_ENV="development"
-	fi
-
-	local env_file="$CONFIG_DIR/$NODE_ENV/env.sh";
-	local settings_file="$CONFIG_DIR/$NODE_ENV/settings.json";
-
-	if [ -f "$env_file" ]; then source "$env_file"; fi
-
-	if [ -f "$settings_file" ]; then
-		export METEOR_SETTINGS="$(cat $settings_file)"
-	fi
-
-	if [ "$CHECKOUT" ]; then
-		if [ ! -d "$METEOR_SRC" ]; then
-			echo "Error: To run from a git checkout of meteor, please set the METEOR_SRC env variable to a valid meteor source folder."
-			exit 1;
-		fi
-
-		echo "Using a Meteor git checkout."
-		METEOR="$METEOR_SRC/meteor"
-	else
-		METEOR="meteor"
-	fi
-
-	if [ "$NODE_ENV" == "production" ]; then
-		if [ -e "$BUNDLE_DIR" ]; then
-			cd "$BUNDLE_DIR"
-			echo "Installing server npm packages..."
-			(cd programs/server && npm install)
-
-			local MESSAGE="Starting your app in $NODE_ENV on port $PORT"
-			local CMD="node main.js"
-		else
-			echo "Not exist application build output directory - $BUNDLE_DIR"
-			exit 0
-		fi
-	elif [ "$NODE_ENV" == "development" ]; then
-		cd "$APP_DIR"
-
-		local MESSAGE="Starting your app in $NODE_ENV."
-		local CMD="$METEOR --settings ../$settings_file"
-	elif [ "$NODE_ENV" == "android-device" ]; then
-		cd "$APP_DIR"
-		settings_file="$CONFIG_DIR/development/settings.json";
-
-		if [ -z "$MOBILE_SERVER" ]; then
-			MOBILE_SERVER="localhost:3000"
-		fi
-
-		local MESSAGE="Starting your app in $NODE_ENV on Android device."
-		local CMD="$METEOR run android-device --mobile-server=$MOBILE_SERVER --settings ../$settings_file"
-	fi
-
-	echo "/==============================================================================="
-	echo "  $MESSAGE"
-	echo "  command: $CMD"
-	echo "===============================================================================/"
-	eval $CMD
-
-	exit 0
-}
-
 build() {
 	cd "$APP_DIR"
 
@@ -171,6 +107,70 @@ make_android_production() {
 	exit 0
 }
 
+main() {
+	if [ -z "$NODE_ENV" ]; then
+		NODE_ENV="development"
+	fi
+
+	local env_file="$CONFIG_DIR/$NODE_ENV/env.sh";
+	local settings_file="$CONFIG_DIR/$NODE_ENV/settings.json";
+
+	if [ -f "$env_file" ]; then source "$env_file"; fi
+
+	if [ -f "$settings_file" ]; then
+		export METEOR_SETTINGS="$(cat $settings_file)"
+	fi
+
+	if [ "$CHECKOUT" ]; then
+		if [ ! -d "$METEOR_SRC" ]; then
+			echo "Error: To run from a git checkout of meteor, please set the METEOR_SRC env variable to a valid meteor source folder."
+			exit 1;
+		fi
+
+		echo "Using a Meteor git checkout."
+		METEOR="$METEOR_SRC/meteor"
+	else
+		METEOR="meteor"
+	fi
+
+	if [ "$NODE_ENV" == "production" ]; then
+		if [ -e "$BUNDLE_DIR" ]; then
+			cd "$BUNDLE_DIR"
+			echo "Installing server npm packages..."
+			(cd programs/server && npm install)
+
+			local MESSAGE="Starting your app in $NODE_ENV on port $PORT"
+			local CMD="node main.js"
+		else
+			echo "Not exist application build output directory - $BUNDLE_DIR"
+			exit 0
+		fi
+	elif [ "$NODE_ENV" == "development" ]; then
+		cd "$APP_DIR"
+
+		local MESSAGE="Starting your app in $NODE_ENV."
+		local CMD="$METEOR --settings ../$settings_file"
+	elif [ "$NODE_ENV" == "android-device" ]; then
+		cd "$APP_DIR"
+		settings_file="$CONFIG_DIR/development/settings.json";
+
+		if [ -z "$MOBILE_SERVER" ]; then
+			MOBILE_SERVER="localhost:3000"
+		fi
+
+		local MESSAGE="Starting your app in $NODE_ENV on Android device."
+		local CMD="$METEOR run android-device --mobile-server=$MOBILE_SERVER --settings ../$settings_file"
+	fi
+
+	echo "/==============================================================================="
+	echo "  $MESSAGE"
+	echo "  command: $CMD"
+	echo "===============================================================================/"
+	eval $CMD
+
+	exit 0
+}
+
 if [ $# -eq 0 ]; then
 	main
 else
@@ -179,7 +179,7 @@ else
 			build)                  SERVER="$2";build ;;
 			prod|production)        export NODE_ENV="production" ;;
 			dev|devel|development)  export NODE_ENV="development" ;;
-			mobile)                 export NODE_ENV="android-device";MOBILE_SERVER="$2" ;;
+			mobile)                 export NODE_ENV="android-device";MOBILE_SERVER="$2"; shift ;;
 			mup)                    MUP_OPTION="$2";upload ;;
 			genkey)                 APP_NAME="$2";genkey ;;
 			apk)                    APP_NAME="$2";make_android_production ;;
