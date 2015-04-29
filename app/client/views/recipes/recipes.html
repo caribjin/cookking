@@ -1,10 +1,10 @@
 <template name="Recipes">
 	<div class="page recipes">
 		{{# Navigation title='COOKKING'}}
-			<a href="#" class="nav-item js-search">
-				<i class="fa fa-search"></i>
-			</a>
-			<div class="nav-item-last"></div>
+			<!--<a href="#" class="nav-item js-search">-->
+				<!--<i class="fa fa-search"></i>-->
+			<!--</a>-->
+			<!--<div class="nav-item-last"></div>-->
 		{{/Navigation}}
 
 		{{> Breadcrumb}}
@@ -17,6 +17,11 @@
 					{{else}}
 						{{> RecipeItem recipe=this size='small'}}
 					{{/if}}
+				{{else}}
+					<div class="wrapper-message">
+						<div class="title-message">공개된 레시피가 아직 없습니다.</div>
+						<div class="subtitle-message">여러분이 직접 만든 레시피를 많은 사람들과 공유해 보세요</div>
+					</div>
 				{{/each}}
 			</div>
 			<button class="btn-primary btn-more js-get-more"></button>

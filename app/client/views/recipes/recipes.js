@@ -60,12 +60,10 @@ Template.Recipes.onCreated(function() {
 				var currentCount = Template.Recipes.currentCount();
 				var totalCount = Template.Recipes.totalCount();
 
-				//console.log(currentCount + ' / ' + totalCount);
-
-				if (currentCount >= totalCount) {
-					$('.btn-more').hide();
-				} else {
+				if (totalCount != 0 && currentCount >= totalCount) {
 					$('.btn-more').show();
+				} else {
+					$('.btn-more').hide();
 				}
 
 				//console.log('refresh waypoint');
