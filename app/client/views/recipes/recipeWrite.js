@@ -488,9 +488,10 @@ Template.RecipeWrite.events({
 			$('.btns-group').velocity({bottom: -48}, {
 				duration: Meteor.settings.public.defaultAnimationDuration
 			});
-			$('#recipeName').velocity({top: '90%', color: '#ffffff', fontSize: '1.8rem', backgroundColorAlpha: 0}, {
+			$('#recipeName').velocity({top: '90%', color: '#ffffff', fontSize: '1.8rem', backgroundColor: '#000', backgroundColorAlpha: 0.3}, {
 				duration: Meteor.settings.public.defaultAnimationDuration * 2
 			});
+			$('#recipeName').addClass('expanded');
 			//$('.header').addClass('noblur');
 		} else {
 			$('.content-scrollable').velocity({top: '31%'}, {
@@ -506,9 +507,10 @@ Template.RecipeWrite.events({
 				duration: Meteor.settings.public.defaultAnimationDuration,
 				delay: 200
 			});
-			$('#recipeName').velocity({top: '37%', color: '#000000', fontSize: '1rem', backgroundColorAlpha: 100}, {
+			$('#recipeName').velocity({top: '37%', color: '#000000', fontSize: '1rem', backgroundColor: '#ffffff', backgroundColorAlpha: 1}, {
 				duration: Meteor.settings.public.defaultAnimationDuration
 			});
+			$('#recipeName').removeClass('expanded');
 			//$('.header').removeClass('noblur');
 		}
 	}

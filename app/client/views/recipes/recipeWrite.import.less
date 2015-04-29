@@ -34,6 +34,10 @@
 				.padding-bottom(0.7rem);
 				.type-bold;
 				font-size: 1rem;
+
+				&.expanded {
+					.placeholder(#ffffff);
+				}
 			}
 
 			.btns-group {
@@ -44,11 +48,11 @@
 			}
 		}
 
-		//.header.noblur {
-		//	&:before {
-		//		.blur(0);
-		//	}
-		//}
+		.header.noblur {
+			&:before {
+				.blur(0);
+			}
+		}
 
 		.content-scrollable {
 			.top(31%);
