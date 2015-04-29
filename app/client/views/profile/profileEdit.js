@@ -43,7 +43,7 @@ Template.ProfileEdit.events({
 				if (error) {
 					App.helpers.error(error.reason);
 				} else {
-					App.helpers.addNotification('프로필 정보가 저장되었습니다', '확인');
+					App.helpers.addNotification('프로필 정보가 저장되었습니다');
 					history.back();
 				}
 			});

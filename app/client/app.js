@@ -157,9 +157,16 @@ _.extend(App.helpers, {
 	 * @param title         출력 메시지
 	 * @param actionText    액션버튼 출력문자
 	 * @param callback      콜백 함수
+	 * @param duration      유지시간
 	 */
-	addNotification: function(title, actionText, callback, duration) {
+	addNotification: function(title, actionText, onlyone, callback, duration) {
 		if (!_.isFunction(callback)) callback = new Function();
+		if (!actionText) actionText = '확인';
+		if (onlyone === 'undefined') onlyone = false;
+
+		if (onlyone) {
+			Template.MasterLayout.removeAllNotifications();
+		}
 
 		Template.MasterLayout.addNotification({
 			action: actionText,

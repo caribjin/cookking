@@ -1,14 +1,22 @@
 <template name="Recipe">
 	<div class="page recipe {{activeTabClass}}">
 		{{#Navigation title='Recipe' transparent=true back=true}}
+			{{#if isAdmin}}
+				{{#if recommanded}}
+					<a href="#" class="nav-item js-unrecommand">
+						<i class="fa fa-thumbs-up"></i>
+					</a>
+				{{else}}
+					<a href="#" class="nav-item js-recommand">
+						<i class="fa fa-thumbs-up"></i>
+					</a>
+				{{/if}}
+			{{/if}}
 			{{#if deletable}}
 				<a href="#" class="nav-item js-delete">
 					<i class="fa fa-trash"></i>
 				</a>
 			{{/if}}
-			<!--<a href="#" class="nav-item js-share">-->
-				<!--<i class="fa fa-camera"></i>-->
-			<!--</a>-->
 			<div class="nav-item-last"></div>
 		{{/Navigation}}
 

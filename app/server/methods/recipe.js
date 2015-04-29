@@ -129,5 +129,29 @@ Meteor.methods({
 		else result = 0;
 
 		return result;
+	},
+
+	recommandRecipe: function(recipeId) {
+		check(recipeId, String);
+
+		Recipes.update({
+			_id: recipeId
+		}, {
+			$set: {
+				highlighted: true
+			}
+		});
+	},
+
+	unrecommandRecipe: function(recipeId) {
+		check(recipeId, String);
+
+		Recipes.update({
+			_id: recipeId
+		}, {
+			$set: {
+				highlighted: false
+			}
+		});
 	}
 });

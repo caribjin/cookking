@@ -180,18 +180,6 @@ Template.Share.events({
 					return;
 				}
 
-				//Meteor.call('createFeed', {
-				//	recipeId: self._id,
-				//	text: text,
-				//	imageId: file._id
-				//}, tweet, Geolocation.currentLocation(), function(error, result) {
-				//	if (error) {
-				//		App.helpers.addNotification('ERROR: ' + error.reason, '확인', function() {}, 10000);
-				//	} else {
-				//		App.helpers.addNotification('사진을 공유했습니다', '확인');
-				//	}
-				//});
-
 				Meteor.call('createFeedExt', {
 					recipeId: self._id,
 					text: text,
@@ -200,9 +188,9 @@ Template.Share.events({
 					mimeType: file.mimeType
 				}, tweet, Geolocation.currentLocation(), function(error, result) {
 					if (error) {
-						App.helpers.addNotification('ERROR: ' + error.reason, '확인', function() {}, 10000);
+						App.helpers.addNotification('ERROR: ' + error.reason, null, false, null, 0);
 					} else {
-						App.helpers.addNotification('사진을 공유했습니다', '확인');
+						App.helpers.addNotification('사진을 공유했습니다');
 					}
 				});
 

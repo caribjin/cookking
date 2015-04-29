@@ -60,7 +60,7 @@ Template.Recipes.onCreated(function() {
 				var currentCount = Template.Recipes.currentCount();
 				var totalCount = Template.Recipes.totalCount();
 
-				if (totalCount != 0 && currentCount >= totalCount) {
+				if (totalCount != 0 && currentCount > totalCount) {
 					$('.btn-more').show();
 				} else {
 					$('.btn-more').hide();

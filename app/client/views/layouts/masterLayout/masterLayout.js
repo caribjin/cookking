@@ -25,6 +25,10 @@ Template.MasterLayout.addNotification = function(notification, duration) {
 	}, duration);
 };
 
+Template.MasterLayout.removeAllNotifications = function() {
+	Notifications.remove({});
+};
+
 Template.MasterLayout.events({
 	'click .js-menu': function(event) {
 		event.stopImmediatePropagation();

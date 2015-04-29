@@ -40,7 +40,7 @@
 	"app": {
 		"applicationRootDirectory": "/home/caribjin/meteor/cookking/app/",
 		"sendSignupWelcomeEmail": false,
-		"generateFixtureData": true,
+		"generateFixtureData": false,
 		"defaultFileStoragePath": "/home/caribjin/app-files/"
 	},
 

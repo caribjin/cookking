@@ -74,6 +74,10 @@ Template.Recipe.helpers({
 		return Meteor.user() && Bookmarks.find({recipeIds: this._id}).count() > 0;
 	},
 
+	recommanded: function() {
+		return this.highlighted;
+	},
+
 	favorited: function() {
 		return Meteor.user() && Favorites.find({recipeIds: this._id}).count() > 0;
 	},
@@ -101,6 +105,10 @@ Template.Recipe.helpers({
 	deletable: function() {
 		if (App.helpers.isAdmin() || this.writer.id === Meteor.userId()) return true;
 		else return false;
+	},
+
+	isAdmin: function() {
+		return App.helpers.isAdmin();
 	},
 
 	avatarImage: function() {
@@ -133,7 +141,7 @@ Template.Recipe.events({
 		Meteor.call('favoriteRecipe', this._id, function(error, result) {
 			if (!error) {
 				templateInstance.favoritesCount.set(result);
-				//$('.fa-heart').velocity('pulse');
+				$('.fa-heart').velocity('pulse');
 			}
 		});
 	},
@@ -154,7 +162,7 @@ Template.Recipe.events({
 						if (result) {
 							Router.go('/');
 
-							App.helpers.addNotification('삭제되었습니다', '실행취소', function() {
+							App.helpers.addNotification('삭제되었습니다', '실행취소', false, function() {
 								tx.undo();
 							}, 0);
 						} else {
@@ -176,6 +184,30 @@ Template.Recipe.events({
 		});
 		e.stopPropagation();
 		Overlay.open('Share', this);
+	},
+
+	'click .js-recommand': function(e) {
+		e.stopPropagation();
+
+		Meteor.call('recommandRecipe', this._id, function(error, result) {
+			if (error) {
+				App.helpers.error(error.reason);
+			} else {
+				App.helpers.addNotification('오늘의 추천메뉴로 설정했습니다', null, true);
+			}
+		});
+	},
+
+	'click .js-unrecommand': function(e) {
+		e.stopPropagation();
+
+		Meteor.call('unrecommandRecipe', this._id, function(error, result) {
+			if (error) {
+				App.helpers.error(error.reason);
+			} else {
+				App.helpers.addNotification('오늘의 추천메뉴를 해제했습니다', null, true);
+			}
+		});
 	},
 
 	'click .js-show-ingredients': function(e) {
