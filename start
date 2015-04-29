@@ -13,23 +13,25 @@ help() {
 	cat <<-EOF
 
 	Meteor start - Utility for running Meteor applications.
-	    Usage: start [options]
+	   Usage: start [options]
 
 	Options:
-	    // running ----------------------------------------------------------------
-	    dev | devel | development   Set the environment development
-	    prod | production           Set the environment production
-	    mobile <mobile server>      Run on a connected Android device
+	   // running ----------------------------------------------------------------
+	   dev | devel | development       Set the environment development
+	   prod | production               Set the environment production
+	   mobile <mobile server>          Run on a connected Android device
 
-	    // deploy -----------------------------------------------------------------
-	    build <server url>          Build your application
-	    genkey <app-name>           (Optional) Generate private key for publish android apk
-	    apk <app-name>              Make android apk package
-	    mup <option>                Run meteor upload(mup) command.
-	                                <option : setup | deploy | reconfig | logs etc>
+	   // deploy -----------------------------------------------------------------
+	   build <server-url> <platform>   Build your application
+	                                   platform: mobile - build for mobile deploy
+	   genkey <app-name>               (Optional) Generate private key for publish
+	                                   android apk
+	   apk <app-name>                  Make android apk package
+	   mup <option>                    Run meteor upload(mup) command.
+	                                   <option : setup | deploy | logs etc.>
 
-	    --checkout                  Use a Meteor git checkout
-	    --help                      Display help
+	   --checkout                      Use a Meteor git checkout
+	   -h | --help                     Display help
 
 	EOF
 	exit 0
@@ -42,13 +44,17 @@ build() {
 		SERVER="localhost:3000"
 	fi
 
-	local MESSAGE="Starting build your app to production"
-	local CMD="meteor build ../build --server=$SERVER --directory"
+	if [ "$PLATFORM" == "mobile" ]; then
+		local MOBILE_CMD="--mobile-settings ../$CONFIG_DIR/production/settings.json";
+	fi
 
-	echo "/==============================================================================="
+	local MESSAGE="Starting build your app to production"
+	local CMD="meteor build ../build --server=$SERVER --directory $MOBILE_CMD"
+
+	echo "/============================================================================"
 	echo "  $MESSAGE"
 	echo "  command: $CMD"
-	echo "===============================================================================/"
+	echo "============================================================================/"
 
 	eval $CMD
 
@@ -162,10 +168,10 @@ main() {
 		local CMD="$METEOR run android-device --mobile-server=$MOBILE_SERVER --settings ../$settings_file"
 	fi
 
-	echo "/==============================================================================="
+	echo "/============================================================================"
 	echo "  $MESSAGE"
 	echo "  command: $CMD"
-	echo "===============================================================================/"
+	echo "============================================================================/"
 	eval $CMD
 
 	exit 0
@@ -176,7 +182,7 @@ if [ $# -eq 0 ]; then
 else
 	while [ $# -ne 0 ]; do
 		case $1 in
-			build)                  SERVER="$2";build ;;
+			build)                  SERVER="$2";PLATFORM="$3";build ;;
 			prod|production)        export NODE_ENV="production" ;;
 			dev|devel|development)  export NODE_ENV="development" ;;
 			mobile)                 export NODE_ENV="android-device";MOBILE_SERVER="$2"; shift ;;

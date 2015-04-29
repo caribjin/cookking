@@ -5,7 +5,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-iron:router
 accounts-password
 less
 percolate:velocityjs
@@ -18,7 +17,6 @@ accounts-twitter
 service-configuration
 email
 meteorhacks:ssr
-multiply:iron-router-progress
 wizonesolutions:underscore-string
 audit-argument-checks
 kevohagan:sweetalert
@@ -39,3 +37,5 @@ http
 request
 cfs:s3
 meteorhacks:fast-render
+iron:router
+multiply:iron-router-progress
