@@ -18,10 +18,12 @@
 						{{> RecipeItem recipe=this size='small'}}
 					{{/if}}
 				{{else}}
-					<div class="wrapper-message">
-						<div class="title-message">공개된 레시피가 아직 없습니다.</div>
-						<div class="subtitle-message">여러분이 직접 만든 레시피를 많은 사람들과 공유해 보세요</div>
-					</div>
+					{{#if isEmptyRecipe}}
+						<div class="wrapper-message">
+							<div class="title-message">공개된 레시피가 아직 없습니다.</div>
+							<div class="subtitle-message">여러분이 직접 만든 레시피를 많은 사람들과 공유해 보세요</div>
+						</div>
+					{{/if}}
 				{{/each}}
 			</div>
 			<button class="btn-primary btn-more js-get-more"></button>

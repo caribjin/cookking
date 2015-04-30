@@ -164,7 +164,7 @@ Template.Recipe.events({
 
 							App.helpers.addNotification('삭제되었습니다', '실행취소', false, function() {
 								tx.undo();
-							}, 0);
+							}, 60000);
 						} else {
 							App.helpers.error('일치하는 레시피를 찾을 수 없습니다');
 						}

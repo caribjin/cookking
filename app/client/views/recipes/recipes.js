@@ -81,6 +81,13 @@ Template.Recipes.events({
 	}
 });
 
+Template.Recipes.helpers({
+	isEmptyRecipe: function() {
+		var count = Counts.get('recipesTotalCount');
+		return this.ready() && count == 0;
+	}
+});
+
 Template.RecipeItem.onRendered(function() {
 	var img = this.find('.recipeImg');
 
