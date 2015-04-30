@@ -160,12 +160,12 @@ main() {
 		cd "$APP_DIR"
 		settings_file="$CONFIG_DIR/development/settings.json";
 
-		if [ -z "$MOBILE_SERVER" ]; then
-			MOBILE_SERVER="localhost:3000"
+		if [ ! -z "$MOBILE_SERVER" -a "$MOBILE_SERVER" != " " ]; then
+			local MOBILE_SERVER_CMD="--mobile-server=$MOBILE_SERVER"
 		fi
 
 		local MESSAGE="Starting your app in $NODE_ENV on Android device."
-		local CMD="$METEOR run android-device --mobile-server=$MOBILE_SERVER --settings ../$settings_file"
+		local CMD="$METEOR run android-device --settings ../$settings_file $MOBILE_SERVER_CMD"
 	fi
 
 	echo "/============================================================================"
