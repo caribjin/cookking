@@ -39,3 +39,4 @@ cfs:s3
 meteorhacks:fast-render
 iron:router
 multiply:iron-router-progress
+reywood:iron-router-ga

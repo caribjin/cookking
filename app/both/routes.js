@@ -3,6 +3,7 @@ Router.configure({
 	loadingTemplate: 'Loading',
 	notFoundTemplate: 'NotFound',
 	progressSpinner: false,
+	trackPageView: true,
 	waitOn: function() {
 		return [
 			Meteor.subscribe('user')

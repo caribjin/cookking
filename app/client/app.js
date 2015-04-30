@@ -245,42 +245,10 @@ _.extend(App.helpers, {
 
 		return versionInfo ? versionInfo.branch : 'Unknown';
 	},
-
-	track: function(key, meta) {
-		meta = meta || {};
-
-		if (isUserAgentBlacklisted()) return null;
-
-		//Meteor.autorun(function(c) {
-		//	if (!Meteor.loggingIn()) {
-		//		var user =  Tracker.nonreactive(function() { return Meteor.user(); });
-		//		var email;
-		//
-		//		if (user && user.emails.length > 0) {
-		//			email = user.emails[0].address;
-		//		} else {
-		//			email = 'anonymous';
-		//		}
-		//
-		//		_.extend(meta, {
-		//			email: email,
-		//			path: location.pathname
-		//		});
-		//
-		//		mixpanel.track(key, meta);
-		//		c.stop();
-		//	}
-		//});
-	}
 });
 
 _.each(App.helpers, function (helper, key) {
 	Template.registerHelper(key, helper);
-});
-
-Tracker.autorun(function() {
-	var path = Iron.Location.get().path;
-	App.helpers.track('Page Views');
 });
 
 Meteor.startup(function() {

@@ -34,7 +34,15 @@
 		"defaultRecipesSort": "created",
 		"defaultRecipesListFilter": "all",
 
-		"defaultStoreType": "filesystem"
+		"defaultStoreType": "filesystem",
+		"ga": {
+			"id": "UA-XXXXX-Y",
+			"create": {
+				"cookieDomain": "cookking.devcrow.com",
+				"cookieName": "cookking_cookie",
+				"cookieExpires": 3600
+			}
+		}
 	},
 
 	"app": {
@@ -42,10 +50,6 @@
 		"sendSignupWelcomeEmail": false,
 		"generateFixtureData": false,
 		"defaultFileStoragePath": "/home/caribjin/app-files/"
-	},
-
-	"mixpanel": {
-		"token": "cadc3e7586000d54d39a1ca8b55a301a"
 	},
 
 	"mailgun": {
