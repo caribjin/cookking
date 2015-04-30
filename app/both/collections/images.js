@@ -34,6 +34,11 @@ if (Meteor.isClient) {
 	};
 
 	if (storeType === 'filesystem') {
+		FS.TempStore.Storage = new FS.Store.FileSystem('_tempstore', {
+			internal: true,
+			path: Meteor.settings.app.defaultFileStoragePath + 'temp/'
+		});
+
 		imageStore = new FS.Store.FileSystem('images', {
 			path: Meteor.settings.app.defaultFileStoragePath
 		});
@@ -43,6 +48,11 @@ if (Meteor.isClient) {
 			transformWrite: transformWrite
 		});
 	} else if (storeType === 's3') {
+		FS.TempStore.Storage = new FS.Store.FileSystem('_tempstore', {
+			internal: true,
+			path: Meteor.settings.app.defaultFileStoragePath + 'temp/'
+		});
+
 		imageStore = new FS.Store.S3('images', {
 			bucket: 'cookking',
 			accessKeyId: Meteor.settings.s3.accessKeyId,
