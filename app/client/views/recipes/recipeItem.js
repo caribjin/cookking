@@ -1,3 +1,7 @@
+Template.RecipeItem.image = function(id) {
+	return new FS.File(RecipesImage.findOne(id));
+};
+
 Template.RecipeItem.helpers({
 	path: function () {
 		return Router.path('recipe', this.recipe);
@@ -26,6 +30,17 @@ Template.RecipeItem.helpers({
 
 	image: function(id) {
 		return new FS.File(RecipesImage.findOne(id));
+	},
+
+	generateRecipeImageUrl: function(imageId) {
+		var image = Template.RecipeItem.image(imageId);
+		var url = image.url({ store: 'thumbs' });
+
+		if (!url) {
+			url = '/img/app/cookking-logo.jpg';
+		}
+
+		return 'url(' + url + ');';
 	}
 });
 

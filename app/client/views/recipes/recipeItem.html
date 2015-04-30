@@ -1,31 +1,25 @@
 <template name="RecipeItem">
 	<a class="recipe {{highlightedClass}}" href="{{path}}">
 		{{#with recipe}}
-			<span class="recipe-information">
-				<span class="title">{{title}}</span>
-				<span class="subdata">
-					<span class="favorites">
-						<i class="fa fa-heart"></i> {{favoritesCount}}
-					</span>
-					<span class="comments">
-						<i class="fa fa-comment"></i> {{commentsCount}}
-					</span>
-					<!--<span class="share">-->
-						<!--<i class="fa fa-share-alt"></i> {{sharedCount}}-->
-					<!--</span>-->
-					<span class="bookmarked">
-						<i class="fa fa-bookmark"></i> {{bookmarkedCount}}
+			<div style="background-image: {{generateRecipeImageUrl imageId}}">
+				<span class="recipe-information">
+					<span class="title">{{title}}</span>
+					<span class="subdata">
+						<span class="favorites">
+							<i class="fa fa-heart"></i> {{favoritesCount}}
+						</span>
+						<span class="comments">
+							<i class="fa fa-comment"></i> {{commentsCount}}
+						</span>
+						<!--<span class="share">-->
+							<!--<i class="fa fa-share-alt"></i> {{sharedCount}}-->
+						<!--</span>-->
+						<span class="bookmarked">
+							<i class="fa fa-bookmark"></i> {{bookmarkedCount}}
+						</span>
 					</span>
 				</span>
-			</span>
-
-			{{#with image imageId}}
-				{{#if url}}
-					<img src="{{url store="thumbs"}}" class="recipeImg">
-				{{else}}
-					<img src="/img/app/cookking-logo.jpg" class="empty">
-				{{/if}}
-			{{/with}}
+			</div>
 		{{/with}}
 	</a>
 </template>

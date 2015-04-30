@@ -187,7 +187,7 @@ Template.Recipe.events({
 	},
 
 	'click .js-recommand': function(e) {
-		e.stopPropagation();
+		e.preventDefault();
 
 		Meteor.call('recommandRecipe', this._id, function(error, result) {
 			if (error) {
@@ -199,7 +199,7 @@ Template.Recipe.events({
 	},
 
 	'click .js-unrecommand': function(e) {
-		e.stopPropagation();
+		e.preventDefault();
 
 		Meteor.call('unrecommandRecipe', this._id, function(error, result) {
 			if (error) {

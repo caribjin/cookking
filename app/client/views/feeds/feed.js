@@ -20,7 +20,8 @@ Template.Feed.helpers({
 	},
 
 	path: function() {
-		return Router.path('recipe', {_id: this.recipeId}, {query: {feedId: this._id}});
+		//return Router.path('recipe', {_id: this.recipeId}, {query: {feedId: this._id}});
+		return Router.path('recipe', {_id: this.recipeId});
 	},
 
 	image: function(id) {
