@@ -36,7 +36,7 @@
 
 		"defaultStoreType": "s3",
 		"ga": {
-			"id": "UA-54153221-2",
+			"id": "UA-54153221-3",
 			"create": {
 				"cookieDomain": "cookking.devcrow.com",
 				"cookieName": "cookking_cookie",
@@ -50,6 +50,11 @@
 		"sendSignupWelcomeEmail": false,
 		"generateFixtureData": false,
 		"defaultFileStoragePath": "/home/ubuntu/app-files/"
+	},
+
+	"kadira": {
+		"appId": "eFmD5oXmKqLFqYtpX",
+		"appSecret": "dccae37d-d829-48a1-abc6-4630a06eeb61"
 	},
 
 	"mailgun": {

@@ -34,7 +34,7 @@ Template.Comments.helpers({
 	},
 
 	isDeletable: function() {
-		return this.writer.userId === Meteor.userId() || App.helpers.isAdmin()
+		return this.writer.id === Meteor.userId() || App.helpers.isAdmin()
 	}
 });
 

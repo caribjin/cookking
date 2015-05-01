@@ -52,6 +52,11 @@
 		"defaultFileStoragePath": "/home/caribjin/app-files/"
 	},
 
+	"kadira": {
+		"appId": "--appId--",
+		"appSecret": "--appSecret--"
+	},
+
 	"mailgun": {
 		"uri": "https://api.mailgun.net/v2/address/validate",
 		"apikey": "key-4864192e3f29095781f250ad422c5d44",
@@ -64,8 +69,8 @@
 	"authServices": {
 		"facebook": {
 			"service": "facebook",
-			"appId": "746818698758705",
-			"secret": "0e7eb65f739fb0925b0e4c7b11fb249c"
+			"appId": "--appId--",
+			"secret": "--secret--"
 		},
 		"twitter": {
 			"service": "twitter",
@@ -74,18 +79,18 @@
 		},
 		"github": {
 			"service": "github",
-			"clientId": "6390dc994b1ff3778041",
-			"secret": "1230c34c84bbde2733e327a0094d2a3559dd7c0c"
+			"clientId": "--clientId--",
+			"secret": "--secret--"
 		},
 		"google": {
 			"service": "google",
-			"clientId": "107078223596-o154g6ur25lr6kc5gmjdghjsp48ooe7u.apps.googleusercontent.com",
-			"secret": "eW_iLDBzYbAw903543wNZISk"
+			"clientId": "--clientId--",
+			"secret": "--secret--"
 		}
 	},
 
 	"s3": {
-		"accessKeyId": "AKIAJQRY3BIBOSL3SMTQ",
-		"secretAccessKey": "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"
+		"accessKeyId": "--accessKeyId--",
+		"secretAccessKey": "--secretAccessKey--"
 	}
 }
