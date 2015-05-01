@@ -57,6 +57,19 @@ Meteor.methods({
 		}
 
 		return id;
+	},
+
+	deleteFeed: function(id, imageId) {
+		check(id, String);
+		check(imageId, String);
+
+		Feeds.remove(id, function(error) {
+			if (error) {
+				throw new Error('Error on delete feed');
+			}
+
+			Images.remove(imageId);
+		});
 	}
 });
 

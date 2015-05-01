@@ -5,10 +5,15 @@
 				<img src="{{userAvatar}}" class="image-avatar">
 			</span>
 			<span class="subdata">
-				<span class="writer">{{firstName}}</span>
+				<span class="writer">{{getName}}</span>
 				{{#if place}}
 					<i class="fa fa-map-marker"></i>
 					<span class="location">{{place}}</span>
+				{{/if}}
+				{{#if isDeletable}}
+					<a class="js-remove btn-sm-remove-circle">
+						<i class="fa fa-minus"></i>
+					</a>
 				{{/if}}
 				<br/>
 				{{text}}
