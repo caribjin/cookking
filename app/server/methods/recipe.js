@@ -3,7 +3,7 @@ Meteor.methods({
 		check(recipe, {
 			title: String,
 			description: String,
-			imageId: String,
+			imageId: Match.Optional(String),
 			public: Boolean,
 			serving: Number,
 			cookTime: Number,
@@ -33,6 +33,51 @@ Meteor.methods({
 		recipe.createdAt = new Date();
 
 		var id = Recipes.insert(recipe);
+
+		return id;
+	},
+
+	updateRecipe: function(recipe, removeImageId) {
+		check(recipe, {
+			_id: String,
+			title: String,
+			description: String,
+			imageId: Match.Optional(String),
+			public: Boolean,
+			serving: Number,
+			cookTime: Number,
+			source: {
+				name: String,
+				url: String
+			},
+			filter: String,
+			ingredients: {
+				must: Match.Optional([String]),
+				option: Match.Optional([String])
+			},
+			directions: Match.Optional([{
+				text: String,
+				imageData: Match.Optional(String)
+			}]),
+			highlighted: Boolean,
+			bookmarkedCount: Number
+		});
+
+		check(removeImageId, Match.Optional(String));
+
+		recipe.writer = {
+			id: Meteor.userId(),
+			name: App.helpers.getCurrentUserName(),
+			avatar: App.helpers.getCurrentUserAvatar()
+		};
+
+		recipe.createdAt = new Date();
+
+		var id = Recipes.upsert(recipe._id, recipe, function() {
+			if (removeImageId) {
+				Images.remove(removeImageId);
+			}
+		});
 
 		return id;
 	},

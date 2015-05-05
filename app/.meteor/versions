@@ -3,8 +3,10 @@ accounts-github@1.0.4
 accounts-oauth@1.1.5
 accounts-password@1.1.1
 accounts-twitter@1.0.4
+aldeed:template-extension@3.4.3
 audit-argument-checks@1.0.3
 autoupdate@1.2.1
+babrahams:editable-json@0.4.3
 babrahams:transactions@0.6.20
 base64@1.0.3
 binary-heap@1.0.3
@@ -42,6 +44,7 @@ email@1.0.6
 fastclick@1.0.3
 geojson-utils@1.0.3
 github@1.1.3
+gwendall:session-json@0.1.7
 html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0
@@ -78,12 +81,14 @@ meteorhacks:meteorx@1.3.1
 meteorhacks:picker@1.0.2
 meteorhacks:ssr@2.1.2
 meteorhacks:subs-manager@1.3.0
+meteortoys:toykit@0.5.0
 minifiers@1.1.5
 minimongo@1.0.8
 mobile-status-bar@1.0.3
 momentjs:moment@2.10.3
 mongo@1.1.0
 mongo-livedata@1.0.8
+msavin:mongol@1.0.30
 multiply:iron-router-progress@1.0.1
 npm-bcrypt@0.7.8_2
 numeral:numeral@1.5.3

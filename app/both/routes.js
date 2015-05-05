@@ -14,6 +14,7 @@ Router.configure({
 Router.map(function() {
 	this.route('home',          {path: '/', controller: 'RecipesController', template: 'Recipes'});
 	this.route('recipes',       {path: '/recipes'});
+	this.route('recipe.edit',   {path: '/recipe/write/:_id', controller: 'RecipeEditController', template: 'RecipeWrite'});
 	this.route('recipe.write',  {path: '/recipe/write', template: 'RecipeWrite'});
 	this.route('recipe',        {path: '/recipe/:_id'});
 	this.route('feeds',         {path: '/feeds'});

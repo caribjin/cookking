@@ -67,7 +67,7 @@
 						{{#each ingredients 'must'}}
 							<div class="form-subrow">
 								<span>{{index}}.</span>
-								<input type="text" name="ingredients" data-type="{{type}}" data-id="{{_id}}" class="sm underline {{#if isFirstIngredient this}}{{errorClass 'mustIngredient'}}{{/if}}" placeholder="재료명과 필요량을 입력해 주세요" maxlength="100"/>
+								<input type="text" name="ingredients" data-type="{{type}}" data-id="{{_id}}" class="sm underline {{#if isFirstIngredient this}}{{errorClass 'mustIngredient'}}{{/if}}" value="{{text}}" placeholder="재료명과 필요량을 입력해 주세요" maxlength="100"/>
 								{{#if isNotFirstIngredient this}}
 								<span>
 									<a class="js-remove-ingredient btn-sm-remove-circle">
@@ -86,7 +86,7 @@
 						{{#each ingredients 'option'}}
 							<div class="form-subrow">
 								<span>{{index}}.</span>
-								<input type="text" name="ingredients" data-type="{{type}}" data-id="{{_id}}" class="sm underline" placeholder="재료명과 필요량을 입력해 주세요" maxlength="100"/>
+								<input type="text" name="ingredients" data-type="{{type}}" data-id="{{_id}}" class="sm underline" value="{{text}}" placeholder="재료명과 필요량을 입력해 주세요" maxlength="100"/>
 								<span>
 									<a class="js-remove-ingredient btn-sm-remove-circle">
 										<i class="fa fa-minus"></i>
@@ -127,6 +127,7 @@
 								          name="directions"
 								          data-id="{{_id}}"
 								          class="sm underline {{#if isFirstDirection this}}{{errorClass 'direction'}}{{/if}}"
+								          value="{{text}}"
 								          placeholder="조리법을 입력해 주세요"
 								          autocapitalize="off" autocorrect="off"
 								          maxlength="200"

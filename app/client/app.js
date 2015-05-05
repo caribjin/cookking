@@ -56,6 +56,10 @@ _.extend(App.helpers, {
 		return $('[name=' + groupName + ']:checked').val();
 	},
 
+	setCheckedValue: function(groupName, value) {
+		$('[name=' + groupName + '][value=' + value + ']').attr('checked', 'checked');
+	},
+
 	drawRadiobox: function(value, text, name, checked, options) {
 		if (!value) return;
 

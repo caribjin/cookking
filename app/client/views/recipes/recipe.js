@@ -102,7 +102,7 @@ Template.Recipe.helpers({
 		return Categories.getCategoryName(this.filter);
 	},
 
-	deletable: function() {
+	isEditable: function() {
 		if (App.helpers.isAdmin() || this.writer.id === Meteor.userId()) return true;
 		else return false;
 	},
@@ -171,6 +171,12 @@ Template.Recipe.events({
 					}
 				});
 			});
+	},
+
+	'click .js-edit': function(e) {
+		e.preventDefault();
+
+		Router.go('recipe.edit', {_id: this._id});
 	},
 
 	'click .js-comments': function(e) {

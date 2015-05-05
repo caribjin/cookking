@@ -1,5 +1,6 @@
 var WriteIngredients,
 	WriteDirections = null;
+var mode;
 
 Template.RecipeWrite.setTab = function(tab) {
 	Template.instance().currentTab.set(tab);
@@ -32,22 +33,25 @@ Template.RecipeWrite.ingredientAdd = function(type, text) {
 
 /**
  * 재료 삭제 버튼을 눌렀을 때 재료컬렉션에서 해당 행을 삭제한다.
- * @param docId     삭제한 재료의 _id
+ * @param id     삭제한 재료의 _id
  */
-Template.RecipeWrite.ingredientRemove = function(docId) {
-	WriteIngredients.remove(docId);
+Template.RecipeWrite.ingredientRemove = function(id) {
+	WriteIngredients.remove(id);
 };
 
 /**
  * 조리법 추가 버튼을 눌렀을 때 조리법컬렉션에 행을 추가한다.
  */
-Template.RecipeWrite.directionAdd = function() {
+Template.RecipeWrite.directionAdd = function(text, imageData) {
 	var limitCount = Meteor.settings.public.directionsCountLimit || 20;
+
+	text = text || '';
+	imageData = imageData || '';
 
 	var currentCount = WriteDirections.find().count();
 
 	if (currentCount < limitCount) {
-		WriteDirections.insert({text: '', imageData: '', createdAt: new Date()});
+		WriteDirections.insert({text: text, imageData: imageData, createdAt: new Date()});
 	}
 };
 
@@ -55,8 +59,8 @@ Template.RecipeWrite.directionAdd = function() {
  * 조리법 삭제 버튼을 눌렀을 때 조리법컬렉션에서 해당 행을 삭제한다.
  * @param docId     삭제한 조리법의 _id
  */
-Template.RecipeWrite.directionRemove = function(docId) {
-	WriteDirections.remove(docId);
+Template.RecipeWrite.directionRemove = function(id) {
+	WriteDirections.remove(id);
 };
 
 /**
@@ -120,8 +124,8 @@ Template.RecipeWrite.validateData = function(e, tmpl) {
  * db에 업데이트한다.
  */
 Template.RecipeWrite.syncDataToCollection = function() {
-	var $ingredientInputs = $('input[type=text][name=ingredients]');    // 재료 입력요소들
-	var $directionInputs = $('textarea[type=text][name=directions]');      // 조리법 입력요소들
+	var $ingredientInputs = $('input[type=text][name=ingredients]');        // 재료 입력요소들
+	var $directionInputs = $('textarea[type=text][name=directions]');       // 조리법 입력요소들
 
 	$ingredientInputs.each(function(index) {
 		var value = $(this).val();
@@ -159,7 +163,6 @@ Template.RecipeWrite.save = function(e, tmpl) {
 			recipe = {
 				title: tmpl.find('#recipeName').value,
 				description: tmpl.find('#description').value,
-				imageId: '',
 				public: App.helpers.isChecked('#checkbox-10-public'),
 				serving: parseInt(tmpl.find('#serving').value, 10),
 				cookTime: 0,
@@ -190,6 +193,10 @@ Template.RecipeWrite.save = function(e, tmpl) {
 				bookmarkedCount: 0
 			};
 
+			if (mode == 'edit') {
+				recipe._id = tmpl.data._id;
+			}
+
 			var imageData = tmpl.recipeImage.get();
 
 			if (imageData) {
@@ -200,7 +207,7 @@ Template.RecipeWrite.save = function(e, tmpl) {
 					return;
 				}
 
-				Images.insert(file, function(error, file) {
+				Images.insert(file, function (error, file) {
 					tmpl.recipeImage.set(null);
 
 					if (error) {
@@ -210,25 +217,31 @@ Template.RecipeWrite.save = function(e, tmpl) {
 
 					recipe.imageId = file._id;
 
-					Template.RecipeWrite.callCreateRecipe(recipe);
+					Template.RecipeWrite.callOperateRecipe(recipe, (tmpl.data && tmpl.data.imageId) || '');
 				});
 			} else {
-				Template.RecipeWrite.callCreateRecipe(recipe);
+				Template.RecipeWrite.callOperateRecipe(recipe, '');
 			}
 		});
 	}
 };
 
-Template.RecipeWrite.callCreateRecipe = function(recipe) {
-	Meteor.call('createRecipe', recipe, function(error, result) {
-		if (error) {
-			App.helpers.error(error.reason);
-		} else if (!result) {
-			App.helpers.error('알 수 없는 오류가 발생했습니다.')
-		}
+Template.RecipeWrite.callOperateRecipe = function(recipe, removeImageId) {
+	if (mode == 'new') {
+		Meteor.call('createRecipe', recipe, function (error, result) {
+			if (error) {
+				App.helpers.error(error.reason);
+			}
+		});
+	} else if (mode == 'edit') {
+		Meteor.call('updateRecipe', recipe, removeImageId, function (error, result) {
+			if (error) {
+				App.helpers.error(error.reason);
+			}
+		});
+	}
 
-		Router.go('home');
-	});
+	Router.go('home');
 };
 
 Template.RecipeWrite.onCreated(function() {
@@ -242,12 +255,6 @@ Template.RecipeWrite.onCreated(function() {
 	this.directionId = new ReactiveVar(null);
 
 	this.currentTab = new ReactiveVar('basic-info');
-
-	// 최초 재료 입력행에 필수재료 행을 한 개 추가
-	Template.RecipeWrite.ingredientAdd('must', '');
-
-	// 최초 조리법 입력행에 행을 한 개 추가
-	Template.RecipeWrite.directionAdd();
 
 	var self = this;
 	this.autorun(function() {
@@ -273,6 +280,12 @@ Template.RecipeWrite.onCreated(function() {
 		}
 	});
 
+	if (this.data && this.data._id) {
+		mode = 'edit';
+	} else {
+		mode = 'new';
+	}
+
 	// 에러 개체를 초기화
 	this.errors = new ReactiveVar({});
 });
@@ -291,9 +304,44 @@ Template.RecipeWrite.onRendered(function() {
 	// 최초 선택탭을 기본정보 탭으로 설정
 	Template.RecipeWrite.setTab('basic-info');
 
-	// 요리 종류 중 처음 항목을 기본 선택
-	this.$('input[type=radio][name=category]')[0].checked = true;
+	Template.RecipeWrite.initContents();
 });
+
+Template.RecipeWrite.initContents = function() {
+	var tmpl = Template.instance();
+	var data = tmpl.data;
+
+	if (mode == 'edit') {         // edit mode
+		tmpl.find('#recipeName').value = data.title;
+		tmpl.find('#description').value = data.description;
+		tmpl.find('#checkbox-10-public').checked = data.public;
+		tmpl.find('#serving').value = data.serving;
+		App.helpers.setCheckedValue('category', data.filter);
+
+		_.map(data.ingredients.must, function(text) {
+			WriteIngredients.insert({type: 'must', text: text, createdAt: new Date()});
+		});
+
+		_.map(data.ingredients.option, function(text) {
+			WriteIngredients.insert({type: 'option', text: text, createdAt: new Date()});
+		});
+
+		_.map(data.directions, function(doc) {
+			WriteDirections.insert({text: doc.text, imageData: doc.imageData, createdAt: new Date()});
+		});
+	} else if (mode == 'new') {                // new mode
+		// 요리 종류 중 처음 항목을 기본 선택
+		tmpl.$('input[type=radio][name=category]')[0].checked = true;
+
+		// 최초 재료 입력행에 필수재료 행을 한 개 추가
+		Template.RecipeWrite.ingredientAdd('must', '');
+
+		// 최초 조리법 입력행에 행을 한 개 추가
+		Template.RecipeWrite.directionAdd();
+	} else {
+		throw new Error('Unknown edit status');
+	}
+};
 
 Template.RecipeWrite.helpers({
 	/**
@@ -372,8 +420,15 @@ Template.RecipeWrite.helpers({
 	completeImage: function() {
 		var imageData = Template.instance().recipeImage.get();
 
-		if (imageData) return imageData;
-		else return Meteor.settings.public.defaultRecipeWriteCompleteImage;
+		if (imageData) {
+			return imageData;
+		} else {
+			if (this.imageId) {
+				return new FS.File(RecipesImage.findOne(this.imageId)).url();
+			} else {
+				return Meteor.settings.public.defaultRecipeWriteCompleteImage;
+			}
+		}
 	}
 });
 

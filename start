@@ -187,7 +187,7 @@ else
 			dev|devel|development)  export NODE_ENV="development" ;;
 			mobile)                 export NODE_ENV="android-device";MOBILE_SERVER="$2"; shift ;;
 			mup)                    MUP_OPTION="$2";upload ;;
-			genkey)                 APP_NAME="$2";genkey ;;
+			genkey)                 APP_NAME="$2";generate_key ;;
 			apk)                    APP_NAME="$2";make_android_production ;;
 			--checkout)             CHECKOUT=true ;;
 			-h|--help|help)         help ;;

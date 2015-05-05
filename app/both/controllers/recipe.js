@@ -26,3 +26,24 @@ RecipeController = RouteController.extend({
 
 	fastRender: true
 });
+
+RecipeEditController = RouteController.extend({
+	condition: function() {
+		return {
+			id: this.params._id,
+			admin: App.helpers.isAdmin()
+		}
+	},
+
+	waitOn: function() {
+		return [
+			Meteor.subscribe('recipe', this.condition())
+		];
+	},
+
+	data: function() {
+		return Recipes.findOne(this.params._id);
+	},
+
+	fastRender: true
+});

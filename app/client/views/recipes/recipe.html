@@ -12,7 +12,10 @@
 					</a>
 				{{/if}}
 			{{/if}}
-			{{#if deletable}}
+			{{#if isEditable}}
+				<a href="#" class="nav-item js-edit">
+					<i class="fa fa-pencil"></i>
+				</a>
 				<a href="#" class="nav-item js-delete">
 					<i class="fa fa-trash"></i>
 				</a>
