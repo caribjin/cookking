@@ -19,7 +19,7 @@ Accounts.onCreateUser(function(options, user) {
 
 	user.profile = options.profile;
 
-	sendSignupWelcomeEmail(userEmail, options);;
+	sendSignupWelcomeEmail(userEmail, options);
 
 	return user;
 });
@@ -44,7 +44,7 @@ var sendSignupWelcomeEmail = function(email, options) {
 			});
 		}
 	}
-}
+};
 
 var determineEmail = function(user) {
 	var email = '';

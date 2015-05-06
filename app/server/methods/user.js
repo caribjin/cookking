@@ -15,11 +15,10 @@ Meteor.methods({
 			$set: {
 				'profile.name': user.profile.name,
 				'profile.introduction': user.profile.introduction
-				//'profile.avatar': user.profile.avatar
 			}
 		}, function(error, result) {
 			if (error)
-				return Meteor.Error(500, error.reason);
+				throw new Meteor.Error(500, error.reason);
 
 			return result.numberAffected;
 		});

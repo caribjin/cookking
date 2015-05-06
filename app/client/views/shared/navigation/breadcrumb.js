@@ -1,5 +1,5 @@
 Template.Breadcrumb.filtersOpen = function() {
-	$('.breadcrumb').velocity({backgroundColor: '#ffffff', backgroundColorAlpha: 1, color: '#555555'}, {duration: Meteor.settings.public.defaultAnimationDuration})
+	$('.breadcrumb').velocity({backgroundColor: '#ffffff', backgroundColorAlpha: 1, color: '#555555'}, {duration: Meteor.settings.public.defaultAnimationDuration});
 	$('.filters').velocity({zIndex: 3},{duration: Meteor.settings.public.defaultAnimationDuration});
 	$('.filters').velocity('transition.slideDownIn',{duration: Meteor.settings.public.defaultAnimationDuration});
 };

@@ -1,6 +1,6 @@
 BookmarksController = RouteController.extend({
 	option: function() {
-		var option = {
+		return {
 			fields: {
 				title: 1,
 				imageId: 1,
@@ -11,8 +11,6 @@ BookmarksController = RouteController.extend({
 				createdAt: 1
 			}
 		};
-
-		return option;
 	},
 
 	waitOn: function() {

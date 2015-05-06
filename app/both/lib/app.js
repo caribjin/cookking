@@ -30,7 +30,7 @@ App = {
 					result = result.replace(/-_normal/gi, '-_400x400');
 				}
 			} else {
-				throw new Meteor.Error('logged-out', 'User not loged in');
+				throw new Error('logged-out', 'User not loged in');
 			}
 
 			return result;

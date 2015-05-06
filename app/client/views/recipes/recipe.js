@@ -103,8 +103,7 @@ Template.Recipe.helpers({
 	},
 
 	isEditable: function() {
-		if (App.helpers.isAdmin() || this.writer.id === Meteor.userId()) return true;
-		else return false;
+		return !!(App.helpers.isAdmin() || this.writer.id === Meteor.userId());
 	},
 
 	isAdmin: function() {
