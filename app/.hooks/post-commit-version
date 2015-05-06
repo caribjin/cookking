@@ -21,6 +21,19 @@ function getBranch(){
     });
 }
 
+function getTag(){
+    return new Promise(function (fulfill, reject){
+        exec(
+            "git tag",
+            function (err, stdout, stderr) {
+                if(err)reject(err)
+                var name = stdout.replace('\n','');
+                fulfill(name)
+            }
+        )
+    });
+}
+
 function getCommit(){
     return new Promise(function (fulfill, reject){
         exec(
@@ -39,7 +52,7 @@ var result = {
 };
 console.log("path : "+ __dirname);
 
-getBranch()
+getTag()
     .then(function(_branch){
         result.branch = _branch;
     })
