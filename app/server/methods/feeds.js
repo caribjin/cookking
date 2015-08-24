@@ -86,8 +86,7 @@ var tweetFeed = function(feed) {
 	var image = '';
 
 	if (feed.image) {
-		// TODO: client로부터 직접 image string을 받아서 tweet하면, crop된 이미지가 아닌 전체이미지가 저장된다는 결함을
-		// 가지고 있음. 궁극적으로는 getFeedImageData()를 통한 image를 저장해야 한다.
+		// TODO: client로부터 직접 image string을 받아서 tweet하면, crop된 이미지가 아닌 전체이미지가 저장된다는 결함을 가지고 있음. 궁극적으로는 getFeedImageData()를 통한 image를 저장해야 한다.
 		image = feed.image.replace('data:' + feed.mimeType + ';base64,', '');
 	} else {
 		getFeedImageData(feed.imageId);

@@ -32,10 +32,12 @@ Meteor.startup(function() {
 	}
 
 	function smtpMailConfiguration() {
-		process.env.MAIL_URL = 'smtp://' +
-		Meteor.settings.mailgun.default_smtp_login + ':' +
-		Meteor.settings.mailgun.default_password + '@' +
-		Meteor.settings.mailgun.smtp_host + ':587';
+		if (Meteor.settings.mailgun) {
+			process.env.MAIL_URL = 'smtp://' +
+				Meteor.settings.mailgun.default_smtp_login + ':' +
+				Meteor.settings.mailgun.default_password + '@' +
+				Meteor.settings.mailgun.smtp_host + ':587';
+		}
 	}
 
 	function generateFixtureData(count) {
@@ -111,7 +113,7 @@ Meteor.startup(function() {
 				recipe.createdAt = moment().subtract(i, 'days').format();
 				recipe.filter = 'category-' + _.random(0, 9);
 
-				recipe = generateRecipeImage2(recipe);
+				recipe = generateRecipeImageSync(recipe);
 
 				_.map(recipe.directions, function(direction, index) {
 					generateDirectionImage(direction);
@@ -142,10 +144,10 @@ Meteor.startup(function() {
 		return f.wait();
 	}
 
-	function generateRecipeImage2(recipe) {
+	function generateRecipeImageSync(recipe) {
 		var res;
 
-		var imagePath = Meteor.settings.app.applicationRootDirectory + '../assets/recipe-samples/640x800/' + _.random(1, 28) + '.jpg';
+		var imagePath = Meteor.settings.app.applicationRootDirectory + '../assets/recipe-samples/' + _.random(1, 28) + '.jpg';
 
 		res = Async.runSync(function(done) {
 			Images.insert(imagePath, function(error, file) {
@@ -160,7 +162,7 @@ Meteor.startup(function() {
 	function generateDirectionImage(direction) {
 		var f = new Future();
 
-		var imagePath = Meteor.settings.app.applicationRootDirectory + '../assets/recipe-samples/320x350/' + _.random(1, 28) + '.jpg';
+		var imagePath = Meteor.settings.app.applicationRootDirectory + '../assets/recipe-samples/' + _.random(1, 28) + '.jpg';
 
 		var fs = Npm.require('fs');
 		var content = fs.readFileSync(imagePath);

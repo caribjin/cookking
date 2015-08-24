@@ -2,22 +2,28 @@ Meteor.methods({
 	validateEmailAddress: function(email) {
 		check(email, String);
 
-		var f = new Future();
+		if (Meteor.settings.app.validateEmailAddress) {
+			var f = new Future();
 
-		HTTP.call('GET', Meteor.settings.mailgun.uri, {
-			auth: 'api:' + Meteor.settings.mailgun.pubkey,
-			params: {
-				address: email
-			}
-		}, function(error, response) {
-			if (!error && response.statusCode == 200) {
-				return f.return(response.data);
-			} else {
-				f.throw(error);
-			}
-		});
+			HTTP.call('GET', Meteor.settings.mailgun.uri, {
+				auth: 'api:' + Meteor.settings.mailgun.pubkey,
+				params: {
+					address: email
+				}
+			}, function (error, response) {
+				if (!error && response.statusCode == 200) {
+					return f.return(response.data);
+				} else {
+					f.throw(error);
+				}
+			});
 
-		return f.wait();
+			return f.wait();
+		} else {
+			return {
+				is_valid: true
+			};
+		}
 	},
 
 	sendSignupWelcomeEmail: function(userData) {
@@ -28,7 +34,7 @@ Meteor.methods({
 		var emailTemplate = SSR.render('welcomeEmail', {
 			email: userData.email,
 			name: userData.name,
-			url: 'http://cookking.devcrow.com'
+			url: 'http://www.devcrow.com'
 		});
 
 		Email.send({

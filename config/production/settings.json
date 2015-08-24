@@ -48,6 +48,7 @@
 	"app": {
 		"applicationRootDirectory": "/opt/cookking/app/programs/web.browser/app/",
 		"sendSignupWelcomeEmail": false,
+		"validateEmailAddress": true,
 		"generateFixtureData": false,
 		"defaultFileStoragePath": "/home/ubuntu/app-files/"
 	},

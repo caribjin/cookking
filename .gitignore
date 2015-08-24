@@ -1,8 +1,7 @@
 .idea/
 app/.meteor/local/
 app/.hooks/node_modules/
-app/public/components/
-app/node_modules/
+app/private/version.json
 build/
-assets/
 config/production/
+
