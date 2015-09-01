@@ -6,7 +6,7 @@ COOKKING
 -------------
 > [<i class="icon-download"></i>DOWNLOAD](https://dl.dropboxusercontent.com/u/4379311/production.apk)
 
-> 위의 apk 파일을 다운로드 받아, 모바일기기에 직접 copy한 후 수동 설치하시면 됩니다. 바이러스 이런건 없으니 안심하시기 바랍니다.
+> 위의 apk 파일을 다운로드 받아, 안드로이드 모바일기기에 직접 파일 copy한 후 수동 설치하시면 됩니다.
 
 기능
 -------------
